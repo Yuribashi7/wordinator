@@ -63,9 +63,11 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STStyleType;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STVerticalAlignRun;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.STOnOffImpl;
 
+
 /**
  * Generates DOCX files from Simple Word Processing Markup Language XML.
  */
+@SuppressWarnings("unused")
 public class DocxGenerator {
 	
 	public static final Logger log = LogManager.getLogger();
@@ -119,14 +121,14 @@ public class DocxGenerator {
 		XmlCursor cursor = xml.newCursor();
 		cursor.toFirstChild(); // Put us on the root element of the document
 		cursor.push();
+		
 		if (cursor.toChild(new QName(DocxConstants.SIMPLE_WP_NS, "page-sequence-properties"))) {
 			setupPageSequence(doc, cursor.getObject());
 		}
+		
 		cursor.pop();
 		cursor.toChild(new QName(DocxConstants.SIMPLE_WP_NS, "body"));
-		handleBody(doc, cursor.getObject());
-		
-		
+		handleBody(doc, cursor.getObject());			
 	}
 
 	/**
@@ -139,8 +141,13 @@ public class DocxGenerator {
 		XmlCursor cursor = xml.newCursor();
 		if (cursor.toFirstChild()) {
 			do {
+				
 				String tagName = cursor.getName().getLocalPart();
 				String namespace = cursor.getName().getNamespaceURI();
+				
+				// XWPFParagraph pTOC = doc.createParagraph();
+				// makeParagraph(pTOC, cursor);
+				
 				if ("p".equals(tagName)) {
 					XWPFParagraph p = doc.createParagraph();
 					makeParagraph(p, cursor);
@@ -320,6 +327,7 @@ public class DocxGenerator {
 				styleId = style.getStyleId();
 			}
 		}
+		
 		if (null != styleId) {
 			para.setStyle(styleId);
 		}
@@ -342,38 +350,88 @@ public class DocxGenerator {
 					makeImage(para, cursor);
 				} else if ("object".equals(tagName)) {
 					makeObject(para, cursor);
+				} else if ("dateTimeStuff".equals(tagName)) {					
+					buildDateTimeStuff(para, cursor);
 				} else if ("page-number-ref".equals(tagName)) {
-					makePageNumberRef(para, cursor);
+					makePageNumberRef(para, cursor);		
+//				} else if ("minitoc".equals(tagName)) {
+//					buildMiniToc(para, cursor);		
+					
 				} else {
 					log.warn("Unexpected element {" + namespace + "}:" + tagName + " in <p>. Ignored.");
 				}
 			} while(cursor.toNextSibling());
 		}
+		
 		cursor.pop();
 		return para;
 	}
+	
+	
+//	private void buildMiniToc(XWPFParagraph para, XmlCursor cursor) {
+//		CTP ctP = para.getCTP();
+//		CTSimpleField toc = ctP.addNewFldSimple();
+//		toc.setInstr("TOC \\h");
+//		toc.setDirty(STOnOff.TRUE);
+//	}
 
-	/**
-	 * Construct a page number ("PAGE") complex field.
-	 * @param para Paragraph to add the field to
-	 * @param cursor
-	 */
+	
+	private void buildDateTimeStuff(XWPFParagraph para, XmlCursor cursor) {
+		// Date...
+		XWPFRun run=para.createRun();
+		para.setAlignment(ParagraphAlignment.RIGHT);
+		
+		run = para.createRun();
+		para.getCTP().addNewFldSimple().setInstr("DATE \\@ \"MM-DD-YYYY\" \\* MERGEFORMAT");
+		
+		// TIME...
+		run = para.createRun();
+		run.setText(" (");
+		
+		run = para.createRun();
+		para.getCTP().addNewFldSimple().setInstr("TIME \\@ \"HH:mm:ss\" \\* MERGEFORMAT");
+		
+		run = para.createRun();
+		run.setText(")");
+	}
+	
 	private void makePageNumberRef(XWPFParagraph para, XmlCursor cursor) {
-		
-		String fieldData = "PAGE";
-		makeSimpleField(para, fieldData);
-		
+		// PAGE of NUMPAGES...
+		XWPFRun run=para.createRun();
+		para.setAlignment(ParagraphAlignment.CENTER);
+	
+		run = para.createRun();
+		run.setText("Page ");
+		para.getCTP().addNewFldSimple().setInstr("PAGE \\* MERGEFORMAT");
+		run = para.createRun();  
+		run.setText(" of ");
+		para.getCTP().addNewFldSimple().setInstr("NUMPAGES \\* MERGEFORMAT");		
 	}
 
-	/**
-	 * Makes a simple field within the specified paragraph.
-	 * @param para Paragraph to add the field to.
-	 * @param fieldData The field data, e.g. "PAGE", "DATE", etc. See 17.16 Fields and Hyperlinks.
-	 */
-	private void makeSimpleField(XWPFParagraph para, String fieldData) {
-		CTSimpleField ctField = para.getCTP().addNewFldSimple();
-		ctField.setInstr(fieldData);
-	}
+	
+//	/**
+//	 * Construct a page number ("PAGE") complex field.
+//	 * @param para Paragraph to add the field to
+//	 * @param cursor
+//	 */
+//	private void makePageNumberRef(XWPFParagraph para, XmlCursor cursor) {
+//		
+//		String fieldDataPAGE = "PAGE \\* MERGEFORMAT";
+//		makeSimpleField(para, fieldDataPAGE + ":");
+//
+//		String fieldDataNUMPAGES = "NUMPAGES \\* MERGEFORMAT";
+//		makeSimpleField(para, fieldDataNUMPAGES);	
+//	}
+
+//	/**
+//	 * Makes a simple field within the specified paragraph.
+//	 * @param para Paragraph to add the field to.
+//	 * @param fieldData The field data, e.g. "PAGE", "DATE", etc. See 17.16 Fields and Hyperlinks.
+//	 */
+//	private void makeSimpleField(XWPFParagraph para, String fieldData) {
+//		CTSimpleField ctField = para.getCTP().addNewFldSimple();
+//		ctField.setInstr(fieldData);
+//	}
 
 	/**
 	 * Construct a run within a paragraph.
@@ -523,6 +581,7 @@ public class DocxGenerator {
 		
 	}
 
+	
 	/**
 	 * Make a literal tabl in the run.
 	 * @param run
@@ -530,8 +589,7 @@ public class DocxGenerator {
 	 */
 	private void makeTab(XWPFRun run, XmlCursor cursor) {
 		
-		run.addTab();
-		
+		run.addTab();		
 	}
 
 	/**
