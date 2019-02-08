@@ -51,6 +51,7 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTDecimalNumber;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTHyperlink;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTMarkupRange;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTOnOff;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTP;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTR;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTRPr;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSimpleField;
@@ -62,6 +63,10 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STOnOff;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STStyleType;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STVerticalAlignRun;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.impl.STOnOffImpl;
+
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTabStop;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTabJc;
+
 
 
 /**
@@ -145,12 +150,9 @@ public class DocxGenerator {
 				String tagName = cursor.getName().getLocalPart();
 				String namespace = cursor.getName().getNamespaceURI();
 				
-				// XWPFParagraph pTOC = doc.createParagraph();
-				// makeParagraph(pTOC, cursor);
-				
 				if ("p".equals(tagName)) {
 					XWPFParagraph p = doc.createParagraph();
-					makeParagraph(p, cursor);
+					makeParagraph(p, cursor, "body");
 				} else if ("section".equals(tagName)) {
 					handleSection(doc, cursor.getObject());
 				} else if ("table".equals(tagName)) {
@@ -271,14 +273,21 @@ public class DocxGenerator {
 	 */
 	private void makeHeaderFooter(XWPFHeaderFooter headerFooter, XmlObject xml) throws DocxGenerationException {
 		XmlCursor cursor = xml.newCursor();
+
+		String myparent;
 		
+		if(headerFooter.toString().contains("/word/footer1.xml")) {
+			myparent = "footer";
+		} else {
+			myparent = "header";
+		}
 		if (cursor.toFirstChild()) {
 			do {
 				String tagName = cursor.getName().getLocalPart();
 				String namespace = cursor.getName().getNamespaceURI();
 				if ("p".equals(tagName)) {
-					XWPFParagraph p = headerFooter.createParagraph();
-					makeParagraph(p, cursor);
+					XWPFParagraph p = headerFooter.createParagraph();					
+					makeParagraph(p, cursor, myparent);
 				} else if ("table".equals(tagName)) {
 					XWPFTable table = headerFooter.createTable(0, 0);
 					makeTable(table, cursor.getObject());
@@ -314,29 +323,35 @@ public class DocxGenerator {
 	 * @param cursor Cursor pointing at the <p> element the paragraph will reflect.
 	 * @return Paragraph (should be same object as passed in).
 	 */
-	private XWPFParagraph makeParagraph(XWPFParagraph para, XmlCursor cursor) throws DocxGenerationException {
+	private XWPFParagraph makeParagraph(XWPFParagraph para, XmlCursor cursor, String parent) throws DocxGenerationException {
 		
 		cursor.push();
 		String styleName = cursor.getAttributeText(DocxConstants.QNAME_STYLE_ATT);
 		String styleId = cursor.getAttributeText(DocxConstants.QNAME_STYLEID_ATT);
 		
-		if (null != styleName && null == styleId) {
-			// Look up the style by name:
-			XWPFStyle style = para.getDocument().getStyles().getStyleWithName(styleName);
-			if (null != style) {
-				styleId = style.getStyleId();
+		if(parent.equals("FootnoteText")) {
+			para.setStyle("FootnoteText");
+		} else if(parent.equals("footer")) {
+			para.setStyle("Footer");			
+		} else {
+			if (null != styleName && null == styleId) {
+				// Look up the style by name:
+				XWPFStyle style = para.getDocument().getStyles().getStyleWithName(styleName);
+				if (null != style) {
+					styleId = style.getStyleId();
+				}
 			}
-		}
-		
-		if (null != styleId) {
-			para.setStyle(styleId);
+			
+			if (null != styleId) {
+				para.setStyle(styleId);
+			}
 		}
 		
 		if (cursor.toFirstChild()) {
 			do {
 				String tagName = cursor.getName().getLocalPart();
 				String namespace = cursor.getName().getNamespaceURI();
-				if ("run".equals(tagName)) {
+				if ("run".equals(tagName)) {					
 					makeRun(para, cursor.getObject());
 				} else if ("bookmarkStart".equals(tagName)) {
 					makeBookmarkStart(para, cursor);
@@ -350,12 +365,12 @@ public class DocxGenerator {
 					makeImage(para, cursor);
 				} else if ("object".equals(tagName)) {
 					makeObject(para, cursor);
-				} else if ("dateTimeStuff".equals(tagName)) {					
-					buildDateTimeStuff(para, cursor);
+//				} else if ("dateTimeStuff".equals(tagName)) {					
+//					buildDateTimeStuff(para, cursor);
 				} else if ("page-number-ref".equals(tagName)) {
 					makePageNumberRef(para, cursor);		
-//				} else if ("minitoc".equals(tagName)) {
-//					buildMiniToc(para, cursor);		
+				} else if ("minitoc".equals(tagName)) {
+					buildMiniToc(para, cursor);		
 					
 				} else {
 					log.warn("Unexpected element {" + namespace + "}:" + tagName + " in <p>. Ignored.");
@@ -368,20 +383,13 @@ public class DocxGenerator {
 	}
 	
 	
-//	private void buildMiniToc(XWPFParagraph para, XmlCursor cursor) {
-//		CTP ctP = para.getCTP();
-//		CTSimpleField toc = ctP.addNewFldSimple();
-//		toc.setInstr("TOC \\h");
-//		toc.setDirty(STOnOff.TRUE);
-//	}
-
-	
 	private void buildDateTimeStuff(XWPFParagraph para, XmlCursor cursor) {
-		// Date...
-		XWPFRun run=para.createRun();
-		para.setAlignment(ParagraphAlignment.RIGHT);
+//		NOTICE! My have to check the length of text or current cursor horizontal position
+//		to establish how many tabs to insert? 
+		XWPFRun run=para.createRun();		
+		run.addTab();	// right
 		
-		run = para.createRun();
+		// Date...
 		para.getCTP().addNewFldSimple().setInstr("DATE \\@ \"MM-DD-YYYY\" \\* MERGEFORMAT");
 		
 		// TIME...
@@ -394,6 +402,7 @@ public class DocxGenerator {
 		run = para.createRun();
 		run.setText(")");
 	}
+	
 	
 	private void makePageNumberRef(XWPFParagraph para, XmlCursor cursor) {
 		// PAGE of NUMPAGES...
@@ -408,7 +417,6 @@ public class DocxGenerator {
 		para.getCTP().addNewFldSimple().setInstr("NUMPAGES \\* MERGEFORMAT");		
 	}
 
-	
 //	/**
 //	 * Construct a page number ("PAGE") complex field.
 //	 * @param para Paragraph to add the field to
@@ -431,7 +439,15 @@ public class DocxGenerator {
 //	private void makeSimpleField(XWPFParagraph para, String fieldData) {
 //		CTSimpleField ctField = para.getCTP().addNewFldSimple();
 //		ctField.setInstr(fieldData);
-//	}
+//	}	
+	
+	private void buildMiniToc(XWPFParagraph para, XmlCursor cursor) {
+		CTP ctP = para.getCTP();
+		CTSimpleField toc = ctP.addNewFldSimple();
+		toc.setInstr("TOC \\h");
+		toc.setDirty(STOnOff.TRUE);
+	}
+	
 
 	/**
 	 * Construct a run within a paragraph.
@@ -441,7 +457,7 @@ public class DocxGenerator {
 	private void makeRun(XWPFParagraph para, XmlObject xml) throws DocxGenerationException {
 		XmlCursor cursor = xml.newCursor();
 		
-		// String tagname = cursor.getName().getLocalPart(); // For debugging
+		String tagname = cursor.getName().getLocalPart(); // For debugging
 		
 		XWPFRun run = para.createRun();
 		String styleName = cursor.getAttributeText(DocxConstants.QNAME_STYLE_ATT);
@@ -479,6 +495,10 @@ public class DocxGenerator {
 				String namespace = cursor.getName().getNamespaceURI();
 				if ("break".equals(name)) {
 					makeBreak(run, cursor);
+
+				} else if ("dateTimeStuff".equals(name)) {					
+					buildDateTimeStuff(para, cursor);
+					
 				} else if ("symbol".equals(name)) {
 					makeSymbol(run, cursor);
 				} else if ("tab".equals(name)) {
@@ -618,15 +638,14 @@ public class DocxGenerator {
 			note = para.getDocument().createFootnote();
 		}
 		
-		// NOTE: The paragraph is not created with any initial paragraph.
-		
+		// NOTE: The paragraph is not created with any initial paragraph.		
 		if (cursor.toFirstChild()) {
 			do {
 				String tagName = cursor.getName().getLocalPart();
 				String namespace = cursor.getName().getNamespaceURI();
 				if ("p".equals(tagName)) {
-					XWPFParagraph p = note.createParagraph();
-					makeParagraph(p, cursor);
+					XWPFParagraph p = note.createParagraph();					
+					makeParagraph(p, cursor, "FootnoteText");
 				} else if ("table".equals(tagName)) {
 					XWPFTable table = note.createTable();
 					makeTable(table, cursor.getObject());
@@ -637,7 +656,7 @@ public class DocxGenerator {
 				}
 			} while (cursor.toNextSibling());
 		}
-
+		
 		para.addFootnoteReference(note);
 	
 	}
@@ -1090,7 +1109,7 @@ public class DocxGenerator {
 				if (cursor.toChild(DocxConstants.QNAME_P_ELEM)) {
 					do {
 						XWPFParagraph p = cell.addParagraph();
-						makeParagraph(p, cursor);
+						makeParagraph(p, cursor, "row");
 						if (null != align) {
 							ParagraphAlignment alignment = ParagraphAlignment.valueOf(align.toUpperCase());
 							p.setAlignment(alignment);

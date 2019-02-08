@@ -40,6 +40,13 @@ arbitrary XML, JSON, etc.</description>
       <organizationUrl>http://www.contrext.com</organizationUrl>
       <timezone>-6</timezone>
     </developer>
+    <developer>
+      <name>Raymond Lillibridge</name>
+      <email>raymond@reimyo.com</email>
+      <organization>Municode</organization>
+      <organizationUrl>http://www.municode.com</organizationUrl>
+      <timezone>-5</timezone>
+    </developer>
   </developers>
   <scm>
     <connection>scm:git:git://github.com/drmacro/wordinator.git</connection>
