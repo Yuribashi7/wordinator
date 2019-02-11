@@ -365,12 +365,10 @@ public class DocxGenerator {
 					makeImage(para, cursor);
 				} else if ("object".equals(tagName)) {
 					makeObject(para, cursor);
-//				} else if ("dateTimeStuff".equals(tagName)) {					
-//					buildDateTimeStuff(para, cursor);
 				} else if ("page-number-ref".equals(tagName)) {
 					makePageNumberRef(para, cursor);		
 				} else if ("minitoc".equals(tagName)) {
-					buildMiniToc(para, cursor);		
+					buildMiniToc(para, cursor);	
 					
 				} else {
 					log.warn("Unexpected element {" + namespace + "}:" + tagName + " in <p>. Ignored.");
@@ -382,12 +380,14 @@ public class DocxGenerator {
 		return para;
 	}
 	
+
+	private void doCR(XWPFParagraph para, XmlCursor cursor) {
+		XWPFRun run=para.createRun();		
+		run.addCarriageReturn();
+	}
 	
 	private void buildDateTimeStuff(XWPFParagraph para, XmlCursor cursor) {
-//		NOTICE! My have to check the length of text or current cursor horizontal position
-//		to establish how many tabs to insert? 
-		XWPFRun run=para.createRun();		
-		run.addTab();	// right
+		XWPFRun run=para.createRun();
 		
 		// Date...
 		para.getCTP().addNewFldSimple().setInstr("DATE \\@ \"MM-DD-YYYY\" \\* MERGEFORMAT");
@@ -397,7 +397,7 @@ public class DocxGenerator {
 		run.setText(" (");
 		
 		run = para.createRun();
-		para.getCTP().addNewFldSimple().setInstr("TIME \\@ \"HH:mm:ss\" \\* MERGEFORMAT");
+		para.getCTP().addNewFldSimple().setInstr("TIME \\@ \"HH:MM:SS\" \\* MERGEFORMAT");
 		
 		run = para.createRun();
 		run.setText(")");
@@ -406,7 +406,8 @@ public class DocxGenerator {
 	
 	private void makePageNumberRef(XWPFParagraph para, XmlCursor cursor) {
 		// PAGE of NUMPAGES...
-		XWPFRun run=para.createRun();
+		XWPFRun run=para.createRun();		
+		run.addCarriageReturn();
 		para.setAlignment(ParagraphAlignment.CENTER);
 	
 		run = para.createRun();
@@ -495,7 +496,10 @@ public class DocxGenerator {
 				String namespace = cursor.getName().getNamespaceURI();
 				if ("break".equals(name)) {
 					makeBreak(run, cursor);
-
+					
+				} else if ("doCR".equals(name)) {
+					doCR(para, cursor);
+					
 				} else if ("dateTimeStuff".equals(name)) {					
 					buildDateTimeStuff(para, cursor);
 					
