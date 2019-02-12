@@ -145,11 +145,16 @@ public class MakeDocx
     	try {
     		if (inFile.isDirectory()) {
     			// Assume directory contains *.swpx files 
+System.out.println("\n...handleDirectory...\n");   			    			
     			handleDirectory(inFile, outDir, templateDoc, log);
     		} else { 
     			if (inFile.getName().endsWith(".swpx")) {
+
+System.out.println("\n...handleSingleSwpxDoc...\n");   			
 	    			handleSingleSwpxDoc(inFile, outFile, templateDoc, log);
 	    		} else {
+
+System.out.println("\n...transformXml...\n");   	
 	    			transformXml(inFile, outDir, templateDoc, transformFile, xsltParameters, log);
 	    		}
     		}

@@ -42,7 +42,7 @@ arbitrary XML, JSON, etc.</description>
     </developer>
     <developer>
       <name>Raymond Lillibridge</name>
-      <email>raymond@reimyo.com</email>
+      <email>rlillibridge@municode.com</email>
       <organization>Municode</organization>
       <organizationUrl>http://www.municode.com</organizationUrl>
       <timezone>-5</timezone>
@@ -75,7 +75,7 @@ arbitrary XML, JSON, etc.</description>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml</artifactId>
       <version>4.0.0</version>
-    </dependency>
+    </dependency>    
     <dependency>
       <groupId>org.apache.xmlbeans</groupId>
       <artifactId>xmlbeans</artifactId>
@@ -238,7 +238,7 @@ arbitrary XML, JSON, etc.</description>
 <!--         <version>2.9.1</version> -->
 <!--         <configuration> -->
 <!--           <gpgArguments> -->
-<!--             <arg>(REPLACE ME WITH @ DASHES)pinentry-mode</arg> -->
+<!--             <arg>(REPLACE ME WITH 2 DASHES)pinentry-mode</arg> -->
 <!--             <arg>loopback</arg> -->
 <!--           </gpgArguments> -->
 <!--           </configuration> -->

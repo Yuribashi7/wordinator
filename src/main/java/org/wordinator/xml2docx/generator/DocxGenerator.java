@@ -92,7 +92,7 @@ public class DocxGenerator {
 	 * @param outFile File to write DOCX result to
 	 * @param templateDoc DOTX template to initialize result DOCX with (provides style definitions)
 	 * @throws Exception Exception from loading the template document
-	 * @throws FileNotFoundException If the template odcument is not found
+	 * @throws FileNotFoundException If the template document is not found
 	 */
 	public DocxGenerator(File inFile, File outFile, XWPFDocument templateDoc) throws FileNotFoundException, Exception {
 		this.inFile = inFile;
@@ -106,12 +106,11 @@ public class DocxGenerator {
 	 */
 	public void generate(XmlObject xml) throws DocxGenerationException, XmlException, IOException {
 		
-		
 		XWPFDocument doc = new XWPFDocument();
 		
 		setupStyles(doc, this.templateDoc);
 		constructDoc(doc, xml);
-		
+				
 		FileOutputStream out = new FileOutputStream(outFile);
         doc.write(out);
 		doc.close(); 
@@ -331,6 +330,8 @@ public class DocxGenerator {
 		
 		if(parent.equals("FootnoteText")) {
 			para.setStyle("FootnoteText");
+		} else if(parent.equals("header")) {
+			para.setStyle("Header");		
 		} else if(parent.equals("footer")) {
 			para.setStyle("Footer");			
 		} else {
@@ -366,10 +367,11 @@ public class DocxGenerator {
 				} else if ("object".equals(tagName)) {
 					makeObject(para, cursor);
 				} else if ("page-number-ref".equals(tagName)) {
-					makePageNumberRef(para, cursor);		
-				} else if ("minitoc".equals(tagName)) {
-					buildMiniToc(para, cursor);	
-					
+					makePageNumberRef(para, cursor);					
+				} else if ("minitoc".equals(tagName)) {					
+					if(inFile.getName().toString().startsWith("^")) {
+						buildMiniToc(para, cursor);	
+					}					
 				} else {
 					log.warn("Unexpected element {" + namespace + "}:" + tagName + " in <p>. Ignored.");
 				}
@@ -416,31 +418,7 @@ public class DocxGenerator {
 		run = para.createRun();  
 		run.setText(" of ");
 		para.getCTP().addNewFldSimple().setInstr("NUMPAGES \\* MERGEFORMAT");		
-	}
-
-//	/**
-//	 * Construct a page number ("PAGE") complex field.
-//	 * @param para Paragraph to add the field to
-//	 * @param cursor
-//	 */
-//	private void makePageNumberRef(XWPFParagraph para, XmlCursor cursor) {
-//		
-//		String fieldDataPAGE = "PAGE \\* MERGEFORMAT";
-//		makeSimpleField(para, fieldDataPAGE + ":");
-//
-//		String fieldDataNUMPAGES = "NUMPAGES \\* MERGEFORMAT";
-//		makeSimpleField(para, fieldDataNUMPAGES);	
-//	}
-
-//	/**
-//	 * Makes a simple field within the specified paragraph.
-//	 * @param para Paragraph to add the field to.
-//	 * @param fieldData The field data, e.g. "PAGE", "DATE", etc. See 17.16 Fields and Hyperlinks.
-//	 */
-//	private void makeSimpleField(XWPFParagraph para, String fieldData) {
-//		CTSimpleField ctField = para.getCTP().addNewFldSimple();
-//		ctField.setInstr(fieldData);
-//	}	
+	}	
 	
 	private void buildMiniToc(XWPFParagraph para, XmlCursor cursor) {
 		CTP ctP = para.getCTP();
