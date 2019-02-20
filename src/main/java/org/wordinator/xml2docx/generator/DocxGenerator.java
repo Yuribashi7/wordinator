@@ -405,6 +405,12 @@ public class DocxGenerator {
 		run.setText(")");
 	}
 	
+	/*
+	 * private void doImageInline(XWPFParagraph para, XmlCursor cursor) {
+	 * 
+	 * }
+	 */
+	
 	
 	private void makePageNumberRef(XWPFParagraph para, XmlCursor cursor) {
 		// PAGE of NUMPAGES...
@@ -480,6 +486,9 @@ public class DocxGenerator {
 					
 				} else if ("dateTimeStuff".equals(name)) {					
 					buildDateTimeStuff(para, cursor);
+					
+				} else if ("img".equals(name)) {
+					makeImage(para, cursor);
 					
 				} else if ("symbol".equals(name)) {
 					makeSymbol(run, cursor);
