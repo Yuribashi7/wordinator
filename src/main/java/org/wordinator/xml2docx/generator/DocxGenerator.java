@@ -113,6 +113,7 @@ public class DocxGenerator {
 				
 		FileOutputStream out = new FileOutputStream(outFile);
         doc.write(out);
+        doc.enforceUpdateFields();
 		doc.close(); 
 	}
 
