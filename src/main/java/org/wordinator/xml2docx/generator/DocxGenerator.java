@@ -393,14 +393,14 @@ public class DocxGenerator {
 		XWPFRun run=para.createRun();
 		
 		// Date...
-		para.getCTP().addNewFldSimple().setInstr("DATE \\@ \"MM-DD-YYYY\" \\* MERGEFORMAT");
+		para.getCTP().addNewFldSimple().setInstr("DATE \\@ \"MM-DD-YYYY\" \\* MERGEFORMAT \\!");
 		
 		// TIME...
 		run = para.createRun();
 		run.setText(" (");
 		
 		run = para.createRun();
-		para.getCTP().addNewFldSimple().setInstr("TIME \\@ \"HH:MM:SS\" \\* MERGEFORMAT");
+		para.getCTP().addNewFldSimple().setInstr("TIME \\@ \"HH:mm:ss\" \\!");
 		
 		run = para.createRun();
 		run.setText(")");
@@ -524,6 +524,11 @@ public class DocxGenerator {
 			do {
 				  String attName = cursor.getName().getLocalPart();
 				  String attValue = cursor.getTextValue();
+				  
+				  if("rule".equals(attName)) {
+					  System.out.println(attName + ":" + attValue);
+				  }
+				  
 				  if ("bold".equals(attName)) {
 				      boolean value = Boolean.parseBoolean(attValue);
 				      run.setBold(value);
