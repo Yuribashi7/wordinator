@@ -1,0 +1,2748 @@
+/* =========================
+ * PageMasters_Future.css
+ * Defines page layouts
+ * ========================= */ 
+
+/* Antenna House-specific CSS for generating PDF
+ * from Municode's Munipub XML. */ 
+
+
+/* ====================
+ * Page definitions.
+ * ====================
+ */
+ 
+ 
+ @page {
+  size:   8.5in 11in;
+  margin-left: 1.25in;
+  margin-right: 1in;
+  counter-reset: footnote;  
+  background-image: attr(background-graphic, url);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-clip: border-box;
+  background-position: 50% 50%;
+
+  @footnote {
+    width: 100%;
+    border-top: 0.5pt solid black;
+    margin-top: 0.5in;
+    border-length: 0.5in;    
+  }
+  
+  @left-middle {
+    content: element(pdftagline);
+    font-family: "Noto Sans", "monospace", "Arial Unicode";
+    font-weight: bold;
+    font-size: 10pt;
+    color: grey;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 10in;
+  }
+  
+  @bottom-left-corner {
+    content: '^npm^' counter(page);
+    visibility: hidden;
+    font-size: 10pt;
+    font-family: monospace, "Arial Unicode";
+  }
+  
+  @bottom-right-corner {
+    content: '^pnf:1';
+    visibility: hidden;
+    font-size: 10pt;
+    font-family: monospace, "Arial Unicode";
+  }
+
+ }
+ 
+/* ====================
+ * Explicit page master selection
+ * ====================
+ */ 
+
+ /* ======================================
+  * Base definition for all "normal" (non-narrow)
+  * 8.5 x 11 pages (generically referred to
+  * as "portrait" pages).
+  * ======================================
+  */
+ 
+
+@page:left {
+  size:   8.5in 11in;
+  margin-left: 1in;
+  margin-right: 1.25in;
+  margin-bottom: 1in; 
+  /* Spec is 7 pc but AHF needs a little more space to ensure that last line of page is placed. */
+  margin-top: 1.5in;  
+
+  /* 
+   * Any page may have an update label if it's part of a take 
+   */
+  @bottom-left {
+    content: element(updateLabel);
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+  
+  
+  /*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: :left';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+}
+
+
+ @page :right {
+ counter-reset: footnote;
+  size:   8.5in 11in;
+  margin-left: 1.25in;
+  margin-right: 1in;
+  margin-bottom: 1in; 
+  /* Spec is 7 pc but AHF needs a little more space to ensure that last line of page is placed. 
+   * Using value of 6pc to keep the math simple as the edge region margins have to be adjusted
+   * to reflect the difference between this value and the spec so that the running foot text
+   * is correctly positioned vertically.
+   */
+  margin-top: 1.5in; 
+  
+
+  /* 
+   * Any page may have an update label if it's part of a take 
+   */
+  @bottom-left {
+    content: element(updateLabel);
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: :right';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+} 
+
+
+ /* Blank pages have no text except possible "left blank" messages. */
+ @page :blank {
+  size:   8.5in 11in;
+  margin-left: 1in;
+  margin-right: 1.25in;
+  margin-bottom: 1in; 
+  /* Spec is 7 pc but AHF needs a little more space to ensure that last line of page is placed. */
+  margin-top: 1.5in;
+  
+  
+  @bottom-left {
+    content: none;
+  }
+  
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first);
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  
+  @bottom-right {
+    content: none;
+  }
+  
+  /*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: :blank';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+  /*  Generate "this page intentionally left blank" messages */
+  @right-middle {
+    content: element(blankpagetext);
+    font-size: 12pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    width: 8.5in;
+    text-align: center;
+    vertical-align: top;
+    margin-top: 1in;
+  }
+
+}
+
+
+@page portrait-first:right {
+
+  counter-reset: footnote;
+  counter-reset: page 1; /* NOTE: The '1' is required by AHF */
+
+/* 
+ * No running heads on portrait-first page
+ */
+
+  /* 
+   * Any page may have an update label if it's part of a take 
+   */
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first);
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: portrait-first:right';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+}
+
+
+@page portrait:left {
+counter-reset: footnote;
+  @top-left {
+    content: element(runningHead start); 
+    border-bottom: 0.5pt solid black;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    vertical-align: bottom;
+    text-align: left;
+    font-size: 10pt;
+  }
+  
+  @top-center {
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    border-bottom: 0.5pt solid black;
+    
+  }
+  
+  @top-right {
+    content: '\00a0';
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  /* 
+   * Any page may have an update label if it's part of a take 
+   */
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first);
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+    
+  }
+
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: portrait:left';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+}
+
+
+@page portrait:right {
+counter-reset: footnote;
+  @top-left {
+    content: '\00a0'; 
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    border-bottom: 0.5pt solid black;
+
+  }
+  
+  /* FIXME: Add borders to other page masters. */
+  @top-center {
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    border-bottom: 0.5pt solid black;
+  }
+  
+  @top-right {
+    content: element(runningHead last);
+    border-bottom: 0.5pt solid black;
+    vertical-align: bottom;
+    text-align: right;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    font-size: 10pt;
+  }
+  
+  
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first);
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: portrait:right';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+}
+
+@page portrait:blank {
+counter-reset: footnote;
+  @top-left {
+    content: none; 
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    vertical-align: bottom;
+    text-align: left;
+  }
+  
+  @top-center {
+    content: none;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @top-right {
+    content: none;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @bottom-left {
+    content: none;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first);
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: none;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  /*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: portrait:blank';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+  /*  Generate "this page intentionally left blank" messages */
+  @right-middle {
+    content: element(blankpagetext);
+    font-size: 12pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    width: 8.5in;
+    text-align: center;
+    vertical-align: top;
+    margin-top: 1in;
+  }
+} 
+
+/* =========================
+ * Update instruction pages
+ * 
+ * Running headers, no page numbers
+ */
+ 
+
+@page update-ins-first:right {
+  counter-reset: footnote;
+  counter-reset: page 1; /* NOTE: The '1' is required by AHF */;
+
+/* 
+ * No running heads on update-ins-first page
+ */
+
+  /* 
+   * Any page may have an update label if it's part of a take 
+   */
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  /*  No page number  */
+  
+  @bottom-right {
+    content: '\00a0';
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: update-ins-first:right';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+}
+
+
+@page update-ins:left {
+counter-reset: footnote;
+  
+  @top-center {
+    content: "INSTRUCTION SHEET—Cont'd.";
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+
+  }
+    
+  /* 
+   * Any page may have an update label if it's part of a take 
+   */
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  /* No page number */
+  
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: update-ins:left';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+} 
+
+
+@page update-ins:right {
+counter-reset: footnote;
+  @top-left {
+    content: '\00a0'; 
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+
+  }
+  
+  @top-center {
+    content: "INSTRUCTION SHEET—Cont'd.";
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  /*  No page number */
+  
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: update-ins:right';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+}
+ 
+
+@page update-ins:blank {
+counter-reset: footnote;
+  @top-left {
+    content: '\00a0'; 
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+
+  }
+  
+
+  /*  No running head */
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first);
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+    
+  /*  No page number */
+
+  /*  Generate "this page intentionally left blank" messages */
+  @right-middle {
+    content: element(blankpagetext);
+    font-size: 12pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    width: 8.5in;
+    text-align: center;
+    vertical-align: top;
+    margin-top: 1in;
+  }
+  
+
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: update-ins:right';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  
+/*  Generate "this page intentionally left blank" messages */
+  @right-middle {
+    content: element(blankpagetext);
+    font-size: 12pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    width: 8.5in;
+    text-align: center;
+    vertical-align: top;
+    margin-top: 1in;
+  }
+
+}
+
+
+@page toc-main:blank, lof-main:blank, lot-main:blank {
+
+	@top-center {
+    content: none;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+
+  @top-right {
+    content: none;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page, lower-roman) '\200B' string(postfolio, first);
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right-corner {
+    content: '^pnf:i';
+    visibility: hidden;
+    font-size: 10pt;
+    font-family: monospace, "Arial Unicode";
+  }
+  
+  
+  @left-bottom {
+    content: 'Page Rule: toc-main:blank';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  
+  /*  Generate "this page intentionally left blank" messages */
+  @right-middle {
+    content: element(blankpagetext);
+    font-size: 12pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    width: 8.5in;
+    text-align: center;
+    vertical-align: top;
+    margin-top: 1in;
+  }
+  
+
+} 
+
+/* =========================
+ * Table of Contents pages
+ * 
+ * Same overall geometry as
+ * main portrait pages.
+ * =========================
+ */
+
+
+@page toc-main, lof-main, lot-main {
+
+  @top-left {
+    content: '\00a0';
+		border-bottom: 0.5pt solid black;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+
+  }
+  
+  @top-center {
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    border-bottom: 0.5pt solid black;    
+  }
+
+  @top-right {
+    content:'Page'; 
+    border-bottom: 0.5pt solid black;
+    vertical-align: bottom;
+    text-align: right;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page, lower-roman) '\200B' string(postfolio, first);
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right-corner {
+    content: '^pnf:i';
+    visibility: hidden;
+    font-size: 10pt;
+    font-family: monospace, "Arial Unicode";
+  }
+  
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+    @left-bottom {
+    content: 'Page Rule: toc-main';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+} 
+
+@page toc-main:first, lof-main:first, lot-main:first {
+
+  @top-center {
+    content: '\00a0';
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+
+  
+    @left-bottom {
+    content: 'Page Rule: toc-main:first';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+} 
+
+
+@page toc-main:left, lof-main:left, lot-main:left {
+
+
+  @top-left {
+    content: element(pubTitle);
+    border-bottom: 0.5pt solid black;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+
+  @top-center {
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    border-bottom: 0.5pt solid black;    
+  }
+
+	@left-bottom {
+    content: 'Page Rule: toc-main:left';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+} 
+
+
+@page toc-main:right, lof-main:right, lot-main:right {
+
+  @top-center {
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+
+  
+  @left-bottom {
+    content: 'Page Rule: toc-main:right';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+} 
+
+/* ========================
+ * Landscape pages
+ * =========================
+ */
+
+
+@page landscape {
+
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: landscape';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+}
+
+/* @page landscape:left */
+
+@page landscape:left {
+
+  @top-left {
+    content: element(runningHead start); 
+    border-bottom: 0.5pt solid black;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    vertical-align: bottom;
+    text-align: left;
+    font-size: 10pt;
+  }
+  
+  @top-center {
+    border-bottom: 0.5pt solid black;    
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @top-right {
+    content: '\00a0';
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first );
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+
+
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: landscape:left ';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  
+}
+
+
+@page landscape:right {
+
+
+  @top-left {
+    border-bottom: 0.5pt solid black;
+    content: '\00a0'; 
+    margin-bottom: 0.33in;
+    margin-top: 0.25in;
+  }
+  
+  @top-center {
+    border-bottom: 0.5pt solid black;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @top-right {
+    content: element(runningHead last); 
+    border-bottom: 0.5pt solid black;
+    vertical-align: bottom;
+    text-align: right;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    font-size: 10pt;
+  }
+  
+  
+  /*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: landscape:right';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+
+  
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first );
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+}
+
+@page landscape:blank {
+
+  @top-left {
+    content: none; 
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    vertical-align: bottom;
+    text-align: left;
+  }
+  
+  @top-center {
+    content: none;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @top-right {
+    content: none;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @bottom-left {
+    content: none;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first);
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: none;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+    
+  }
+
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: landscape:blank ';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  
+  /*  Generate "this page intentionally left blank" messages */
+  @right-middle {
+    content: element(blankpagetext);
+    font-size: 12pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    width: 11in;
+    text-align: center;
+    vertical-align: top;
+    margin-top: 1in;
+  }
+} 
+
+/* ======================
+ * Foldouts
+ * ======================
+ */
+
+
+@page tabloid {
+  size: 11in 17in landscape;
+  
+
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: tabloid';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+}
+ 
+
+@page tabloid:left {
+
+  @top-left {
+/*    content: 'top-left'; */
+    content: element(runningHead start); 
+    border-bottom: 0.5pt solid black;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    vertical-align: bottom;
+    text-align: left;
+/*    width: 1in;*/
+    font-size: 10pt;
+  }
+  
+  @top-center {
+/*    content: 'This is top center (pubTitle)';*/
+    border-bottom: 0.5pt solid black;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+/*    min-width: 6in;*/
+
+  }
+  
+  @top-right {
+/*    content: 'top-right';*/
+    border-bottom: 0.5pt solid black;
+    content: '\00a0';
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    text-align: left;
+/*    width: 8in;*/
+/*    padding-right: 4in;*/
+/*    border: 0.5pt red solid;*/
+/*    margin-right: 8.5in;*/
+  }
+
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first);
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+    
+  }
+
+/*  Used for debugging page rule application. */
+  @left-bottom {
+/*    content: 'Page Rule: tabloid:left';*/
+    content: none;
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  @right-middle {
+    content: 'counter page: "' counter(page) '"';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+}
+
+ 
+
+@page tabloid:right {
+
+  @top-left {
+/*    content: 'top-left'; */
+    content: '\00a0'; 
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    border-bottom: 0.5pt solid black;
+  }
+  
+  @top-center {
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;    
+    border-bottom: 0.5pt solid black;
+  }
+  
+  @top-right {
+    content: element(runningHead last); 
+    border-bottom: 0.5pt solid black;
+/*    content: 'top-right'; */
+    vertical-align: bottom;
+    text-align: right;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    width: 12in;
+    font-size: 10pt;
+/*    margin-right: 8.5in;*/
+  }
+    
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first );
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: tabloid:right';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+}
+ 
+ /* ======================================
+  * Narrow pages. These are 8.5 x 11 pages
+  * with a narrower body region. Used for
+  * frontmatter and backmatter sections,
+  * as well as for mini ToCs.
+  * 
+  * Conceptually the more-specific narrow
+  * masters inherit from narrow but CSS
+  * doesn't actually work that way so
+  * each master has to respecify its 
+  * geometry.
+  * 
+  * So this "narrow" page rule set serves
+  * to establish the geometry values
+  * that need to be replicated in each
+  * narrow page rule.
+  * ======================================
+  */
+
+
+@page narrow {
+  margin-left: calc((8.5in - 5in)/2);
+  margin-right: calc((8.5in - 5in)/2);
+  margin-bottom: 1in;
+  margin-top: 1.5in;
+
+}
+
+@page narrow:left {
+
+  @top-left {
+    content: element(pubTitle); 
+    border-bottom: 0.5pt solid black;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    vertical-align: bottom;
+    text-align: left;
+  }
+  
+  @top-center {
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    border-bottom: 0.5pt solid black;
+  }
+  
+	@top-right {
+    border-bottom: 0.5pt solid black;
+    content: '\00a0';
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first);
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+    
+  }
+
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: narrow:left';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+}
+
+
+@page narrow:right {
+
+  @top-left {
+    content: '\00a0'; 
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @top-center {
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    border-bottom: 0.5pt solid black;
+  }
+  
+  @top-right {
+    content: element(pubTitle); 
+    border-bottom: 0.5pt solid black;
+    vertical-align: bottom;
+    text-align: right;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+/*    border: white solid 0.5pt;*/
+  }
+  
+  
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first );
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: narrow:right';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+}
+
+
+@page narrow-first:right {
+
+  margin-left: calc((8.5in - 5in)/2);
+  margin-right: calc((8.5in - 5in)/2);
+  margin-bottom: 1in;
+  margin-top: 1.5in;
+
+
+  counter-reset: page 1; /* NOTE: The '1' is required by AHF */;
+
+  @top-left {
+    content: '\00a0'; 
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @top-center {
+    content: "\00a0";
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @top-right {
+    content: "\00a0"; 
+    vertical-align: bottom;
+    text-align: right;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+/*    border: white solid 0.5pt;*/
+  }
+  
+  
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first );
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: narrow-first:right';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+}
+
+
+@page narrow:blank {
+
+  @top-left {
+    content: none; 
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    vertical-align: bottom;
+    text-align: left;
+  }
+  
+  @top-center {
+    content: none;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @top-right {
+    content: none;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @bottom-left {
+    content: none;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first);
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: none;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+    
+  }
+
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: narrow:blank';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+  /*  Generate "this page intentionally left blank" messages */
+  @right-middle {
+    content: element(blankpagetext);
+    font-size: 12pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    width: 11in;
+    text-align: center;
+    vertical-align: top;
+    margin-top: 1in;
+  }
+  
+
+}
+
+
+/* 
+ * Pages for frontmatter.
+ * 
+ * These are narrower than the main pages and
+ * do not have even/odd distinctions (no running
+ * headers and only running feet).
+ */
+
+@page frontmatter {
+  size:   8.5in 11in;
+  margin-left: calc((8.5in - 5in)/2);
+  margin-right: calc((8.5in - 5in)/2);
+  margin-bottom: 1in;
+  margin-top: 1.5in;
+
+ 
+  @top-left {
+    content: none;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    vertical-align: bottom;
+    text-align: left;
+  }
+  
+  @top-center {
+    content: none;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+
+  }
+  
+  @top-right {
+    content: none;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+
+  
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page, lower-roman) '\200B' string(postfolio, first);
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+
+  @bottom-right-corner {
+    content: '^pnf:i';
+    visibility: hidden;
+    font-size: 10pt;
+    font-family: monospace, "Arial Unicode";
+  }  
+
+/*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: frontmatter';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+}
+
+
+@page frontmatter-first {
+  size:   8.5in 11in;
+  margin-left: calc((8.5in - 5in)/2);
+  margin-right: calc((8.5in - 5in)/2);
+  margin-bottom: 1in;
+  margin-top: 1.5in;
+
+   
+  @left-bottom {
+    content: 'Page Rule: frontmatter-first';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+}
+
+ 
+ 
+ @page frontmatter:blank {
+  size:   8.5in 11in;
+  margin-left: calc((8.5in - 5in)/2);
+  margin-right: calc((8.5in - 5in)/2);
+  margin-bottom: 1in;
+  margin-top: 1.5in;
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page, lower-roman) '\200B' string(postfolio, first);
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+
+	@bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+	}
+
+  @bottom-right-corner {
+    content: '^pnf:i';
+    visibility: hidden;
+    font-size: 10pt;
+    font-family: monospace, "Arial Unicode";
+  }
+  
+  /*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: frontmatter:blank';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+  /*  Generate "this page intentionally left blank" messages */
+  @right-middle {
+    content: element(blankpagetext);
+    font-size: 12pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    width: 8.5in;
+    text-align: center;
+    vertical-align: top;
+    margin-top: 1in;
+  }
+
+}
+
+@page officials {
+
+  size:   8.5in 11in;
+  margin-left: calc((8.5in - 5in)/2);
+  margin-right: calc((8.5in - 5in)/2);
+  margin-bottom: 1in;
+  margin-top: 1.5in;
+ 
+  @top-left {
+    content: none;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    vertical-align: bottom;
+    text-align: left;
+  }
+  
+  @top-center {
+    content: none;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+
+  }
+  
+  @top-right {
+    content: none;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+
+  
+  @bottom-left {
+    content: element(updateLabel);
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page, lower-roman) '\200B' string(postfolio, first);
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right-corner {
+    content: '^pnf:i';
+    visibility: hidden;
+    font-size: 10pt;
+    font-family: monospace;
+  }
+  
+  /*  Used for debugging page rule application. */
+  @left-bottom {
+    content: 'Page Rule: officials';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+}
+
+
+@page officials:blank {
+  size:   8.5in 11in;
+  margin-left: calc((8.5in - 5in)/2);
+  margin-right: calc((8.5in - 5in)/2);
+  margin-bottom: 1in;
+  margin-top: 1.5in;
+  
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page, lower-roman) '\200B' string(postfolio, first);
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right-corner {
+    content: '^pnf:i';
+    visibility: hidden;
+    font-size: 10pt;
+    font-family: monospace;
+  }
+  
+  @left-bottom {
+    content: 'Page Rule: officials:blank';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+/*  Generate "this page intentionally left blank" messages */
+  @right-middle {
+    content: element(blankpagetext);
+    font-size: 12pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    width: 8.5in;
+    text-align: center;
+    vertical-align: top;
+    margin-top: 1in;
+  }
+
+}
+
+ 
+@page titlepage:first {
+  size:   8.5in 11in;
+  margin-left: calc((8.5in - 5in)/2);
+  margin-right: calc((8.5in - 5in)/2);
+  margin-bottom: 1in;
+  margin-top: 1.5in;
+  
+  counter-reset: page 1; /* NOTE: The '1' is required by AHF */;
+  
+  @top-center {
+    content: none;
+  }
+  
+  @bottom-left {
+    content: element(updateLabel);
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: none;
+    border-top: 0.5pt solid black;
+  }
+
+  @left-bottom {
+    content: 'Page Rule: titlepage';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  
+}
+
+@page titlepage {
+  size:   8.5in 11in;
+  margin-left: calc((8.5in - 5in)/2);
+  margin-right: calc((8.5in - 5in)/2);
+  margin-bottom: 1in;
+  margin-top: 1.5in;
+  
+  @top-center {
+    content: none;
+  }
+  
+  @bottom-left {
+    content: element(updateLabel);
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: none;
+  }
+
+  @left-bottom {
+    content: 'Page Rule: titlepage';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  
+}
+
+
+/* Part first page with no page number */
+@page part-first:first {
+  size:   8.5in 11in;
+  margin-left: calc((8.5in - 5in)/2);
+  margin-right: calc((8.5in - 5in)/2);
+  margin-bottom: 1in;
+  margin-top: 1.5in;
+  
+  counter-reset: page 1; /* NOTE: The '1' is required by AHF */;
+  
+  @top-center {
+    content: none;
+  }
+  
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first );
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+
+@left-bottom {
+    content: 'Page Rule: part-first';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  
+}
+
+
+@page part-first-page-number:first {
+  size:   8.5in 11in;
+  margin-left: calc((8.5in - 5in)/2);
+  margin-right: calc((8.5in - 5in)/2);
+  margin-bottom: 1in;
+  margin-top: 1.5in;
+  
+  counter-reset: page 1; /* NOTE: The '1' is required by AHF */;
+  
+  @top-center {
+    content: none;
+  }
+  
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first);
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+
+	@left-bottom {
+    content: 'Page Rule: part-first';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  
+}
+
+/* ===================================
+ * Index pages
+ * 
+ * Same as narrow pages but with
+ * different running head details
+ * to handle the index-specific
+ * column headers and continued
+ * headers.
+ * 
+ * ===================================
+ */
+ 
+ 
+ 
+/* 
+ * No running head for the first index page but
+ * column headers.
+ */
+@page index-first:right {
+  size:   8.5in 11in;
+  margin-left: calc((8.5in - 5in)/2);
+  margin-right: calc((8.5in - 5in)/2);
+  margin-bottom: 1in;
+  margin-top: 1.5in;
+  counter-reset: page 1; /* NOTE: The '1' is required by AHF */;
+  
+  @top-right {
+    content: 'Section'; /*  FIXME: This may need to be parameterized */
+    vertical-align: bottom;
+    text-align: right;    
+  }
+  
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first );
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @left-bottom {
+    content: 'Page Rule: index-first';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  
+} 
+
+
+@page index {
+  size:   8.5in 11in;
+  margin-left: calc((8.5in - 5in)/2);
+  margin-right: calc((8.5in - 5in)/2);
+  margin-bottom: 1in;
+  margin-top: 1.5in;
+  
+  @top-left {
+    border-bottom: solid 0.5pt black;
+    content: element(indexTermMarker start);
+    vertical-align: bottom;
+    text-align: left;   
+  }
+
+  @top-center {
+    border-bottom: solid 0.5pt black;
+  }
+  
+  @top-right {
+    border-bottom: solid 0.5pt black;
+    content: 'Section'; /*  FIXME: This may need to be parameterized */
+    vertical-align: bottom;
+    text-align: right;    
+  }
+
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first );
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, "Arial Unicode";
+    font-size: 10pt;
+  }
+
+  @left-bottom {
+    content: 'Page Rule: index';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, "Arial Unicode";
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  
+} 
+
+
+@page index:left {
+
+  @top-left {
+    border-bottom: solid 0.5pt black;
+    content: element(indexTermMarker start);
+    vertical-align: bottom;
+    text-align: left;
+    margin-bottom: 0pt;
+  }
+
+  @top-center {
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    border-bottom: 0.5pt solid black;
+  }
+  
+  @top-right {
+    content: 'Section'; /*  FIXME: This may need to be parameterized */
+    vertical-align: bottom;
+    text-align: right;    
+    border-bottom: solid 0.5pt black;
+  }
+
+  
+  @left-bottom {
+    content: 'Page Rule: index:left';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace;
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, 'Arial Unicode';
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, 'Arial Unicode';
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first );
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, 'Arial Unicode';
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, 'Arial Unicode';
+    font-size: 10pt;
+  }
+  
+} 
+ 
+@page index:right {
+
+  @top-left {
+    content: element(indexTermMarker start);
+    vertical-align: bottom;
+    text-align: left;    
+    border-bottom: solid 0.5pt black;
+    margin-bottom: 0pt;
+  }
+  
+  @top-center {
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    border-bottom: 0.5pt solid black;
+  }
+  
+  @top-right {
+    content: 'Section'; /*  FIXME: This may need to be parameterized */
+    vertical-align: bottom;
+    text-align: right;    
+    border-bottom: solid 0.5pt black;
+  }
+
+
+  @left-bottom {
+    content: 'Page Rule: index:right';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, 'Arial Unicode';
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+  
+  /*  Makes the altfolio text available to area tree post processing.
+   *  Should be invisible on the page. */
+  @right-middle {
+    content: 'altfolio:' string(altfolio, first);
+    font-size: 10pt;
+    font-family: "Courier New", monospace, 'Arial Unicode';
+    color: white; /*  Change to white for production */
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+  @bottom-left {
+    content: element(updateLabel);
+    border-top: 0.5pt solid black;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, 'Arial Unicode';
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first );
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, 'Arial Unicode';
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: '\00a0';
+    border-top: 0.5pt solid black;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, 'Arial Unicode';
+    font-size: 10pt;
+  }
+
+} 
+
+
+@page index:blank {
+
+  @top-left {
+    content: none; 
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+    vertical-align: bottom;
+    text-align: left;
+  }
+  
+  @top-center {
+    content: none;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @top-right {
+    content: none;
+    vertical-align: bottom;
+    margin-top: 0.25in;
+    margin-bottom: 0.33in;
+  }
+  
+  @bottom-left {
+    content: none;
+    vertical-align: top;
+    margin-top: 0.17in;
+    font-family: "Gill Sans MT", sans-serif, 'Arial Unicode';
+    font-size: 10pt;    
+  }
+
+  @bottom-center {
+    content: string(prefolio, first) '\200B' counter(page) '\200B' string(postfolio, first);
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, 'Arial Unicode';
+    font-size: 10pt;
+  }
+  
+  @bottom-right {
+    content: none;
+    margin-top: 0.17in;
+    vertical-align: top;
+    font-family: "Gill Sans MT", sans-serif, 'Arial Unicode';
+    font-size: 10pt;
+    
+  }
+  
+  @left-bottom {
+    content: 'Page Rule: index:blank';
+/*    content: none;*/
+    font-size: 10pt;
+    font-family: "Courier New", monospace, 'Arial Unicode';
+    color: white;
+    -ah-reference-orientation: 90;
+    width: 0.66in;
+    height: 6in;
+  }
+
+/*  Generate "this page intentionally left blank" messages */
+  @right-middle {
+    content: element(blankpagetext);
+    font-size: 12pt;
+    font-family: "Courier New", monospace, 'Arial Unicode';
+    width: 8.5in;
+    text-align: center;
+    vertical-align: top;
+    margin-top: 1in;
+  }
+
+} 
+
+
+/* 
+ * End of CSS module
+ */

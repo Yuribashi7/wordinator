@@ -1,0 +1,91 @@
+/* AH Formatter V6 default CSS for HTML
+   Copyright (c) 2009-2013 Antenna House, Inc. All rights reserved.
+*/
+
+/* Customized by Municode 2019 */
+
+/*LaRae: Removed hard font sizes for h#*/
+h1			{ -ah-margin-before: .67em; -ah-margin-after: .67em }
+h2			{ -ah-margin-before: .75em; -ah-margin-after: .75em }
+h3			{ -ah-margin-before: .83em; -ah-margin-after: .83em }
+
+ol, ul,
+menu, dir	{ -ah-padding-start: 0em /*  WEK: Set to zero */ }
+dd			{ -ah-margin-start: 0em /*  WEK: Set to zero */ }
+blockquote	{ -ah-margin-start: 2.5em; -ah-margin-end: 2.5em }
+
+ul ul, ol ol	{ -ah-margin-before: 0; -ah-margin-after: 0 }
+li::marker	{ -ah-margin-end: 0.5em; text-indent: 0; font-variant: tabular-nums }
+/*ul > li::marker	{ -ah-lang: en }*/
+h5			{ -ah-margin-before: 1.5em; -ah-margin-after: 1.5em }
+h6			{ -ah-margin-before: 1.67em; -ah-margin-after: 1.67em }
+
+td, th		{ padding: -ah-attr-from(table, cellpadding px, 1px) }
+
+hr			{ -ah-margin-before: .5em; -ah-margin-after: .5em; -ah-margin-start: auto; -ah-margin-end: auto }
+
+img			{ -ah-alttext: attr(alt) }
+
+object[data] { -ah-content-type: attr(type) }
+
+embed		{ -ah-content-type: attr(type) }
+
+a[href]		{ -ah-link: attr(href url) }
+
+center address, center blockquote, center div,
+center ol, center ul, center dl,
+center h1, center h2, center h3, center h4,
+center h5, center h6, center p,
+center dir, center hr, center menu, center pre,
+center section, center article,
+center aside, center header,
+center footer, center nav,
+center table, center caption { -ah-margin-start: auto !important; -ah-margin-end: auto !important }
+
+:link		{ color: -ah-attr-from(body, link color, blue) }
+/*
+:visited	{ color: -ah-attr-from(body, vlink color, purple); text-decoration: underline }
+:active		{ color: -ah-attr-from(body, alink color, red); text-decoration: underline }
+:focus		{ outline: thin dotted invert }
+*/
+
+/* a leading newline character immediately following the pre element start tag is stripped */
+pre, textarea { -ah-ignore-leading-newline: true }
+
+video[src] { -ah-content-type: attr(type); -ah-poster-image: attr(poster url, auto) }
+
+video[controls] { -ah-show-controls: true }
+
+audio[src] { -ah-content-type: attr(type) }
+
+audio[controls] { -ah-show-controls: true }
+
+/* Paged Media */
+h1, h2, h3,
+h4, h5, h6, dt { page-break-after: avoid }
+@page {
+	@footnote {
+		/*counter-increment: footnote;*/
+		float: page bottom;
+	}
+	@sidenote {
+		/*counter-increment: sidenote;*/
+		float: outside;
+		clear: both;
+		width: 20%;
+	}
+}
+
+::footnote-marker {
+	-ah-margin-end: 0.5em;
+}
+
+/* MathML */
+m|math[display=block],
+m|math[mode=display] {
+	-ah-margin-start: auto;
+	-ah-margin-end: auto;
+}
+
+font[size='7'] { font-size: -ah-xxx-large }
+

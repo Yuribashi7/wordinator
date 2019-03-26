@@ -1,0 +1,665 @@
+/* =========================
+ * PDF_Future.css
+ * ========================= */
+
+/* Antenna House-specific CSS for generating PDF
+ * from Municode's Munipub XML. */
+
+/* ========================
+ * Specific to "future" style
+ * ========================
+ * 
+ * Margins use rem (relative measurements)  
+ * and line-heights use percentages, 
+ * rather than qualified amounts.
+ * 
+ */
+
+
+/* ===========================
+ * Basic elements
+ * ===========================
+ */
+
+html > head,
+job
+{
+	/*  display of none prevents setting of running variables with the content of the element. */
+	/*  display: none;*/
+}
+
+html > body > header
+{
+	display: none;
+}
+
+
+/* ===========================
+ * Processing instructions (<pi> elements)
+ * ===========================
+ */
+
+
+
+/* ===========================
+ * Basic elements: paragraphs,
+ * lists, etc.
+ * ===========================
+ */
+
+p {
+	line-height: 120%;
+	margin-top: 0pt;
+	margin-bottom: 0.5rem;
+}
+
+table p {
+	margin-bottom: 0;
+}
+
+div.section-body p:not([class]):not([data-type])
+{
+	text-indent: 0;
+}
+
+p[data-type = 'historynote']
+{
+	font-weight: normal;
+	margin-top: 0pt;
+}
+
+/* ====================
+ * Headings and sections
+ * =====================
+ */
+
+/* ====================
+ * Call Page Masters
+ * =====================
+ */
+
+div[data-pglayout = "rotated"],
+section[data-pglayout = "rotated"] {
+	page: landscape;
+	-ah-reference-orientation: 90;
+
+	/*  background-color: green;*/
+}
+
+div[data-pglayout = "tabloid"],
+section[data-pglayout = "tabloid"] {
+	page: tabloid;
+	break-before: left; /* Tabloid pages have to start on a right-hand page */
+}
+
+div[data-pglayout = "frontmatter"],
+section[data-pglayout = "frontmatter"]
+{
+	page: frontmatter;
+	break-before: page;
+}
+
+div[data-pglayout = "portrait"],
+section[data-pglayout = "portrait"] {
+	page: portrait;
+	break-before: page;
+}
+
+section[data-type = 'index'] {
+	page: index-first index;
+	break-before: right;
+}
+
+
+section[data-type = 'titlepage'] {
+	page: titlepage;
+	break-before: right;
+}
+
+section[data-type = 'update-ins']
+{
+	page: update-ins-first update-ins;
+	break-before: right;
+}
+
+section[data-type = 'loep'],
+section[data-type = 'supphistory']
+{
+	page: portrait-first portrait;
+	break-before: right;
+}
+
+section[data-type = 'titlepage'] {
+	page: titlepage;
+	break-before: right;
+
+}
+
+section[data-type = 'titlepage'] > header {
+	display: block;
+	text-align: center;
+}
+
+html > body > section[data-type ^= 'officials']
+{
+	page: officials;
+	break-before: right;
+}
+
+html > body > section[data-type ^= 'officials']
+{
+	line-height: 120%;
+}
+
+html > body > section[data-type = 'preface'],
+html > body > section[data-type = 'adoptingord']
+{
+	page: frontmatter;
+	break-before: right;
+}
+
+section[data-type = 'toc']
+{
+	page: toc-main;
+	break-before: right;
+}
+
+section[data-type = 'list-of-figures']
+{
+	page: lof-main;
+	break-before: right;
+}
+
+section[data-type = 'list-of-tables']
+{
+	page: lot-main;
+	break-before: right;
+}
+
+section[data-type = 'charter'] div.minitoc
+{
+	break-before: auto;
+	break-after: right;
+}
+
+div.minitoc {
+	break-after: right;
+}
+
+.nopg {
+	break-before: auto;
+}
+
+html > body > section[data-type = 'cct'],
+html > body > section[data-type = 'slrt'],
+section[data-type = 'part'] > section[data-type = 'cct']
+{
+	page: narrow-first narrow;
+	break-before: right;
+}
+
+/* Can't have an unqualified page association for
+ * chapters because we need some chapters to 
+ * not start a new page (e.g., within charter within part) */
+body > section[data-type = 'chapter'],
+body > section[data-type = 'charter'],
+section[data-type = 'part'] > section:not(:first-of-type)[data-type = 'chapter'],
+section[data-type = 'appendix']
+
+{
+	break-before: right;
+	page: portrait-first portrait;
+}
+
+section[data-type = 'part'] > section[data-type = 'charter'],
+section[data-type = 'part'] > section:first-of-type[data-type = 'chapter'],
+section[data-type = 'part'] > section[data-type = 'charter'] > section[data-type = 'chapter']
+{
+	/* Experiment: charter sections and chapters within charter sections  do not start a new page sequence or cause a page break */
+	display: block;
+	break-before: auto;
+}
+
+section[data-type = 'charter'] > header
+{
+	display: inline;
+}
+section[data-type = 'part'] > section[data-type = 'charter'] > header > h1,
+section[data-type = 'part'] > section[data-type = 'charter'] > header > p[data-type = 'subtitle']
+{
+	display: none;
+}
+
+/* These should only be part pages */
+section[data-type = 'part'],
+section[data-type = 'titlearr']
+{
+	break-before: right;
+	page: part-first portrait;
+}
+
+section[data-type = 'part'][data-part-type = 'page-number']
+{
+	page: part-first-page-number portrait;
+}
+
+/* End call page masters */
+
+header {
+	display: block;
+	break-after: avoid;
+}
+
+header.nokeep {
+	break-after: auto !important;
+}
+
+/* 
+ * Titlepage formatting
+ */
+
+section[data-type = 'titlepage'] > div.section-body {
+	display: block;
+	width: 100%;
+}
+
+p.pickup {
+	display: none;
+}
+
+section[data-type = 'titlepage'] > div.section-body > p,
+section[data-type = 'titlepage'] > div.section-body > figure
+{
+	display: block;
+	vertical-align: central;
+	/*  margin-bottom: calc(55pc / attr(totalSiblings));*/
+}
+
+
+/* ====================
+ * Frills
+ * 
+ * very different between 'future' and 'legacy'
+ * =====================
+ */
+
+chapterTitle,
+sectionNumberVerso,
+sectionNumberRecto
+{
+	display: none;
+}
+
+sectionTitlesMultiline
+{
+	display: block;
+	font-size: 10pt;
+	line-height: 100%;
+	font-family: "Gill Sans MT Pro Book", sans-serif, "Arial Unicode";
+	font-weight: normal;
+}
+
+headerLine
+{
+	display: block;
+	font-weight: normal;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+headerLine > h1
+{
+	display: inline;
+	font-size: 10pt;
+	font-weight: normal;
+	font-family: "Gill Sans MT Pro Book", sans-serif, "Arial Unicode";
+}
+
+
+headerLine > p {
+	font-size: 10pt !important;
+	display: inline;
+	font-family: "Gill Sans MT Pro Book", sans-serif, "Arial Unicode";
+	font-weight: normal;
+
+}
+
+headerLine > h1.has-subtitle:after {
+	content: ".\00a0";
+}
+
+
+/* ===================
+ * Index
+ * =================== 
+ */
+
+section[data-type = 'index'] > header > h1 {
+	font-weight: bold;
+}
+
+div.index-group > h1
+{
+	display: block;
+	text-align: center;
+}
+
+indexTermMarker {
+	display: block;
+	/*width: 20pc;*/ /* Make the text overrun the page edge region so it doesn't wrap until the right edge of the main area. */
+}
+
+indexTermMarker > span.term { /*  level-0 */
+	display: block;
+}
+
+indexTermMarker > span.level-0 {
+	text-transform: uppercase;
+}
+
+indexTermMarker > span.level-1 {
+	margin-left: 1pc;
+}
+
+indexTermMarker > span.level-2 {
+	margin-left: 2pc;
+}
+
+indexTermMarker > span.level-3 {
+	margin-left: 3pc;
+}
+
+indexTermMarker > span.level-4 {
+	margin-left: 4pc;
+}
+
+indexTermMarker > span.level-5 {
+	margin-left: 5pc;
+}
+
+indexTermMarker > span.level-6 {
+	margin-left: 7pc;
+}
+
+indexTermMarker > span.term:after {
+	content: " (Cont'd.)";
+	text-transform: none; /* Undo any transform applied to spans */
+}
+
+
+/* ====================
+ * Table of Contents
+ * =====================
+ */
+
+div.toc-list,
+div.minitoc-list
+{
+	margin-left: 0pt;
+	-ah-margin-start: 0pt;
+}
+
+div.toc-list
+{
+	display: block;
+}
+
+div.toc-entry,
+div.lof-entry,
+div.lot-entry,
+div.minitoc-entry
+{
+	display: block;
+	font-size: 11pt;
+	margin-top: 0pt;
+	text-align: left;
+	margin-left: 6pc;
+	text-indent: -6pc;
+	word-break: keep-all;
+}
+
+div.toc-entry,
+div.lof-entry,
+div.lot-entry
+{
+	text-indent: -1pc;
+	margin-left: +1pc;
+	/* ah-last-line-indent inherits
+   * to any blocks or inline blocks
+   * within the toc entry, so you
+   * need to set it to 0pt on those
+   * elements. */
+	-ah-last-line-end-indent: -5pc;
+	margin-right: 5pc;
+	margin-left: 6pc;
+	text-indent: -6pc;
+}
+
+/* All subordinate lists */
+div.toc-list div.toc-list
+{
+	margin-left: +2pc;
+}
+
+div.toc-entry span.uppercase,
+div.lof-entry span.uppercase,
+div.lot-entry span.uppercase,
+div.minitoc-entry span.uppercase
+{
+	text-transform: none;
+}
+
+div.toc-entry[data-target-data-type = 'part'],
+div.toc-entry[data-target-data-type = 'titlepage'],
+div.minitoc-entry[data-target-data-type = 'article'],
+section[data-type = 'charter'] div.minitoc-entry[data-target-data-type = 'chapter']
+
+{
+	margin-right: 0pt;
+	margin-left: 0pt;
+	-ah-last-line-end-indent: 0pc;
+	text-indent: 0pt;
+	text-align: center;
+	font-weight: bold;
+}
+
+div.toc-entry[data-target-data-type = 'part']
+{
+	margin-top: 12pt;
+	margin-bottom: 12pt;
+}
+
+section[data-type = 'charter'] div.minitoc-entry[data-target-data-type = 'chapter']
+{
+	margin-top: 1.5pc;
+	margin-bottom: 0.5pc;
+}
+
+section[data-type = 'charter'] div.minitoc-list > div.toc-entry:first-child
+{
+	margin-top: 0pc;
+}
+
+div.minitoc-entry[data-target-data-type = 'article']
+{
+	margin-top: 1.5pc;
+	margin-bottom: 0.5pc;
+	break-after: avoid-page;
+}
+
+div.minitoc-entry[data-target-data-type = 'division']
+{
+	font-weight: bold;
+	font-style: italic;
+	text-align: center;
+	margin-top: 0.5pc;
+	margin-bottom: 0.5pc;
+	/*margin-bottom: 1pc;*/
+	break-after: avoid-page;
+}
+
+div.minitoc-entry[data-target-data-type = 'subdivision']
+{
+	text-align: center;
+	margin-top: 0.5pc;
+	margin-bottom: 0.5pc;
+	font-style: italic;
+	/*margin-bottom: 1pc;*/
+	break-after: avoid-page;
+}
+
+div.toc-entry[data-target-data-type = 'part'] span.subtitle {
+	display: block;
+}
+
+div.toc-entry[data-target-data-type = 'part'] > span.page {
+	display: none;
+}
+
+div.toc-entry > span.title:after,
+div.lof-entry > span.title:after,
+div.lot-entry > span.title:after,
+div.minitoc.pg div.minitoc-entry > span.title:after,
+div.minitoc.pg div.minitoc-entry > span.subtitle:after
+{
+	content: leader(dotted);
+}
+
+div.toc-entry[data-target-data-type = 'part'] > span.title:after,
+div.minitoc.pg div.minitoc-entry[data-target-data-type = 'article'] > span.title:after,
+div.minitoc.pg div.minitoc-entry[data-target-data-type = 'division'] > span.title:after
+
+{
+	content: none;
+}
+
+
+div.toc-entry a,
+div.lof-entry a,
+div.lot-entry a,
+div.minitoc-entry a
+{
+	color: inherit;
+	font-size: inherit;
+	text-decoration: inherit;
+}
+
+div.minitoc-entry span.section-number
+{
+	display: inline-block;
+	min-width: 5pc;
+	padding-right: 1pc;
+	-ah-last-line-end-indent: 0pt;
+	text-indent: 0pt;
+}
+div.toc-entry span.title,
+div.toc-entry span.subtitle,
+div.lof-entry span.title,
+div.lof-entry span.subtitle,
+div.lot-entry span.title,
+div.lot-entry span.subtitle,
+div.minitoc-entry span.title,
+div.minitoc-entry span.subtitle
+{
+	display: inline;
+	-ah-last-line-end-indent: 0pt;
+}
+
+a.prefolio:before,
+a.postfolio:before
+{
+	content: '' !important;
+}
+
+div.toc-entry > span.page > a.body:before,
+div.lof-entry > span.page > a.body:before,
+div.lot-entry > span.page > a.body:before,
+div.minitoc.pg div.minitoc-entry > span.page > a:before
+{
+	display: inline;
+	text-align: right;
+}
+
+div.minitoc-entry[data-target-data-type = 'article'] > span.page,
+div.minitoc-entry[data-target-data-type = 'division'] > span.page,
+div.minitoc-entry[data-target-data-type = 'article'] > span.prefolio,
+div.minitoc-entry[data-target-data-type = 'division'] > span.postfolio
+{
+	display: none;
+}
+
+div.minitoc-entry[data-target-data-type = 'division'] h1
+{
+	font-weight: normal;
+}
+
+
+div.minitoc-entry span.has-subtitle.h1:after {
+	content: ".\00a0";
+	text-decoration-line: none;
+}
+
+/* =======================
+ * List of effective pages
+ * =======================
+ */
+
+div.loep
+{
+	column-count: 2;
+	-ah-keep-together-within-dimension: 0vh;
+	page-break-inside: auto;
+
+}
+
+td.loep-volume
+{
+	font-weight: bold;
+	text-align: center;
+}
+
+/* =======================
+ * Update Instructions
+ * =======================
+ */
+
+div.update-ins
+{
+	column-count: 1;
+	font-size: 10pt;
+}
+
+td.update-ins-volume
+{
+	text-align: center !important;
+	-ah-text-align-string: center !important;
+}
+
+table.update-ins th
+{
+	font-weight: bold;
+	text-align: left;
+}
+
+table.update-ins td
+{
+	padding-left: 1pc;
+	text-align: left;
+}
+
+span.h1.has-subtitle:after
+{
+	content: ".\00a0";
+}
+
+em { /* emphasis. NOT em-space. */
+	font-style: italic;
+}
+
+strong {
+	font-weight: bold;
+}
+
+/* 
+ * End of CSS
+ */

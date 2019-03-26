@@ -1,0 +1,21 @@
+/** 
+ * AHF-specific rules for LoT (list of tables) rendering
+ */
+
+div.lot-entry > span.page > a.body:before
+{
+	content: target-counter(attr(href url), page);
+}
+
+div.lot-entry > span.page > a.frontmatter:before {
+	content: target-counter(attr(href url), page, lower-roman);
+}
+
+div.lot-entry > span.page > a.body:before
+{
+	content: target-counter(attr(href url), page);
+}
+
+div.lot-entry > span.page > a.frontmatter:before {
+	content: target-counter(attr(href url), page, lower-roman);
+}

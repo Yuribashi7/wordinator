@@ -1,0 +1,51 @@
+/**
+ * AHF-specific indent rules for Future style
+ */
+ 
+table.b2full, 
+figure.b2full
+{
+	width: calc(100% - 0.33in);
+}
+
+table.b3full,
+figure.b3full
+{
+	width: calc(100% - 0.66in);
+}
+
+table.b4full, 
+figure.b4full
+{
+	width: calc(100% - 1in);
+}s
+table.b5full, 
+figure.b5full
+{
+	width: calc(100% - 1.33in);
+}
+
+table.b6full, 
+figure.b6full
+{
+	width: calc(100% - 1.66in);
+}
+
+table.b7full, 
+figure.b7full
+{
+	width: calc(100% - 2in);
+}
+
+table.b8full, 
+figure.b8full
+{
+	width: calc(100% - 2.33in);
+}
+
+table.b9full, 
+figure.b9full
+{
+	width: calc(100% - 2.33in);
+}
+

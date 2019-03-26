@@ -49,6 +49,10 @@ public final class DocxConstants {
 	public static final QName QNAME_RIGHT_ATT = new QName("", "right");
 	public static final QName QNAME_ROWSEP_ATT = new QName("", "rowsep");
 	public static final QName QNAME_ROWSPAN_ATT = new QName("", "rowspan");
+	public static final QName QNAME_RULEWEIGHT_ATT = new QName("", "weight");	
+	public static final QName QNAME_RULEWEIGHTUNITS_ATT = new QName("", "weight_units");	
+	public static final QName QNAME_RULEWIDTH_ATT = new QName("", "width");	
+	public static final QName QNAME_RULEWIDTHUNITS_ATT = new QName("", "width_units");
 	public static final QName QNAME_SHADOW_ATT = new QName("", "shadow");
 	public static final QName QNAME_SMALL_CAPS_ATT = new QName("", "small-caps");
 	public static final QName QNAME_SRC_ATT = new QName("", "src");
@@ -75,4 +79,5 @@ public final class DocxConstants {
 	public static final QName QNAME_P_ELEM = new QName(SIMPLE_WP_NS, "p");
 	public static final QName QNAME_ROW_ELEM = new QName(SIMPLE_WP_NS, "row");
 	public static final QName QNAME_VSPAN_ELEM = new QName(SIMPLE_WP_NS, "vspan");
+	public static final QName QNAME_WEIGHT_ATT = null;
 }

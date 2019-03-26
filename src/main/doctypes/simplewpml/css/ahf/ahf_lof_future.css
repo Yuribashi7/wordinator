@@ -1,0 +1,21 @@
+/** 
+ * AHF-specific rules for LoF rendering
+ */
+
+div.lof-entry > span.page > a.body:before
+{
+	content: target-counter(attr(href url), page);
+}
+
+div.lof-entry > span.page > a.frontmatter:before {
+	content: target-counter(attr(href url), page, lower-roman);
+}
+
+div.lof-entry > span.page > a.body:before
+{
+	content: target-counter(attr(href url), page);
+}
+
+div.lof-entry > span.page > a.frontmatter:before {
+	content: target-counter(attr(href url), page, lower-roman);
+}

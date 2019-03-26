@@ -1,0 +1,205 @@
+/* ========================================
+ * Oxygen-specific support for editing
+ * book-level metadata using form controls.
+ * ========================================
+ */
+ 
+ @namespace oxy url('http://www.oxygenxml.com/extensions/author');
+ 
+ html > head {
+  display: block;
+  border: 1pt solid blue;
+  padding: 4px;
+  margin-bottom: 10px;  
+  width: 40em;
+ }
+ 
+ html > head > oxy|comment 
+ {
+   visibility: collapse;
+ }
+ 
+ html > head > title {
+  display: block;
+  font-size: larger;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: solid 1pt black;
+  padding-bottom: 4px;
+  margin-bottom: 10px;
+ }
+  
+ html > head > meta:before {
+  content: 
+  oxy_label(
+    text, oxy_concat(attr(name), ':'), 
+    width, 12em, 
+    color, inherit,
+    styles, "text-align:right"
+    )
+  ;
+ }
+ 
+ html > head > meta {
+   display: block;
+   color: blue;
+   font-family: "Arial", sans-serif, "Arial Unicode";
+   content:
+   oxy_textfield(
+          edit, '@content',
+          columns, 30)
+
+ }
+  
+ html > head > meta[name ^= 'llstyle'] {
+    content:
+      oxy_combobox( 
+            edit, '@content',
+            editable, true
+      )
+      ;
+ }
+
+ html > head > meta[name = pub-id]:before {
+  content: 
+  oxy_label(
+    text, 'Publication ID:', 
+    width, 12em, 
+    color, inherit,
+    styles, "text-align:right"
+    )
+  ;
+ }
+
+ html > head > meta[name = job-number-bis]:before {
+  content: 
+  oxy_label(
+    text, 'BIS Job Number:', 
+    width, 12em, 
+    color, inherit,
+    styles, "text-align:right"
+    )
+  ;
+ }
+ 
+ html > head > meta[name = job-id]:before {
+  content: 
+  oxy_label(
+    text, 'Job ID:', 
+    width, 12em, 
+    color, inherit,
+    styles, "text-align:right"
+    )
+  ;
+ }
+
+ html > head > meta[name = job-loep-entry]:before {
+  content: 
+  oxy_label(
+    text, 'Job LOEP Entry:', 
+    width, 12em, 
+    color, inherit,
+    styles, "text-align:right"
+    )
+  ;
+ }
+
+ html > head > meta[name = job-page-label]:before {
+  content: 
+  oxy_label(
+    text, 'Job Page Label:', 
+    width, 12em, 
+    color, inherit,
+    styles, "text-align:right"
+    )
+  ;
+ }
+
+
+ html > head > meta[name = job-full-name]:before {
+  content: 
+  oxy_label(
+    text, 'Job Full Name:', 
+    width, 12em, 
+    color, inherit,
+    styles, "text-align:right"
+    )
+  ;
+ }
+
+ html > head > meta[name = verso]:before {
+  content: 
+  oxy_label(
+    text, 'Verso (Left Page) Label:', 
+    width, 12em, 
+    color, inherit,
+    styles, "text-align:right"
+    )
+  ;
+ }
+
+ html > head > meta[name = blankpagetext]:before {
+  content: 
+  oxy_label(
+    text, 'Blank Page Text:', 
+    width, 12em, 
+    color, inherit,
+    styles, "text-align:right"
+    )
+  ;
+ }
+
+ html > head > meta[name = lldiv1]:before {
+  content: 
+  oxy_label(
+    text, 'Loose-leaf Separator Lvl 1:', 
+    width, 10em, 
+    color, inherit,
+    styles, "text-align:right"
+    )
+  ;
+ }
+ 
+ html > head > meta[name = lldiv2]:before {
+  content: 
+  oxy_label(
+    text, 'Loose-leaf Separator Lvl 2:', 
+    width, 10em, 
+    color, inherit,
+    styles, "text-align:right"
+    )
+  ;
+ }
+ 
+ html > head > meta[name = llstyle1]:before {
+  content: 
+  oxy_label(
+    text, 'Loose-leaf Number Style 1:', 
+    width, 10em, 
+    color, inherit,
+    styles, "text-align:right"
+    )
+  ;
+ }
+ 
+ html > head > meta[name = llstyle2]:before {
+  content: 
+  oxy_label(
+    text, 'Loose-leaf Number Style 2:', 
+    width, 10em, 
+    color, inherit,
+    styles, "text-align:right"
+    )
+  ;
+ }
+ 
+ html > head > meta[name = llstyle3]:before {
+  content: 
+  oxy_label(
+    text, 'Loose-leaf Number Style 3:', 
+    width, 10em, 
+    color, inherit,
+    styles, "text-align:right"
+    )
+  ;
+ }

@@ -1,0 +1,17 @@
+/* =========================
+ * Para_Titles_Bold.css
+ * ========================= */ 
+
+/* ==================================================
+ * 
+ * Copyright (c) Municode 2017
+ * 
+ * ================================================== */
+ 
+/* "Text emphasis theme" elements:
+ * paragraph titles, definitions, em  */
+
+p span.title
+{
+	font-weight: bold;
+}

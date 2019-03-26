@@ -1,0 +1,460 @@
+/* =========================
+ * Indents_Future.css
+ * includes table indents
+ * ========================= */ 
+
+/* Antenna House-specific CSS for generating PDF
+ * from Municode's Munipub XML. */ 
+ 
+/* ========================
+	* Specific to "future" style
+	* ========================
+	* Paras inside tables have half 
+	* the indention of paras outside tables. 
+	* (This isn't the case in legacy style.) */
+
+div.section-body p:not([class]):not([data-type]),
+p.b1
+{
+  text-indent: 0;
+}
+
+/*  All ref paragraphs should be same as hg1 */
+p[data-type = 'refmanual'],
+p[data-type = 'refeditor'],
+p[data-type = 'refcharter'],
+p[data-type = 'refstatelaw'],
+p[data-type = 'refcross'],
+p[data-type = 'refstateconst'],
+p[data-type = 'refcaselaw'],
+p[data-type = 'refcaselawanno'],
+p[data-type = 'refnote'],
+p[data-type = 'refgeneric'],
+aside.footnote 
+{
+  display: block;
+  margin-left: 0.33in;
+  text-indent: -0.33in;
+}
+
+aside.footnote > p {
+  margin-left: 0pt;
+  text-indent: -0.33in;
+}
+
+p.b1,
+p.center
+{
+  text-indent: 0pt !important;
+}
+
+/* Default list item number indent */
+p > span.incr,
+p > span.incrml
+{
+  display: inline-block;
+  min-width: 0.23in;
+  text-align: left;
+  text-indent: 0pt;
+  margin-right: 0.10in;
+}
+
+p.b2,
+p.p2,
+p.hg1,
+p.ol1 {
+  margin-left: 0.33in;
+}
+
+p.b3,
+p.p3,
+p.hg2,
+p.ol2 {
+  margin-left: 0.66in;
+}
+
+p.b4,
+p.p4,
+p.hg3,
+p.ol3 {
+  margin-left: 1in;
+}
+
+p.b5,
+p.p5,
+p.hg4,
+p.ol4 {
+  margin-left: 1.33in;
+}
+
+p.b6,
+p.p6,
+p.hg5,
+p.ol5 {
+  margin-left: 1.66in;
+}
+
+p.b7,
+p.p7,
+p.hg6,
+p.ol6 {
+  margin-left: 2in;
+}
+
+p.b8,
+p.p8,
+p.hg7,
+p.ol7 {
+  margin-left: 2.33in;
+}
+
+p.b9,
+p.p9,
+p.hg8 ,
+p.ol8 {
+  margin-left: 2.66in;
+}
+
+p.hg9,
+p.ol9 {
+  margin-left: 3in;
+}
+
+/* paragraphs inside tables have less indent. 
+	If oXygen begins supporting calc, then can use 
+	calc([regular indent] / 2); */
+	
+table p.b2,
+table p.p2,
+table p.hg1,
+table p.ol1 {
+  margin-left: 0.17in;
+}
+
+
+table p.b3,
+table p.p3,
+table p.hg2,
+table p.ol2 {
+  margin-left: 0.33in;
+}	
+
+table p.b4,
+table p.p4,
+table p.hg3,
+table p.ol3 {
+  margin-left: 0.5in;
+}
+
+table p.b5,
+table p.p5,
+table p.hg4,
+table p.ol4 {
+  margin-left: 0.67in;
+}
+
+table p.b6,
+table p.p6,
+table p.hg5,
+table p.ol5 {
+  margin-left: 0.84in;
+}
+
+table p.b7,
+table p.p7,
+table p.hg6,
+table p.ol6 {
+  margin-left: 1in;
+}
+
+table p.b8,
+table p.p8,
+table p.hg7,
+table p.ol7 {
+  margin-left: 1.17in;
+}
+
+table p.b9,
+table p.p9,
+table p.hg8 ,
+table p.ol8 {
+  margin-left: 1.33in;
+}
+
+table p.hg9,
+table p.ol9 {
+  margin-left: 1.5in;
+}
+
+p.p1,
+p.p2,
+p.p3,
+p.p4,
+p.p5,
+p.p6,
+p.p7,
+p.p8,
+p.p9
+{
+  text-indent: 1pc;
+}
+
+p.hg1,
+p.hg2, 
+p.hg3, 
+p.hg4, 
+p.hg5, 
+p.hg6, 
+p.hg7, 
+p.hg8, 
+p.hg9,
+p.ol1,
+p.ol2, 
+p.ol3, 
+p.ol4, 
+p.ol5, 
+p.ol6, 
+p.ol7, 
+p.ol8, 
+p.ol9
+{
+  text-indent: -0.33in;
+}
+
+table p.hg1,
+table p.hg2, 
+table p.hg3, 
+table p.hg4, 
+table p.hg5, 
+table p.hg6, 
+table p.hg7, 
+table p.hg8, 
+table p.hg9,
+table p.ol1,
+table p.ol2, 
+table p.ol3, 
+table p.ol4, 
+table p.ol5, 
+table p.ol6, 
+table p.ol7, 
+table p.ol8, 
+table p.ol9
+{
+  text-indent: -0.17in;
+}
+
+/* Multi-lists (2 or more numbers for a list item) */
+
+p.ml1,
+p.ml2, 
+p.ml3, 
+p.ml4, 
+p.ml5, 
+p.ml6, 
+p.ml7, 
+p.ml8, 
+p.ml9
+{
+  text-indent: -0.66in;
+}
+
+p.ml1 {
+	margin-left: 0.66in;
+}
+p.ml2 {
+  margin-left: 1in;
+}
+p.ml3 {
+  margin-left: 1.33in;
+}
+p.ml4 {
+  margin-left: 1.66in;
+}
+p.ml5 {
+  margin-left: 2in;
+}
+p.ml6 {
+  margin-left: 2.33in;
+}
+p.ml7 {
+  margin-left: 2.66in;
+}
+p.ml8 {
+  margin-left: 3in;
+}
+p.ml9 {
+  margin-left: 3.33in;
+}
+
+
+
+table p.ml1,
+table p.ml2, 
+table p.ml3, 
+table p.ml4, 
+table p.ml5, 
+table p.ml6, 
+table p.ml7, 
+table p.ml8, 
+table p.ml9
+{
+  text-indent: -0.33in;
+}
+
+table p.ml1 {
+	margin-left: 0.33in;
+}
+table p.ml2 {
+  margin-left: 0.5in;
+}
+table p.ml3 {
+  margin-left: 0.66in;
+}
+table p.ml4 {
+  margin-left: 0.84in;
+}
+table p.ml5 {
+  margin-left: 1in;
+}
+table p.ml6 {
+  margin-left: 1.17in;
+}
+table p.ml7 {
+  margin-left: 1.33in;
+}
+table p.ml8 {
+  margin-left: 1.5in;
+}
+table p.ml9 {
+  margin-left: 1.67in;
+}
+
+/**** Table indents ****/
+section[data-pglayout="rotated"] table.b1, 
+section[data-pglayout="rotated"] table.b1full, 
+section[data-pglayout="rotated"] figure.b1full
+{
+  width: 100%; /* Body width */
+}
+
+table[class ^= "b1"],
+figure[class ^= "b1"]
+{
+	margin-left:0rem;
+	table-layout: fixed;
+}
+
+table.b1full, 
+figure.b1full 
+{
+	width: 100% 
+}
+
+table[class ^= "b2"],
+figure[class ^= "b2"]
+{ 
+	margin-left: 0.33in;
+	table-layout: fixed;
+}
+
+table.b2full, 
+figure.b2full
+{
+	width: 90%;
+}
+
+table[class ^= "b3"],
+figure[class ^= "b3"]
+{ 
+	margin-left: 0.66in;
+	table-layout: fixed;
+}
+
+table.b3full,
+figure.b3full
+{
+	width: 80%;
+}
+
+table[class ^= "b4"],
+figure[class ^= "b4"]
+{ 
+	margin-left: 1in;
+	table-layout: fixed;
+}
+
+table.b4full, 
+figure.b4full
+{
+	width: 70%;
+}
+
+
+table[class ^= "b5"],
+figure[class ^= "b5"]
+{ 
+	margin-left: 1.33in;
+	table-layout: fixed;
+}
+
+
+table.b5full, 
+figure.b5full
+{
+	width: 60%;
+}
+
+table[class ^= "b6"],
+figure[class ^= "b6"]
+{ 
+	margin-left: 1.66in;
+	table-layout: fixed;
+}
+
+
+table.b6full, 
+figure.b6full
+{
+	width: 50%;
+}
+
+table[class ^= "b7"],
+figure[class ^= "b7"]
+{ 
+	margin-left: 2in;
+	table-layout: fixed;
+}
+
+table.b7full, 
+figure.b7full
+{
+	width: 40%;
+}
+
+table[class ^= "b8"],
+figure[class ^= "b8"]
+{ 
+	margin-left: 2.33in;
+	table-layout: fixed;
+}
+
+
+table.b8full, 
+figure.b8full
+{
+	width: 30%;
+}
+
+table[class ^= "b9"],
+figure[class ^= "b9"]
+{ 
+	margin-left: 2.66in;
+	table-layout: fixed;
+}
+
+table.b9full, 
+figure.b9full
+{
+	width: 30%;
+}
+

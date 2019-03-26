@@ -1,0 +1,15 @@
+/* =========================
+ * Tables_Heads_Italic.css
+ * ========================= */ 
+
+/* ==================================================
+ * 
+ * Copyright (c) Municode 2017
+ * 
+ * ================================================== */
+ 
+/* table heads italic */
+table thead tr td {
+  font-weight: normal;
+  font-style: italic;
+}

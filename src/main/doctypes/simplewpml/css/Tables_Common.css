@@ -1,0 +1,1389 @@
+/* =========================
+ * Tables_Common.css
+ * ========================= */
+
+/* Use with Municode's Munipub XML.
+ * For generating PDF from Antenna House Formatter,
+ * and for data entry  */
+
+/* ==================================================
+ * Common CSS rules for TABLE elements that have the
+ * same (or mostly the same) formatting
+ * in both the legacy and "future" styles.
+ * 
+ * Copyright (c) Municode 2017
+ * 
+ * ==================================================
+ */
+
+/* 
+ * ALL TABLES WILL HAVE BORDERS BY DEFAULT (even legacy style)
+ * This enables same markup to be used for
+ *  both legacy and future styles.
+ * To match legacy style tables which have no borders,
+ *  add table[@class="noborders"].
+ */
+
+/* =========================================================
+ * NAMING CONVENTION FOR CUSTOM TABLE CLASSES
+ * 
+ * 1. Table-level custom classes (Only allowed on <table> element.)
+ * 	h* - affects table head
+ * 	b* - affects table body
+ * 	f* - affects table foot
+ * 	c* - affects table caption
+ * 	hc#* - affects nth column in table head
+ * 	hr#* - affects nth row in table head
+ * 	bc#* - affects nth column in table body
+ * 	hr#c#* - affects cell in table head at nth row and nth column
+ * 
+ *		NOTE: The "#" in above classes typically allows for 1 through 5 plus "last"
+ * 		EXAMPLE: bc1bold, bc2bold, bc3bold, bc4bold, bc5bold, bclastbold are valid choices.
+ *  
+ * 2. All other custom classes can be used on <table>, <tr> or <td>
+ * 	* - affects only the element where used
+ * ==========================================================
+ */
+
+/* =====================================================
+ * GENERAL STRUCTURE OF THIS CSS FILE
+ *  
+ * • TABLE DEFAULTS
+ * • TABLE-LEVEL STYLES
+ * 		◦ Position, width
+ * 		◦ Alignment, horizontal
+ * 		◦ Alignment, vertical
+ * 		◦ Borders
+ * 		◦ Case
+ * 		◦ Font treatments
+ * • ROW-LEVEL STYLES
+ * 		◦ Alignment, horizontal
+ * 		◦ Alignment, vertical
+ * 		◦ Borders
+ * 		◦ Case
+ * 		◦ Font treatments
+ * 		◦ Rotation
+ * • CELL-LEVEL STYLES
+ * 		◦ Alignment, horizontal
+ * 		◦ Alignment, vertical
+ * 		◦ Borders
+ * 		◦ Case
+ * 		◦ Font treatments
+ * 		◦ Rotation
+ * • MISC.
+ * =====================================================*/
+
+/* Begin CSS*/
+
+/* ===================================================== 
+ * • TABLE DEFAULTS
+ * =====================================================*/
+
+table > caption {
+	display: table-caption;
+}
+
+tbody {
+	display: table-row-group;
+}
+
+thead {
+	display: table-header-group;
+}
+
+tfoot {
+	display: table-footer-group;
+}
+
+colgroup {
+	display: table-column-group;
+}
+
+tr {
+	display: table-row;
+}
+
+th,
+td {
+	display: table-cell;
+}
+
+table {
+	border: 0.5pt solid black;
+	border-collapse: collapse;
+	display: table;
+	/*	line-height: 100%; /\* Minimize vertical space *\/ */
+	/* Removed by LaRae 2/21/2019 - tables had NO interline leading*/
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+	hyphens: none;
+	page-break-inside: auto;
+	width: 100%;
+}
+
+table thead tr td,
+table tbody tr td,
+table tfoot tr td
+{
+	border: 0.5pt solid black;
+	padding: 2pt;
+	text-align: center;
+	-ah-text-align-string: center;
+	vertical-align: bottom;
+}
+
+table thead tr td
+{
+	font-weight: bold;
+	font-style: normal;
+	vertical-align: bottom;
+}
+
+table tbody tr td,
+table tfoot tr td
+{
+	vertical-align: top;
+}
+
+table tbody tr td {
+	font-weight: normal;
+	text-align: center;
+	-ah-text-align-string: center;
+	vertical-align: top;
+}
+
+table caption:not(:empty)
+{
+	text-align: center;
+	font-weight: bold;
+	margin: 0 0 0.5em 0;
+	margin: 0 0 0.5rem 0;
+}
+
+/* break-before: avoid doesn't work. 
+ * may need to use
+ * -ah-keep-together-within-dimension: 10vh;
+ */
+
+thead > tr {
+	break-before: avoid-page;
+}
+
+tbody > tr:last-child {
+	break-before: avoid-page;
+}
+
+tbody > tr:first-child {
+	break-after: avoid-page;
+}
+
+/* ===================================================== 
+ * • TABLE-LEVEL STYLES
+ * 		◦ Position, width (note: indent is in Indents_*.css)
+ * =====================================================*/
+table.posleft {
+	margin-left: 0;
+	margin-right: auto;
+}
+table.poscenter {
+	margin-left: auto;
+	margin-right: auto;
+}
+table.posright {
+	margin-left: auto;
+	margin-right: 0;
+}
+
+table.width100 {width: 36pc;}
+
+/* ===================================================== 
+ * • TABLE-LEVEL STYLES
+ * 		◦ Alignment, horizontal (text alignment within cells) 
+ * =====================================================*/
+
+table.hleft thead tr td:nth-child(1),
+table.bleft tbody tr td:nth-child(1),
+table.fleft tfoot tr td:nth-child(1),
+table.left thead tr td:nth-child(1),
+table.left tbody tr td:nth-child(1),
+table.left tfoot tr td:nth-child(1),
+table.hleft thead tr td,
+table.bleft tbody tr td,
+table.fleft tfoot tr td,
+table.cleft caption:not(:empty),
+table.left thead tr td,
+table.left tbody tr td,
+table.left tfoot tr td
+{
+	text-align: left;
+	-ah-text-align-string: left;
+}
+
+table.hleft thead tr td:nth-child(1),
+table.bleft tbody tr td:nth-child(1),
+table.fleft tfoot tr td:nth-child(1),
+table.left thead tr td:nth-child(1),
+table.left tbody tr td:nth-child(1),
+table.left tfoot tr td:nth-child(1),
+table.hright thead tr td,
+table.bright tbody tr td,
+table.fright tfoot tr td,
+table.cright caption:not(:empty),
+table.right thead tr td,
+table.right tbody tr td,
+table.right tfoot tr td
+{
+	text-align: right;
+	-ah-text-align-string: right;
+}
+
+/* Including "nth-child(1)" selectors here because same selectors 
+ * appears in Tables_Legacy.css,  setting column 1 to be left justified.
+ * Same level of specificity is required here for this match to be applied. 
+ * LaRae 02/21/2019 */
+
+table.hcenter thead tr td:nth-child(1),
+table.bcenter tbody tr td:nth-child(1),
+table.fcenter tfoot tr td:nth-child(1),
+table.center thead tr td:nth-child(1),
+table.center tbody tr td:nth-child(1),
+table.center tfoot tr td:nth-child(1),
+table.hcenter thead tr td,
+table.bcenter tbody tr td,
+table.fcenter tfoot tr td,
+table.ccenter caption:not(:empty),
+table.center thead tr td,
+table.center tbody tr td,
+table.center tfoot tr td
+{
+	text-align: center;
+	-ah-text-align-string: center;
+}
+
+table.hjustify thead tr td:nth-child(1),
+table.bjustify tbody tr td:nth-child(1),
+table.fjustify tfoot tr td:nth-child(1),
+table.justify thead tr td:nth-child(1),
+table.justify tbody tr td:nth-child(1),
+table.justify tfoot tr td:nth-child(1),
+table.hjustify thead tr td,
+table.bjustify tbody tr td,
+table.fjustify tfoot tr td,
+table.cjustify caption:not(:empty),
+table.justify thead tr td,
+table.justify tbody tr td,
+table.justify tfoot tr td
+{
+	text-align: justify;
+}
+
+table.hc1left thead tr td:nth-child(1),
+table.hc2left thead tr td:nth-child(2),
+table.hc3left thead tr td:nth-child(3),
+table.hc4left thead tr td:nth-child(4),
+table.hc5left thead tr td:nth-child(5),
+table.hclastleft thead tr td:last-child:not(:nth-child(1))
+{
+	text-align: left;
+}
+
+table.hc1center thead tr td:nth-child(1),
+table.hc2center thead tr td:nth-child(2),
+table.hc3center thead tr td:nth-child(3),
+table.hc4center thead tr td:nth-child(4),
+table.hc5center thead tr td:nth-child(5),
+table.hclastcenter thead tr td:last-child:not(:nth-child(1))
+{
+	text-align: center;
+}
+
+table.hc1right thead tr td:nth-child(1),
+table.hc2right thead tr td:nth-child(2),
+table.hc3right thead tr td:nth-child(3),
+table.hc4right thead tr td:nth-child(4),
+table.hc5right thead tr td:nth-child(5),
+table.hclastright thead tr td:last-child:not(:nth-child(1))
+{
+	text-align: right;
+}
+
+table.bc1left tbody tr td:nth-child(1),
+table.bc2left tbody tr td:nth-child(2),
+table.bc3left tbody tr td:nth-child(3),
+table.bc4left tbody tr td:nth-child(4),
+table.bc5left tbody tr td:nth-child(5),
+table.bclastleft tbody tr td:last-child:not(:nth-child(1))
+{
+	text-align: left;
+}
+
+table.bc1right tbody tr td:nth-child(1),
+table.bc2right tbody tr td:nth-child(2),
+table.bc3right tbody tr td:nth-child(3),
+table.bc4right tbody tr td:nth-child(4),
+table.bc5right tbody tr td:nth-child(5),
+table.bclastright tbody tr td:last-child:not(:nth-child(1))
+{
+	text-align: right;
+}
+
+table.bc1center tbody tr td:nth-child(1),
+table.bc2center tbody tr td:nth-child(2),
+table.bc3center tbody tr td:nth-child(3),
+table.bc4center tbody tr td:nth-child(4),
+table.bc5center tbody tr td:nth-child(5),
+table.bclastcenter tbody tr td:last-child:not(:nth-child(1))
+{
+	text-align: center;
+}
+
+table.bc1justify tbody tr td:nth-child(1),
+table.bc2justify tbody tr td:nth-child(2),
+table.bc3justify tbody tr td:nth-child(3),
+table.bc4justify tbody tr td:nth-child(4),
+table.bc5justify tbody tr td:nth-child(5),
+table.bclastjustify tbody tr td:last-child:not(:nth-child(1))
+{
+	text-align: justify;
+}
+
+table.hr1c1left thead tr:nth-child(1) td:nth-child(1),
+table.hr2c1left thead tr:nth-child(2) td:nth-child(1),
+table.hr3c1left thead tr:nth-child(3) td:nth-child(1),
+table.hr4c1left thead tr:nth-child(4) td:nth-child(1),
+table.hr5c1left thead tr:nth-child(5) td:nth-child(1)
+{
+	text-align: left;
+}
+
+table.hr1c1center thead tr:nth-child(1) td:nth-child(1),
+table.hr2c1center thead tr:nth-child(2) td:nth-child(1),
+table.hr3c1center thead tr:nth-child(3) td:nth-child(1),
+table.hr4c1center thead tr:nth-child(4) td:nth-child(1),
+table.hr5c1center thead tr:nth-child(5) td:nth-child(1)
+{
+	text-align: center;
+}
+
+table.hr1c2center thead tr:nth-child(1) td:nth-child(2),
+table.hr2c2center thead tr:nth-child(2) td:nth-child(2),
+table.hr3c2center thead tr:nth-child(3) td:nth-child(2),
+table.hr4c2center thead tr:nth-child(4) td:nth-child(2),
+table.hr5c2center thead tr:nth-child(5) td:nth-child(2)
+{
+	text-align: center;
+}
+
+/* Not yet sure how this is used. 
+ * keeping, since it must have been for something.*/
+table.bclastcenter tbody tr td:last-child:not(:nth-child(1)) {
+	text-align: center;
+}
+table.bclastright tbody tr td:last-child:not(:nth-child(1)) {
+	text-align: right;
+}
+table.bclastjustify tbody tr td:last-child:not(:nth-child(1)) {
+	text-align: justify;
+}
+
+/* Manage centering first column after a rowspan or colspan*/
+table.bcenter.bc1left.bc1exception tbody td:nth-child(1):not([rowspan]):not([colspan]) {
+	text-align: center;
+	-ah-text-align-string: center;
+	background-color: Silver;
+}
+
+/* ===================================================== 
+ * • TABLE-LEVEL STYLES
+ * 		◦ Alignment, vertical 
+ * =====================================================*/
+
+table.hverttop thead tr td,
+table.bverttop tbody tr td,
+table.fverttop tfoot tr td,
+table.verttop thead tr td,
+table.verttop tbody tr td,
+table.verttop tfoot tr td
+{
+	vertical-align: top;
+}
+
+table.hvertmiddle thead tr td,
+table.bvertmiddle tbody tr td,
+table.fvertmiddle tfoot tr td,
+table.vertmiddle thead tr td,
+table.vertmiddle tbody tr td,
+table.vertmiddle tfoot tr td
+{
+	vertical-align: middle;
+}
+
+table.hvertbottom thead tr td,
+table.bvertbottom tbody tr td,
+table.fvertbottom tfoot tr td,
+table.vertbottom thead tr td,
+table.vertbottom tbody tr td,
+table.vertbottom tfoot tr td
+{
+	vertical-align: bottom;
+}
+
+table.bc1verttop tbody tr td:nth-child(1),
+table.bc2verttop tbody tr td:nth-child(2),
+table.bc3verttop tbody tr td:nth-child(3),
+table.bc4verttop tbody tr td:nth-child(4),
+table.bc5verttop tbody tr td:nth-child(5),
+table.bclastverttop tbody tr td:last-child:not(:nth-child(1))
+{
+	vertical-align: top;
+}
+
+table.bc1vertmiddle tbody tr td:nth-child(1),
+table.bc2vertmiddle tbody tr td:nth-child(2),
+table.bc3vertmiddle tbody tr td:nth-child(3),
+table.bc4vertmiddle tbody tr td:nth-child(4),
+table.bc5vertmiddle tbody tr td:nth-child(5),
+table.bclastvertmiddle tbody tr td:last-child:not(:nth-child(1))
+{
+	vertical-align: middle;
+}
+
+table.bc1vertbottom tbody tr td:nth-child(1),
+table.bc2vertbottom tbody tr td:nth-child(2),
+table.bc3vertbottom tbody tr td:nth-child(3),
+table.bc4vertbottom tbody tr td:nth-child(4),
+table.bc5vertbottom tbody tr td:nth-child(5),
+table.bclastvertbottom tbody tr td:last-child:not(:nth-child(1))
+{
+	vertical-align: bottom;
+}
+
+table.hc1verttop thead tr td:nth-child(1),
+table.hc2verttop thead tr td:nth-child(2),
+table.hc3verttop thead tr td:nth-child(3),
+table.hc4verttop thead tr td:nth-child(4),
+table.hc5verttop thead tr td:nth-child(5),
+table.hclastverttop thead tr td:last-child:not(:nth-child(1))
+{
+	vertical-align: top;
+}
+
+table.hc1vertmiddle thead tr td:nth-child(1),
+table.hc2vertmiddle thead tr td:nth-child(2),
+table.hc3vertmiddle thead tr td:nth-child(3),
+table.hc4vertmiddle thead tr td:nth-child(4),
+table.hc5vertmiddle thead tr td:nth-child(5),
+table.hclastvertmiddle thead tr td:last-child:not(:nth-child(1))
+{
+	vertical-align: middle;
+}
+
+table.hc1vertbottom thead tr td:nth-child(1),
+table.hc2vertbottom thead tr td:nth-child(2),
+table.hc3vertbottom thead tr td:nth-child(3),
+table.hc4vertbottom thead tr td:nth-child(4),
+table.hc5vertbottom thead tr td:nth-child(5),
+table.hclastvertbottom thead tr td:last-child:not(:nth-child(1))
+{
+	vertical-align: bottom;
+}
+
+table.hr1verttop thead tr:nth-child(1) td,
+table.hr2verttop thead tr:nth-child(2) td,
+table.hr3verttop thead tr:nth-child(3) td,
+table.hr4verttop thead tr:nth-child(4) td,
+table.hr5verttop thead tr:nth-child(5) td,
+table.hrlastverttop thead tr:last-child:not(:nth-child(1))
+{
+	vertical-align: top;
+}
+
+table.hr1vertmiddle thead tr:nth-child(1) td,
+table.hr2vertmiddle thead tr:nth-child(2) td,
+table.hr3vertmiddle thead tr:nth-child(3) td,
+table.hr4vertmiddle thead tr:nth-child(4) td,
+table.hr5vertmiddle thead tr:nth-child(5) td,
+table.hrlastvertmiddle thead tr:last-child:not(:nth-child(1))
+{
+	vertical-align: middle;
+}
+
+table.hr1vertbottom thead tr:nth-child(1) td,
+table.hr2vertbottom thead tr:nth-child(2) td,
+table.hr3vertbottom thead tr:nth-child(3) td,
+table.hr4vertbottom thead tr:nth-child(4) td,
+table.hr5vertbottom thead tr:nth-child(5) td,
+table.hrlastvertbottom thead tr:last-child:not(:nth-child(1))
+{
+	vertical-align: bottom;
+}
+
+/* ===================================================== 
+ * • TABLE-LEVEL STYLES
+ * 		◦ Borders
+ * =====================================================*/
+
+table.noborders,
+table.noborders thead tr td,
+table.noborders tbody tr td,
+table.noborders tfoot tr td
+{
+	border: none;
+}
+
+@media screen /* cyan borders */
+{
+	table.noborders
+	{
+		border: 0.5pt solid Cyan;
+		border-collapse: collapse;
+	}
+
+	table.noborders thead tr td,
+	table.noborders tbody tr td,
+	table.noborders tfoot tr td
+	{
+		border: 0.5pt solid Cyan;
+	}
+}
+/* END media screen for cyan borders */
+
+table.hborders thead tr td,
+table.bborders tbody tr td,
+table.cborders tfoot tr td,
+table.fborders tfoot tr td,
+table.borders thead tr td,
+table.borders tbody tr td,
+table.borders tfoot tr td
+{
+	border: 0.5pt solid black;
+}
+
+table.bordertop thead tr:nth-child(1) td {
+	border-top: 0.5pt solid Black;
+}
+table.borderbottom tbody tr:last-child td {
+	border-bottom: 0.5pt solid Black;
+}
+/* this assumes there's no table foot */
+
+table.borderright thead tr td:last-child {
+	border-right: 0.5pt solid Black;
+}
+table.borderright tbody tr td:last-child {
+	border-right: 0.5pt solid Black;
+}
+table.borderright tfoot tr td:last-child {
+	border-right: 0.5pt solid Black;
+}
+
+table.borderleft thead tr td:nth-child(1) {
+	border-left: 0.5pt solid Black;
+}
+table.borderleft tbody tr td:nth-child(1) {
+	border-left: 0.5pt solid Black;
+}
+table.borderleft tfoot tr td:nth-child(1) {
+	border-left: 0.5pt solid Black;
+}
+
+/*outside borders (box borders) for table, thead, tbody or tfoot */
+
+table.boxborders {
+	border: solid 0.5pt black;
+	border-collapse: collapse;
+}
+
+table.bboxborders tbody tr:nth-child(1) td {
+	border-top: 0.5pt solid Black;
+}
+table.bboxborders tbody tr:last-child td {
+	border-bottom: 0.5pt solid Black;
+}
+table.bboxborders tbody tr td:nth-child(1) {
+	border-left: 0.5pt solid Black;
+}
+table.bboxborders tbody tr td:last-child {
+	border-right: 0.5pt solid Black;
+}
+
+table.fboxborders tfoot tr:nth-child(1) td {
+	border-top: 0.5pt solid Black;
+}
+table.fboxborders tfoot tr:last-child td {
+	border-bottom: 0.5pt solid Black;
+}
+table.fboxborders tfoot tr td:nth-child(1) {
+	border-left: 0.5pt solid Black;
+}
+table.fboxborders tfoot tr td:last-child {
+	border-right: 0.5pt solid Black;
+}
+
+table.hboxborders thead tr:nth-child(1) td {
+	border-top: 0.5pt solid Black;
+}
+table.hboxborders thead tr:last-child td {
+	border-bottom: 0.5pt solid Black;
+}
+table.hboxborders thead tr td:nth-child(1) {
+	border-left: 0.5pt solid Black;
+}
+table.hboxborders thead tr td:last-child {
+	border-right: 0.5pt solid Black;
+}
+
+table.hcolumnborders thead tr td,
+table.bcolumnborders tbody tr td,
+table.fcolumnborders tfoot tr td,
+table.columnborders thead tr td,
+table.columnborders tbody tr td,
+table.columnborders tfoot tr td
+{
+	border-left: 0.5pt solid Black;
+	border-right: 0.5pt solid Black;
+}
+
+table.bordertopthick
+{
+	border-top: 1.5pt solid Black;
+}
+
+table.borderbottomthick
+{
+	border-bottom: 1.5pt solid Black;
+}
+
+table.bc1borderbottom tbody tr td:nth-child(1),
+table.bc2borderbottom tbody tr td:nth-child(2),
+table.bc3borderbottom tbody tr td:nth-child(3),
+table.bc4borderbottom tbody tr td:nth-child(4),
+table.bc5borderbottom tbody tr td:nth-child(5),
+table.bclastborderbottom tbody tr td:last-child:not(:nth-child(1))
+{
+	border-bottom: 0.5pt solid Black;
+}
+
+table.bc1noborderbottom tbody tr td:nth-child(1),
+table.bc2noborderbottom tbody tr td:nth-child(2),
+table.bc3noborderbottom tbody tr td:nth-child(3),
+table.bc4noborderbottom tbody tr td:nth-child(4),
+table.bc5noborderbottom tbody tr td:nth-child(5),
+table.bclastnoborderbottom tbody tr td:last-child:not(:nth-child(1))
+{
+	border-bottom: none;
+}
+
+/* =====================================================
+ * • TABLE-LEVEL STYLES
+ * 		◦ Case
+ * =====================================================*/
+
+table.huppercase thead tr td,
+table.buppercase tbody tr td,
+table.fuppercase tfoot tr td,
+table.cuppercase caption:not(:empty),
+table.uppercase thead tr td,
+table.uppercase tbody tr td,
+table.uppercase tfoot tr td
+{
+	text-transform: uppercase;
+}
+
+table.hlowercase thead tr td,
+table.blowercase tbody tr td,
+table.flowercase tfoot tr td,
+table.clowercase caption:not(:empty),
+table.lowercase thead tr td,
+table.lowercase tbody tr td,
+table.lowercase tfoot tr td
+{
+	text-transform: lowercase;
+}
+
+table.hcapitalize thead tr td,
+table.bcapitalize tbody tr td,
+table.fcapitalize tfoot tr td,
+table.ccapitalize caption:not(:empty),
+table.capitalize thead tr td,
+table.capitalize tbody tr td,
+table.capitalize tfoot tr td
+{
+	text-transform: capitalize;
+}
+
+table.hsmallcaps thead tr td,
+table.bsmallcaps tbody tr td,
+table.fsmallcaps tfoot tr td,
+table.csmallcaps caption:not(:empty),
+table.smallcaps thead tr td,
+table.smallcaps tbody tr td,
+table.smallcaps tfoot tr td
+{
+	font-variant: small-caps;
+}
+
+/* =====================================================
+ * • TABLE-LEVEL STYLES
+ * 		◦ Font Treatments
+ * =====================================================*/
+
+table.hnormal thead tr td,
+table.bnormal tbody tr td,
+table.fnormal tfoot tr td,
+table.cnormal caption:not(:empty),
+table.normal thead tr td,
+table.normal tbody tr td,
+table.normal tfoot tr td
+{
+	font-style: normal;
+}
+
+
+table.hbold thead tr td,
+table.bbold tbody tr td,
+table.fbold tfoot tr td,
+table.cbold caption:not(:empty),
+table.bold thead tr td,
+table.bold tbody tr td,
+table.bold tfoot tr td
+{
+	font-weight: bold;
+}
+
+table.hitalic thead tr td,
+table.bitalic tbody tr td,
+table.fitalic tfoot tr td,
+table.italic caption:not(:empty),
+table.italic thead tr td,
+table.italic tbody tr td,
+table.italic tfoot tr td
+{
+	font-style: italic;
+}
+
+table.hbolditalic thead tr td,
+table.bbolditalic tbody tr td,
+table.fbolditalic tfoot tr td,
+table.cbolditalic caption:not(:empty),
+table.bolditalic thead tr td,
+table.bolditalic tbody tr td,
+table.bolditalic tfoot tr td
+{
+	font-style: italic;
+	font-weight: bold;
+}
+
+table.hsz83 thead tr td,
+table.bsz83 tbody tr td,
+table.fsz83 tfoot tr td,
+table.csz83 caption:not(:empty),
+table.sz83 thead tr td,
+table.sz83 tbody tr td,
+table.sz83 tfoot tr td
+{
+	font-size: 83%;
+}
+
+table.hsz125 thead tr td,
+table.bsz125 tbody tr td,
+table.fsz125 tfoot tr td,
+table.csz125 caption:not(:empty),
+table.sz125 thead tr td,
+table.sz125 tbody tr td,
+table.sz125 tfoot tr td
+{
+	font-size: 125%;
+}
+
+table.bc1bold tbody tr td:nth-child(1),
+table.bc2bold tbody tr td:nth-child(2),
+table.bc3bold tbody tr td:nth-child(3),
+table.bc4bold tbody tr td:nth-child(4),
+table.bc5bold tbody tr td:nth-child(5),
+table.bclastbold tbody tr td:last-child:not(:nth-child(1))
+{
+	font-weight: bold;
+}
+
+table.hr1bold thead tr:nth-child(1) td,
+table.hr2bold thead tr:nth-child(2) td,
+table.hr3bold thead tr:nth-child(3) td,
+table.hr4bold thead tr:nth-child(4) td,
+table.hr5bold thead tr:nth-child(5) td
+{
+	font-weight: bold;
+}
+
+/* =====================================================
+* • ROW-LEVEL STYLES
+ * 		◦ Alignment, horizontal
+ * =====================================================*/
+
+table thead tr.left td,
+table tbody tr.left td,
+table tfoot tr.left td
+{
+	text-align: left;
+	-ah-text-align-string: left;
+}
+
+table thead tr.right td,
+table tbody tr.right td,
+table tfoot tr.right td
+{
+	text-align: right;
+	-ah-text-align-string: right;
+}
+
+table thead tr.center td,
+table tbody tr.center td,
+table tfoot tr.center td
+{
+	text-align: center;
+	-ah-text-align-string: center;
+}
+
+table thead tr.justify td,
+table tbody tr.justify td,
+table tfoot tr.justify td
+{
+	text-align: justify;
+}
+
+/* =====================================================
+ * • ROW-LEVEL STYLES
+ * 		◦ Alignment, vertical
+ * =====================================================*/
+
+table thead tr.verttop td,
+table tbody tr.verttop td,
+table tfoot tr.verttop td
+{
+	vertical-align: top;
+}
+
+table thead tr.vertmiddle td,
+table tbody tr.vertmiddle td,
+table tfoot tr.vertmiddle td
+{
+	vertical-align: middle;
+}
+
+table thead tr.vertbottom td,
+table tbody tr.vertbottom td,
+table tfoot tr.vertbottom td
+{
+	vertical-align: bottom;
+}
+
+/* =====================================================
+ * • ROW-LEVEL STYLES
+ * 		◦ Borders
+ * =====================================================*/
+
+table thead tr.bordertop td,
+table tbody tr.bordertop td,
+table tfoot tr.bordertop td
+{
+	border-top: 0.5pt solid Black;
+}
+
+table thead tr.borderright td,
+table tbody tr.borderright td,
+table tfoot tr.borderright td
+{
+	border-right: 0.5pt solid Black;
+}
+
+table thead tr.borderbottom td,
+table tbody tr.borderbottom td,
+table tfoot tr.borderbottom td
+{
+	border-bottom: 0.5pt solid Black;
+}
+
+table thead tr.borderleft td,
+table tbody tr.borderleft td,
+table tfoot tr.borderleft td
+{
+	border-left: 0.5pt solid Black;
+}
+
+table thead tr.nobordertop td,
+table tbody tr.nobordertop td,
+table tfoot tr.nobordertop td
+{
+	border-top: none;
+}
+
+@media screen { /* cyan border */
+	table thead tr.nobordertop td,
+	table tbody tr.nobordertop td,
+	table tfoot tr.nobordertop td
+	{
+		border-top: 0.5pt solid Cyan;
+	}
+} /* END media screen for cyan border */
+
+table thead tr.noborderright td,
+table tbody tr.noborderright td,
+table tfoot tr.noborderright td
+{
+	border-right: none;
+}
+
+@media screen { /* cyan border */
+	table thead tr.noborderright td,
+	table tbody tr.noborderright td,
+	table tfoot tr.noborderright td
+	{
+		border-right: 0.5pt solid Cyan;
+	}
+} /* END media screen for cyan border */
+
+table thead tr.noborderbottom td,
+table tbody tr.noborderbottom td,
+table tfoot tr.noborderbottom td
+{
+	border-bottom: none;
+}
+@media screen { /* cyan border */
+	table thead tr.noborderbottom td,
+	table tbody tr.noborderbottom td,
+	table tfoot tr.noborderbottom td
+	{
+		border-bottom: 0.5pt solid Cyan;
+	}
+} /* END media screen for cyan border */
+
+table thead tr.noborderleft td,
+table tbody tr.noborderleft td,
+table tfoot tr.noborderleft td
+{
+	border-left: none;
+}
+@media screen { /* cyan border */
+	table thead tr.noborderbottom td,
+	table tbody tr.noborderbottom td,
+	table tfoot tr.noborderbottom td
+	{
+		border-bottom: 0.5pt solid Cyan;
+	}
+} /* END media screen for cyan border */
+
+table thead tr.bordertopthick td,
+table tbody tr.bordertopthick td,
+table tfoot tr.bordertopthick td
+{
+	border-top: 1.5pt solid Black;
+}
+
+table thead tr.borderbottomthick td,
+table tbody tr.borderbottomthick td,
+table tfoot tr.borderbottomthick td
+{
+	border-bottom: 1.5pt solid Black;
+}
+
+/* =====================================================
+ * • ROW-LEVEL STYLES
+ * 		◦ Case
+ * =====================================================*/
+
+table thead tr.uppercase td,
+table tbody tr.uppercase td,
+table tfoot tr.uppercase td
+{
+	text-transform: uppercase;
+}
+
+table thead tr.lowercase td,
+table tbody tr.lowercase td,
+table tfoot tr.lowercase td
+{
+	text-transform: lowercase;
+}
+
+table thead tr.capitalize td,
+table tbody tr.capitalize td,
+table tfoot tr.capitalize td
+{
+	text-transform: capitalize;
+}
+
+table thead tr.smallcaps td,
+table tbody tr.smallcaps td,
+table tfoot tr.smallcaps td
+{
+	font-variant: small-caps;
+}
+
+/* =====================================================
+ * • ROW-LEVEL STYLES
+ * 		◦ Font Treatments
+ * =====================================================*/
+
+table thead tr.bold td,
+table tbody tr.bold td,
+table tfoot tr.bold td
+{
+	font-weight: bold;
+}
+
+table thead tr.italic td,
+table tbody tr.italic td,
+table tfoot tr.italic td
+{
+	font-style: italic;
+}
+
+table thead tr.bolditalic td,
+table tbody tr.bolditalic td,
+table tfoot tr.bolditalic td
+{
+	/* .?bolditalic is a custom class allowed only on <table>.
+	 * It's not supported on rows or cells.
+	 * For rows and cells, use standard HTML class="bold italic" instead. 
+	 * */
+	background-color: yellow;
+}
+
+/* =====================================================
+ * • ROW-LEVEL STYLES
+ * 		◦ Rotation
+ * =====================================================*/
+
+tr.rotateleft > td
+{
+	/* CSS3 standard as defined here: http://www.w3.org/TR/css3-transforms/ */
+	/*transform: rotate(-90deg);*/
+	-ah-reference-orientation: 90;
+	min-width: 0; /*  This is a workaround for an AHF bug to make vertical centering work. */
+}
+
+table tr.rotateright > td
+{
+	/* CSS3 standard as defined here: http://www.w3.org/TR/css3-transforms/ */
+	/*	transform: rotate(90deg);*/
+	-ah-reference-orientation: 90;
+	min-width: 0; /*  This is a workaround for an AHF bug to make vertical centering work. */
+}
+
+table tr.rotatezero > td
+{
+	/* CSS3 standard as defined here: http://www.w3.org/TR/css3-transforms/ */
+	/*transform: rotate(0deg);*/
+	-ah-reference-orientation: 90;
+	min-width: 0; /*  This is a workaround for an AHF bug to make vertical centering work. */
+}
+
+/* =====================================================
+ * • CELL-LEVEL STYLES
+ * 		◦ Alignment, horizontal =====================================================*/
+
+table thead tr td.left,
+table tbody tr td.left,
+table tfoot tr td.left
+{
+	text-align: left;
+	-ah-text-align-string: left;
+}
+
+table thead tr td.right,
+table tbody tr td.right,
+table tfoot tr td.right
+{
+	text-align: right;
+	-ah-text-align-string: right;
+}
+
+table thead tr td.center,
+table tbody tr td.center,
+table tfoot tr td.center
+{
+	text-align: center;
+	-ah-text-align-string: center;
+}
+
+table thead tr td.justify,
+table tbody tr td.justify,
+table tfoot tr td.justify
+{
+	text-align: justify;
+}
+
+/* =====================================================
+ * • CELL-LEVEL STYLES
+ * 		◦ Alignment, vertical
+ * =====================================================*/
+
+table thead tr td.verttop,
+table tbody tr td.verttop,
+table tfoot tr td.verttop
+{
+	vertical-align: top;
+}
+
+table thead tr td.vertmiddle,
+table tbody tr td.vertmiddle,
+table tfoot tr td.vertmiddle
+{
+	vertical-align: middle;
+}
+
+table thead tr td.vertbottom,
+table tbody tr td.vertbottom,
+table tfoot tr td.vertbottom
+{
+	vertical-align: bottom;
+}
+
+/* =====================================================
+ * • CELL-LEVEL STYLES
+ * 		◦ Borders
+ * =====================================================*/
+
+table thead tr td.bordertop,
+table tbody tr td.bordertop,
+table tfoot tr td.bordertop
+{
+	border-top: 0.5pt solid Black;
+}
+
+table thead tr td.borderright,
+table tbody tr td.borderright,
+table tfoot tr td.borderright
+{
+	border-right: 0.5pt solid Black;
+}
+
+table thead tr td.borderbottom,
+table tbody tr td.borderbottom,
+table tfoot tr td.borderbottom
+{
+	border-bottom: 0.5pt solid Black;
+}
+
+table thead tr td.borderleft,
+table tbody tr td.borderleft,
+table tfoot tr td.borderleft
+{
+	border-left: 0.5pt solid Black;
+}
+
+table thead tr td.nobordertop,
+table tbody tr td.nobordertop,
+table tfoot tr td.nobordertop
+{
+	border-top: none;
+}
+
+@media screen { /* cyan border */
+	table thead tr td.nobordertop,
+	table tbody tr td.nobordertop,
+	table tfoot tr td.nobordertop
+	{
+		border-top: 0.5pt solid Cyan;
+	}
+} /* END media screen for cyan border */
+
+table thead tr td.nobordertop,
+table tbody tr td.nobordertop,
+table tfoot tr td.nobordertop
+{
+	border-top: none;
+}
+
+@media screen { /* cyan border */
+	table thead tr td.noborderright,
+	table tbody tr td.noborderright,
+	table tfoot tr td.noborderright
+	{
+		border-right: 0.5pt solid Cyan;
+	}
+} /* END media screen for cyan border */
+
+table thead tr td.noborderbottom,
+table tbody tr td.noborderbottom,
+table tfoot tr td.noborderbottom
+{
+	border-bottom: none;
+}
+
+@media screen { /* cyan border */
+	table thead tr td.noborderbottom,
+	table tbody tr td.noborderbottom,
+	table tfoot tr td.noborderbottom
+	{
+		border-bottom: 0.5pt solid Cyan;
+	}
+} /* END media screen for cyan border */
+
+table thead tr td.noborderleft,
+table tbody tr td.noborderleft,
+table tfoot tr td.noborderleft
+{
+	border-left: none;
+}
+
+@media screen { /* cyan border */
+	table thead tr td.noborderleft,
+	table tbody tr td.noborderleft,
+	table tfoot tr td.noborderleft
+	{
+		border-left: 0.5pt solid Cyan;
+	}
+} /* END media screen for cyan border */
+
+table thead tr td.bordertopthick,
+table tbody tr td.bordertopthick,
+table tfoot tr td.bordertopthick
+{
+	border-top: 1.5pt solid Black;
+}
+
+table thead tr td.borderbottomthick,
+table tbody tr td.borderbottomthick,
+table tfoot tr td.borderbottomthick
+{
+	border-bottom: 1.5pt solid Black;
+}
+
+/* =====================================================
+ * • CELL-LEVEL STYLES
+ * 		◦ Case
+ * =====================================================*/
+
+table thead tr td.uppercase,
+table tbody tr td.uppercase,
+table tfoot tr td.uppercase
+{
+	text-transform: uppercase;
+}
+
+table thead tr td.lowercase,
+table tbody tr td.lowercase,
+table tfoot tr td.lowercase
+{
+	text-transform: lowercase;
+}
+
+table thead tr td.capitalize,
+table tbody tr td.capitalize,
+table tfoot tr td.capitalize
+{
+	text-transform: capitalize;
+}
+
+table thead tr td.smallcaps,
+table tbody tr td.smallcaps,
+table tfoot tr td.smallcaps
+{
+	font-variant: small-caps;
+}
+
+/* =====================================================
+ * • CELL-LEVEL STYLES
+ * 		◦ Font Treatments
+ * =====================================================*/
+
+table thead tr td.bold,
+table tbody tr td.bold,
+table tfoot tr td.bold
+{
+	font-weight: bold;
+}
+
+table thead tr td.italic,
+table tbody tr td.italic,
+table tfoot tr td.italic
+{
+	font-style: italic;
+}
+
+table thead tr td.bolditalic,
+table tbody tr td.bolditalic,
+table tfoot tr td.bolditalic
+{
+	/* .?bolditalic is a custom class allowed only on <table>.
+	 * It's not supported on rows or cells.
+	 * For rows and cells, use standard HTML class="bold italic" instead. 
+	 * */
+	background-color: yellow;
+}
+
+table thead tr.sz83 td,
+table tbody tr.sz83 td,
+table tfoot tr.sz83 td
+{
+	font-size: 83%;
+}
+table thead tr td.sz83,
+table tbody tr td.sz83,
+table tfoot tr td.sz83
+{
+	font-size: 83%;
+}
+
+table thead tr.sz125 td,
+table tbody tr.sz125 td,
+table tfoot tr.sz125 td
+{
+	font-size: 125%;
+}
+table thead tr td.sz125,
+table tbody tr td.sz125,
+table tfoot tr td.sz125
+{
+	font-size: 125%;
+}
+
+/* =====================================================
+ * • CELL-LEVEL STYLES
+ * 		◦ Rotation
+ * =====================================================*/
+
+
+tr td.rotateleft
+{
+	/* CSS3 standard as defined here: http://www.w3.org/TR/css3-transforms/ */
+	transform: rotate(-90deg);
+	-ah-reference-orientation: 90;
+	min-width: 0; /*  This is a workaround for an AHF bug to make vertical centering work. */
+}
+
+table tr > td.rotateright
+{
+	/* CSS3 standard as defined here: http://www.w3.org/TR/css3-transforms/ */
+	transform: rotate(90deg);
+	-ah-reference-orientation: 90;
+	min-width: 0; /*  This is a workaround for an AHF bug to make vertical centering work. */
+}
+
+table tr > td.rotatezero
+{
+	/* CSS3 standard as defined here: http://www.w3.org/TR/css3-transforms/ */
+	transform: rotate(0deg);
+	-ah-reference-orientation: 90;
+	min-width: 0; /*  This is a workaround for an AHF bug to make vertical centering work. */
+}
+
+/* =====================================================
+ * • MISC.
+ * =====================================================*/
+
+table caption.hidden
+{
+	margin: 0 0 -2rem 0;
+	padding: 0;
+}
+
+table > tbody > tr > td.decimal-align {
+	/* 2017-03-20: This doesn't seem to work with AHF although the docs suggest it should: */
+	text-align: ".";
+}
+
+/* ============
+ * END CSS
+ * ============*/

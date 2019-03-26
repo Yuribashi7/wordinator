@@ -1,0 +1,19 @@
+/* =========================
+ * Font_NCSB.css
+ * ========================= */ 
+
+/* Set initial font family & font weight only. 
+ *  For use by all rendering agents including AHF */
+
+ /* ==================================================
+ * Copyright (c) Municode 2019
+ * ==================================================
+ */
+
+root,
+html,
+section 
+{
+   	font-family: "New Century Schoolbook", serif, "Arial Unicode";
+}
+

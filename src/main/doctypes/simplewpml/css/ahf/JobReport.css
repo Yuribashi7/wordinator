@@ -1,0 +1,303 @@
+/*
+ * Rules for job reports
+ * 
+ * Job reports are the same for all page layout types.
+ * 
+ */
+ 
+@page jobSummary {
+  size:   8.5in 11in;
+  margin-left: 0.5in;
+  margin-right: 0.5in;
+  margin-bottom: 0.5in; 
+  margin-top: 0.5in;
+   
+  @top-center {
+    content: none;
+  }
+
+  @bottom-center {
+    content: none;
+  }
+
+ }
+ 
+/* 
+ * The html/head element contains the job report details as well as
+ * metadata used to populate running heads and feet.
+ * 
+ */
+
+jobSupport {
+  page: jobSummary;
+  display: block;
+  /*font-family: "New Century Schoolbook", serif;*/
+  font-size: 12pt;
+  line-height: 14pt;
+}
+
+jobSummary {
+  display: block;
+}
+
+
+jobDetails {
+  display: block;
+  margin-bottom: 14pt;
+  text-align: center;
+  font-weight: bold;  
+}
+
+jobDetails:before {
+  display: inline;
+  content: 'Print Job Report for ';
+}
+
+accountNumber,
+client,
+state,
+user,
+date
+{
+  display: inline;
+}
+
+date {
+  text-transform: capitalize;
+}
+
+client:before {
+  display: inline;
+  content: ' - ';
+}
+
+state:before {
+  display: inline;
+  content: ', ';
+}
+
+user:before {
+  display: inline;
+  content: ' - ';
+}
+
+date:before {
+  display: inline;
+  content: ' - ';
+}
+
+/* 
+ * Updates
+ */
+ 
+update {
+  display: block;
+} 
+
+updateTitle {
+  display: block;
+  font-weight: bold;
+  margin-top: 14pt;
+}
+
+itemTables {
+  display: block;
+  column-count: 3;
+  margin-top: 14pt;
+}
+
+itemTable {  
+  display: table;
+  border: 0.5pt solid black;
+  width: 14pc;
+  border-collapse: collapse;
+  font-size: 11pt;
+}
+
+
+autogenPageCount,
+blankPageCount,
+chargeablePageCount,
+colorPageCount,
+foldoutCount,
+graphicCount,
+imageCount,
+indexPageCount,
+nochargeErrorPageCount,
+nochargeOtherPageCount,
+pageCount, 
+tableCount
+
+{
+  display: table-row;
+  border: 0.5pt solid black;
+}
+
+pageCount > value:before {
+  content: counter(pages);
+}
+
+pageCount > value {
+  
+}
+
+value {
+  display: table-cell;
+  padding-left: 4pt;
+  padding-right: 4pt;
+  text-align: right;
+}
+
+chargeablePageCount > value {
+   background-color: yellow;
+}
+
+autogenPageCount:before,
+blankPageCount:before,
+chargeablePageCount:before,
+colorPageCount:before,
+foldoutCount:before,
+graphicCount:before,
+indexPageCount:before,
+imageCount:before,
+nochargeErrorPageCount:before,
+nochargeOtherPageCount:before,
+pageCount:before,
+tableCount:before
+{
+  display: table-cell;
+  border: 0.5pt solid black;
+  padding-left: 4pt;
+}
+
+pageCount:before {
+  content: 'Pages';
+}
+
+blankPageCount:before {
+  content: 'Filler';
+}
+
+nochargeErrorPageCount:before {
+  content: 'NC_error';
+}
+
+nochargeOtherPageCount:before {
+  content: 'NC_pagination';
+}
+
+autogenPageCount:before {
+  content: 'Auto pages';
+}
+
+indexPageCount:before {
+  content: 'Index pages';
+}
+
+graphicCount:before {
+  content: 'Graphics';
+}
+
+tableCount:before {
+  content: 'Tables';
+}
+
+chargeablePageCount:before {
+  content: 'Chargeable pages';
+}
+
+colorPageCount:before {
+  content: 'Color/bgcolor';
+}
+
+foldoutCount:before {
+  content: 'Foldouts';
+}
+
+
+/*
+ * Job contents overview section
+ */
+ 
+jobContentsOverview {
+  display: block;
+  column-count: 1;
+  border-top: 0.5pt solid black;
+  margin-top: 14pt;
+  padding-top: 6pt;
+} 
+
+jobContentsOverview:before {
+  content: 'Job Contents Overview';
+  display: block;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 14pt;
+}
+
+segmentOverview {
+  display: block;
+  font-family: "Courier new", monospace, "Arial Unicode";
+}
+
+segDescription {
+  display: block;
+  margin-top: 14pt;
+}
+
+segDescription > file {
+  display: inline;
+  font-weight: bold;
+}
+
+segDescription > affectedBy {
+  display: inline;
+}
+
+segDescription > affectedBy:before {
+  content: ' - '
+}
+
+
+/*
+ * Key to symbols section
+ */
+ 
+keyToSymbols {
+  display: block;
+}
+
+keyToSymbols:before {
+  display: block;
+  content: 'Key to symbols';
+  font-weight: bold;
+  margin-bottom: 14pt;
+  margin-top: 14pt;
+  border-top: 0.5pt solid black;
+  padding-top: 4pt;
+  width: 8pc;
+}
+
+keyToSymbols > symbols {
+  display: block;
+  column-count: 3;
+}
+
+keyToSymbols:after {
+  display: block;
+  column-count: 1;
+  content: '\a0';
+}
+
+symbol {
+   display: block;
+}
+
+sym {
+  display: inline-block;
+  width: 3pc;
+}
+
+symbol > value {
+  display: inline;
+}

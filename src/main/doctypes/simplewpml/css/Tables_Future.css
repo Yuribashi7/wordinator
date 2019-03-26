@@ -1,0 +1,103 @@
+/* =========================
+ * Tables_Future.css
+ * ========================= */ 
+
+/* CSS for "Future" style tables
+ * using Municode's Munipub XML. */
+ 
+/* ========================
+ * Specific to "future" style tables
+ * ========================
+ * cct tables have gray background color
+ * for cct tables: text alignment of columns 
+ * 	varies according to number of columns
+ */
+  
+/* 
+ * CCT tables
+ */
+
+table.cct,
+table.slrt,
+table.supphistory
+{
+  border: 0.5pt solid Black;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 120%;
+  table-layout: fixed;
+  text-align: center;
+  width: 100%;
+}
+
+section[data-type = 'cct'] div.columns2,
+section[data-type = 'slrt'] div.columns2
+{
+  column-gap: 2pc;
+}
+
+
+table.cct thead td,
+table.slrt thead td,
+table.supphistory thead td {
+  background-color: lightgrey;
+  font-weight: bold;
+  font-style: normal;
+}
+
+table.cct > tbody,
+table.cct  tr,
+table.cct  td,
+table.cct  th, 
+table.slrt > tbody,
+table.slrt  tr,
+table.slrt  td,
+table.slrt  th,
+table.supphistory > tbody,
+table.supphistory tr,
+table.supphistory  td,
+table.supphistory  th
+{
+  border: 0.5pt solid Black;
+}
+
+table.cct td,
+table.slrt td
+{
+  margin-left: 2pt;
+  margin-right: 2pt;
+  padding-left: 2pt;
+}
+
+
+table.cct td:nth-child(1):nth-last-child(-n+2),
+table.slrt td:nth-child(1):nth-last-child(-n+2)
+{
+  text-align: left; /* Only 2-column tables have col 1 left-justified.*/
+}
+
+table.cct td:nth-child(2):nth-last-child(-n+1),
+table.slrt td:nth-child(2):nth-last-child(-n+1)
+{
+  text-align: right; /* Only 2-column tables have col 2 right-justified.*/
+}
+
+table.cct  td:nth-child(3):nth-last-child(-n+2),
+table.slrt  td:nth-child(3):nth-last-child(-n+2)
+{
+  text-align: left; /* Only 4-column tables have col 3 left-justified.*/
+}
+
+table.cct  td:nth-child(4):nth-last-child(-n+1),
+table.slrt  td:nth-child(4):nth-last-child(-n+1)
+{
+  text-align: right; /* Only 4-column tables have col 4 right-justified.*/
+}
+
+section[data-type = 'cct'] div.columns2,
+section[data-type = 'slrt'] div.columns2
+{
+  column-gap: 2pc;
+}
+
+/*  End of CSS */

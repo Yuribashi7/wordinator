@@ -1,0 +1,13 @@
+/**
+ * AHF-specific rule for text wrapping to the outside edge.
+ */
+ 
+/* This is Antenna House specific and is experimental. */
+figure.textwrapoutside
+{
+  float: outside;
+  -ah-float-margin-x: 1pc;
+  -ah-float-margin-y: 1pc;
+  border: blue solid 0.5pt;
+} 
+

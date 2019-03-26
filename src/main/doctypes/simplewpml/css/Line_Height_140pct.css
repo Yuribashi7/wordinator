@@ -1,0 +1,19 @@
+/* =========================
+ * Line_Height_140pct.css
+ * ========================= */ 
+ 
+ /* Set initial line height (printing term: interline leading) 
+ *  For use by all rendering agents including AHF */
+
+ /* ==================================================
+ * Copyright (c) Municode 2019
+ * ==================================================
+ */
+ 
+root,
+html,
+section,
+aside
+{
+   line-height: 140%;
+}

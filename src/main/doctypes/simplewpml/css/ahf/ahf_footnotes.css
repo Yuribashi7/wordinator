@@ -1,0 +1,12 @@
+/* *
+ * AHF-specfic footnote rules.
+ */
+
+aside::footnote-call {
+  content: counter(footnote, symbols('*' '†' '‡'));
+}
+
+aside::footnote-marker {
+  content: counter(footnote, symbols('*' '†' '‡'));
+}
+

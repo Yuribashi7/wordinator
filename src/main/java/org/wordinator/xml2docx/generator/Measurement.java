@@ -54,7 +54,7 @@ public class Measurement {
 	 * Calculate the number of inches represented by the specified measurement value.
 	 * @param measurementValue The measurement value with unit (e.g., "12pt", "1.3in")
 	 * @param dotsPerInch The number of pixels (dots) per inch.
-	 * @return Number of inchines
+	 * @return Number of inches
 	 * @throws MeasurementException Bad measurement value
 	 */
 	public static double toInches(String measurementValue, int dotsPerInch)

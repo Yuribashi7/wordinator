@@ -1,0 +1,278 @@
+/* =========================
+ * Headings_Future.css
+ * ========================= */ 
+
+/* Antenna House-specific CSS for generating PDF
+ * from Municode's Munipub XML.
+ * This file deals with general appearance 
+ * but not page-breaks or keeps. */ 
+ 
+/* Font changes are limited to @media print. */
+ 
+/* ========================
+ * Specific to "future" style
+ * ========================
+ * Headings are styled based on 
+ * number of steps away from root section. 
+ * This is different from "Legacy," 
+ * which uses section data-type for styling. 
+ * 
+ * Headings use different font from body text.
+ * 
+ * Margins use rem (relative measurements)  
+ * and line-heights use percentages, 
+ * rather than qualified amounts.
+ * 
+ */
+ 
+
+/**** Root Element Title Block (not part of printed output) ****/
+html > body > header {
+  display: block;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+html > body > header > h1 {
+  display: inline;
+}
+
+@media print{
+	html > body > header > h1 {
+	  font-family: "Gill Sans MT Pro Book", sans-serif, "Arial Unicode";
+	}
+}
+
+html > body > header > p[data-type="subtitle"] {
+  display: inline;
+}
+
+@media print {
+	html > body > header > p[data-type="subtitle"] {
+	  font-family: "Gill Sans MT Pro Book", sans-serif, "Arial Unicode";
+	}
+}
+
+/**** Heading Defaults ****/
+
+section > header
+{
+	margin-top: 1rem;
+	margin-bottom: 0.8rem;
+	text-align: center;
+}
+
+section > header > h1,
+section > header > p[data-type="subtitle"]
+{
+	display: block;
+	font-style: normal;
+	font-weight: bold;
+	padding-top: 0;
+	text-align: center;
+}
+
+@media print {
+	section > header > h1,
+	section > header > p[data-type="subtitle"]
+	{
+		font-family: "Gill Sans MT Pro Book", sans-serif, "Arial Unicode";
+	}
+}
+
+/**** PART (don't count towards heading level) ****/
+
+html > body > section[data-type = "part"] > header > h1 {
+  font-size: 16pt;
+	font-style: normal;
+	line-height: 140%;
+	padding-top: 0;
+}
+
+html > body > section[data-type = "part"] > header > h1:after {
+  content: none;
+}
+
+html > body > section[data-type = "part"] > header > p[data-type="subtitle"] {
+  font-size: 16pt;
+	font-style: normal;
+	line-height: 140%;
+	padding-top: 0;
+
+}
+
+/**** Heading Level 1 ****/
+
+html > body > section:not([data-type = "part"]) > header > h1,
+html > body > section[data-type = "part"] > section > header > h1 
+{
+  font-size: 16pt;
+	font-style: normal;
+	line-height: 140%;
+	padding-top: 0;
+}
+
+html > body > section:not([data-type = "part"]) > header > h1:after,
+html > body > section[data-type = "part"] > section > header > h1:after
+{
+  content: none;
+}
+
+html > body > section:not([data-type = "part"]) > header > p[data-type="subtitle"],
+html > body > section[data-type = "part"] > section > header > p[data-type="subtitle"]
+{
+  font-size: 16pt;
+	font-style: normal;
+	line-height: 140%;
+	padding-top: 0;
+}
+
+
+/**** Heading Level 2 ****/
+/* 	Second non-section heading level beneath a part 
+ * 	OR
+ * 	First non-section heading level beneath document root */
+
+html > body > section:not([data-type = "part"]) > section:not([data-type $= "section"]) > header > h1,
+html > body > section[data-type = "part"] > section > section:not([data-type $= "section"]) > header > h1
+{
+  font-size: 14pt;
+  display: inline;
+  line-height: 130%;
+}
+
+html > body > section[data-type = "part"] > section > section:not([data-type $= "section"]) > header > h1.has-subtitle:after,
+html > body > section:not([data-type = "part"]) > section:not([data-type $= "section"]) > header > h1.has-subtitle:after
+{
+  content: ".\00a0";
+}
+
+html > body > section:not([data-type = "part"]) > section:not([data-type $= "section"]) > header > p[data-type="subtitle"],
+html > body > section[data-type = "part"] > section > section:not([data-type $= "section"]) > header > p[data-type="subtitle"]
+{
+  font-size: 14pt;
+  display: inline;
+  line-height: 130%;
+}
+
+/**** Heading Level 3 ****/
+
+html > body > section:not([data-type = "part"]) > section > section:not([data-type $= "section"]) > header > h1,
+html > body > section[data-type = "part"] > section > section > section:not([data-type $= "section"]) > header > h1
+{
+  display: inline;
+  font-size: 13pt;
+  font-style: italic;
+}
+
+html > body > section:not([data-type = "part"]) > section > section:not([data-type $= "section"]) > header > h1.has-subtitle:after,
+html > body > section[data-type = "part"] > section > section > section:not([data-type $= "section"]) > header > h1.has-subtitle:after
+{
+	content: ".\00a0";
+}
+
+html > body > section:not([data-type = "part"]) > section > section:not([data-type $= "section"]) > header > p[data-type="subtitle"],
+html > body > section[data-type = "part"] > section > section > section:not([data-type $= "section"]) > header > p[data-type="subtitle"]
+
+{
+  display: inline;
+	font-size: 13pt;
+  font-style: italic;
+}
+
+/**** Heading Level 4 ****/
+
+html > body > section:not([data-type = "part"]) > section > section > section:not([data-type $= "section"]) > header > h1,
+html > body > section[data-type = "part"] > section > section > section > section:not([data-type $= "section"]) > header > h1
+{
+  display: inline;
+  font-size: 13pt;
+  font-style: italic;
+  font-weight: normal;
+}
+
+html > body > section:not([data-type = "part"]) > section > section > section:not([data-type $= "section"]) > header > h1.has-subtitle:after,
+html > body > section[data-type = "part"] > section > section > section > section:not([data-type $= "section"]) > header > h1.has-subtitle:after
+{
+	content: ".\00a0";
+}
+
+html > body > section:not([data-type = "part"]) > section > section > section:not([data-type $= "section"]) > header > p[data-type="subtitle"],
+html > body > section[data-type = "part"] > section > section > section > section:not([data-type $= "section"]) > header > p[data-type="subtitle"]
+{
+  display: inline;
+  font-size: 13pt;
+  font-style: italic;
+  font-weight: normal;
+}
+
+/**** Heading Level 5 ****/
+
+html > body > section:not([data-type = "part"]) > section > section > section >  section:not([data-type $= "section"]) > header > h1,
+html > body > section[data-type = "part"] > section > section > section > section >  section:not([data-type $= "section"]) > header > h1
+{
+  display: inline;
+  font-size: 12pt;
+  font-style: italic;
+  font-weight: normal;
+}
+
+html > body > section:not([data-type = "part"]) > section > section > section >  section:not([data-type $= "section"]) > header > h1.has-subtitle:after,
+html > body > section[data-type = "part"] > section > section > section > section >  section:not([data-type $= "section"]) > header > h1.has-subtitle:after
+{
+	content: ".\00a0";
+}
+
+html > body > section:not([data-type = "part"]) > section > section > section > section:not([data-type $= "section"]) > header > p[data-type="subtitle"],
+html > body > section[data-type = "part"] > section > section > section > section > section:not([data-type $= "section"]) > header > p[data-type="subtitle"]
+{
+  display: inline;
+  font-size: 12pt;
+  font-style: italic;
+  font-weight: normal;
+}
+
+/* "section" */
+
+section[data-type $= 'section'] > header
+{
+	break-after: avoid;
+  display: block;
+  font-style: normal;
+  line-height: 110%;
+  font-size: 12pt;
+	margin-bottom: 0.2rem;
+  margin-left: 75pt; /* 1in + 3pts */
+	margin-top: 0.5rem;
+  text-align: left;
+  text-indent: -75pt;
+}
+ 
+section[data-type $= 'section'] > header > h1
+{
+  display: inline-block;
+  font-size: 12pt;
+  margin-left: 0pt;
+  margin-top: 0pt;
+  margin-bottom: 0pt;
+  padding-top: 0pt;
+  padding-bottom: 0pt;
+  padding-right: 3pt;  
+  min-width: 1in;
+  text-align: left;
+  text-indent: 0pt;
+	white-space: nowrap;
+}
+
+section[data-type $= 'section'] > header > h1.has-subtitle:after
+{
+  content: ".\00a0";
+}
+
+section[data-type $= 'section'] > header > p[data-type="subtitle"]
+{
+  display: inline;
+  text-align: left;
+  text-indent: 0pt;
+}
+

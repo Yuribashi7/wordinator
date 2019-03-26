@@ -1,0 +1,293 @@
+/**
+ * AHF-specific overrides to the base MunicodeCommon.css rules 
+ */
+ 
+@import url("JobReport.css");
+
+html {
+   -ah-avoid-widow-words: true;
+} 
+
+
+/* ========================================
+	• general styles (overrides MunicodeCommon.css)
+ ======================================== */
+
+/* font sizes */
+.sz8pt
+{ 
+  font-size: 8pt;
+}
+.sz9pt { 
+  font-size: 9pt;
+}
+.sz10pt { 
+  font-size: 10pt;
+}
+.sz7pt { 
+  font-size: 7pt;
+}
+
+img
+{
+	content: attr(src url); 
+	width: attr(width px, auto); 
+	height: attr(height px, auto); 
+	-ah-alttext: attr(alt);
+}
+
+
+/* 
+  * NOTE: The number-sample rules need to be repeated in the pub-type-specific
+  * CSS to set the font family for each publication area
+  */
+ char-sample.body {
+   display: block;
+ }
+ 
+ char-sample.header {
+   display: block;
+ }
+ 
+ char-sample.footer {
+   display: block;
+ }
+ 
+ char-set {
+   display: block;
+   font-size: attr(font-size);
+ }
+ 
+ decimal, char {
+   display: inline;
+ }
+
+/* 
+ * ===========================
+ * Number samples
+ * ===========================
+ */
+ 
+ char-samples {
+   display: block;
+   color: white;
+   column-count: 3;
+ }
+
+/* ===========================
+ * Frills
+ * ===========================
+*/
+
+header > p[data-type=alt-subtitle], 
+header > p[data-type=alt-title],
+p[data-type=abbrev],
+p[data-type=postfolio],
+p[data-type=prefolio],
+p[data-type=startpage],
+p[data-type=alt-llstyle1],
+p[data-type=alt-llstyle2],
+p[data-type=alt-llstyle3],
+p[data-type=startpage]
+{
+  display: none;  
+}
+
+p[data-type=prefolio]  
+{
+  string-set: prefolio content();
+  display: none;
+}
+p[data-type=postfolio]  
+{
+  string-set: postfolio content();
+  display: none;
+}
+p[data-type=alt-folio]  
+{
+  string-set: altfolio content();
+  display: none;
+}
+
+
+  
+/*
+ * Use these for marking take starts/ends for debugging.
+ * Not all take starts get marked but all take ends should
+ * be marked.
+ *  
+areaTreeMarker[id ^= 'take:take-begin'] 
+{
+  border-bottom: 0.5pt blue solid;
+  width: 100%;
+}
+
+areaTreeMarker[id ^= 'take:take-end'] 
+{
+  border-top: 0.5pt red solid;
+  width: 100%;
+}
+*/
+
+/*  FIXME: May need additional selectors as for take end
+ *  Want to be careful not to generate unnecessary page breaks. 
+ */
+div.section-body areaTreeMarker[id ^= 'take:take-begin']
+{
+  display: block;
+  break-before: right;
+}
+
+section > section + areaTreeMarker[id ^= 'take:take-end'],
+section > section > areaTreeMarker[id ^= 'take:take-end'],
+div.section-body areaTreeMarker[id ^= 'take:take-end']
+{
+  display: block;
+  break-after: right;
+}
+
+/* ====================
+ * Section page breaks
+ * ====================
+ */
+ 
+section.page-break-before-right
+{
+  break-before: right;
+}
+
+
+/* Div used to force its children to stay together on the page. */
+div.keeptogether
+{
+  -ah-keep-together-within-dimension: 10vh;
+}
+
+div.columns2 {
+	-ah-keep-together-within-dimension: 0vh;
+ }
+
+
+ div.columns3 {
+   -ah-keep-together-within-dimension: 0vh;
+ }
+
+aside.footnote {
+  font-size: 10pt;
+}  
+
+aside::footnote-call {
+  font-size: 8pt;
+}
+
+aside::footnote-marker {
+  -ah-margin-end: 0em; /* Override HTML default */
+  font-size: 8pt;
+}
+
+p.sigr
+{
+  margin-left: calc(100% - (13pc));
+}
+
+p.siglineright
+{
+  margin-left: calc(100% - (13pc + 1pc));
+}
+
+div.index-group div.ref
+{
+  -ah-last-line-end-indent: -3pc; /*  NOTE: AH bug doubles this value. Should be -6pc */
+}
+
+div.index-group > ul
+{  
+  width: calc(100% - 4.5pc);
+}
+
+div.index-group > ul > li > ul
+{
+  width: calc(100% - (0pc + 1.5pc));
+}
+
+div.index-group > ul > li > ul > li > ul
+{
+  width: calc(100% - (0pc + 1.5pc));
+}
+
+div.index-group > ul > li > ul > li > ul > li > ul
+{ 
+  width: calc(100% - (0pc + 1.5pc));
+}
+
+div.index-group > ul > li > ul > li > ul > li > ul > li > ul
+{  
+  width: calc(100% - (0pc + 1.5pc));
+}
+
+div.index-group > ul > li > ul > li > ul > li > ul > li > ul > li > ul
+{
+  width: calc(100% - (0pc + 1.5pc));
+}
+
+div.index-group > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul
+{
+  width: calc(100% - (0pc + 1.5pc));
+}
+
+div.index-group div.hasref:after {
+  content: leader(dotted);
+}
+
+div.index-group > ul > li {
+  -ah-keep-together-within-dimension: 10vh;
+}
+
+/* =========================
+ * PDF Tagline Components
+ * ========================= */
+ 
+ current-page {
+   content: counter(page);
+ }
+
+ total-pages {
+   content: counter(pages);
+ }
+
+
+/* =========================
+ * PDF Bookmarks
+ * ========================= */
+ 
+  div.bookmark
+ {
+  -ah-outline-title: attr(bookmark-label);
+  -ah-outline-internal-destination: attr(bookmark-target);
+  -ah-outline-level: attr(bookmark-outline-level);
+ }
+
+ div.bookmarks
+ {
+  display: block;
+  visibility: hidden;
+  width: 0pt;
+  height: 0pt;
+  position: absolute;
+  top: 0pt;
+  left: 0pt;
+ }
+ 
+ div.bookmark-list 
+ {
+   margin-left: 2pc;
+ }
+ 
+  div.bookmark
+ {
+   display: block;
+ }
+ 
+ div.bookmark::before {
+   content: attr(bookmark-label);
+ }

@@ -1,0 +1,20 @@
+/* =========================
+ * Font_Size_12.css
+ * ========================= */ 
+ 
+ /* Set initial font size. 
+ *  For use by all rendering agents including AHF */
+
+ /* ==================================================
+ * Copyright (c) Municode 2019
+ * ==================================================
+ */
+ 
+@media print{
+	root,
+	html,
+	section
+	{
+	   font-size: 12pt;
+	}
+}

@@ -1,0 +1,2474 @@
+/* =========================
+ * MunicodeCommon.css
+ * ========================= */
+
+/* CSS for Municode's Munipub XML. */
+
+/* ==================================================
+ * Common CSS rules for elements that have the
+ * same (or mostly the same) formatting
+ * in both the legacy and "future" page layouts, 
+ * and in both oXygen and Antenna House Formatter.
+ * 
+ * Excludes agent-specific rules 
+ * (oXygen and Antenna House Formatter) 
+ * 
+ * Includes paged media-related rules
+ * since those are needed by AHF, do not break oXygen,
+ * and are meaningful to other outputs like epub, docx.
+ * 
+ * Copyright (c) Municode 2017
+ * 
+ * ==================================================
+ */
+
+/* ===========================
+ * Font treatments
+ * ===========================
+*/
+
+sup {
+	baseline-shift: super;
+	font-size: 6pt;
+}
+
+strong {
+	font-weight: bold;
+}
+
+/* ===========================
+ * Basic elements
+ * ===========================
+ */
+
+html {
+	widows: 3;
+	orphans: 2;
+	text-align: justify;
+	word-spacing: -0.2pt; /* Tighten the text to match XPP  */
+}
+
+/* This setting serves to prevent bad page
+  * breaks.
+  * 
+  *  -ah-keep-together-within-dimension says "keep this
+  * element together within the specified dimenension.
+  * So "10vh" means "within 10% of the current vertical 
+  * height of the containing block", which I think in this
+  * context means the height of the body area of the page.
+  * 
+  * The value of 10vh was arrived at by experimentation. It
+  * can be adjusted to tune the keep behavior.
+  */
+section {
+	-ah-keep-together-within-dimension: 10vh;
+	/*
+    * WEK: the "page-break-inside: avoid" is causing tables to not break.
+    * But I don't think this setting is appropriate
+    * for all sections as it would generally serve
+    * to prevent page breaks. It may be there is
+    * a change in behavior in AHF 6.6 from 6.5
+    * 
+    * page-break-inside: avoid;
+    * */
+}
+
+section[data-type = 'titlepage'],
+section[data-type ^= 'officials'] > div.section-body
+{
+	-ah-display-align: justify;
+}
+
+/* *
+ * Used to turn off vertical justification e.g, on title
+ * pages and lists of officials.
+ */
+.no-vertical-justification
+{
+	-ah-display-align: before;
+}
+
+p
+{
+	display: block;
+	margin-top: 0pt;
+	margin-bottom: 8pt;
+}
+
+/*
+    The <br> tag inserts a single line break. 
+*/
+br {
+	/*    display:block;*/
+}
+
+br:after {
+	content: "";
+}
+
+img
+{
+	content: attr(src url);
+}
+
+p.nolead
+{
+	margin-top: 0em !important;
+	margin-top: 0rem !important;
+	margin-bottom: 0em !important;
+	margin-bottom: 0rem !important;
+}
+
+p.center {
+	text-align: center;
+	/*   break-after: avoid-page;*/
+	/* commented out by LaRae 1/23/2019 - centered para could be last in a section
+ *  so keep not always correct */
+}
+
+*.indent50 {
+	margin-left: 50%;
+}
+
+span.title:after {
+	content: " ";
+}
+
+section[data-type = 'titlepage'] > header > h1,
+section[data-type = 'titlepage'] > header > h1 > p
+{
+	font-size: 150%;
+	font-weight: bold;
+}
+
+section[data-type = 'titlepage'] > header > h1,
+section[data-type ^= 'officials'] > header > h1,
+section[data-type = 'titlepage'] > header > h1 > p,
+section[data-type ^= 'officials'] > header > h1 > p
+{
+	line-height: 150%;
+}
+
+section[data-type = 'officialsoriginal'] p,
+section[data-type = 'officialscurrent'] p
+{
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+}
+
+p.keepwithnext,
+li.keepwithnext {
+	break-after: avoid-page;
+}
+
+/* Avoid breaks before paragraphs subordinate to
+  * their preceding sibling. */
+p.b1 + p.b2,
+p.b2 + p.b3,
+p.b3 + p.b4,
+p.b4 + p.b5,
+p.b5 + p.b6,
+p.b6 + p.b7,
+p.b7 + p.b8,
+p.b8 + p.b9,
+p.hg1 + p.hg2,
+p.hg2 + p.hg3,
+p.hg3 + p.hg4,
+p.hg4 + p.hg5,
+p.hg5 + p.hg6,
+p.hg6 + p.hg7,
+p.hg7 + p.hg8,
+p.hg8 + p.hg9,
+p.p1 + p.p2,
+p.p2 + p.p3,
+p.p3 + p.p4,
+p.p4 + p.p5,
+p.p5 + p.p6,
+p.p6 + p.p7,
+p.p7 + p.p8,
+p.p8 + p.p9,
+p.ol1 + p.ol2,
+p.ol2 + p.ol3,
+p.ol3 + p.ol4,
+p.ol4 + p.ol5,
+p.ol5 + p.ol6,
+p.ol6 + p.ol7,
+p.ol7 + p.ol8,
+p.ol8 + p.ol9,
+p.ml1 + p.ml2,
+p.ml2 + p.ml3,
+p.ml3 + p.ml4,
+p.ml4 + p.ml5,
+p.ml5 + p.ml6,
+p.ml6 + p.ml7,
+p.ml7 + p.ml8,
+p.ml8 + p.ml9
+{
+	break-before: avoid-page;
+}
+
+div.columns2 {
+	column-count: 2;
+	column-gap: 2pc;
+	page-break-inside: auto;
+}
+
+
+div.columns3 {
+	column-count: 3;
+	column-gap: 2pc;
+	page-break-inside: auto;
+}
+
+
+/* ====================
+ * Footnotes
+ * =====================
+ */
+
+aside.footnote {
+	float: footnote;
+	font-weight: normal;
+	font-style: normal;
+	text-align: justify;
+	text-transform: none;
+}
+
+aside.footnote > * {
+	margin-top: 0pt;
+	margin-bottom: 0pt; /* Override common.css p rule which sets a non-zero margin-bottom. */
+}
+
+aside.footnote > p:first-child {
+	display: inline;
+}
+
+
+/* See ahf_footnotes for counter details */
+aside::footnote-call {
+	vertical-align: super;
+}
+
+aside::footnote-marker {
+	font-weight: normal;
+	font-style: normal;
+	vertical-align: super;
+	display: inline;
+}
+
+/* AHF generates the footnote callout */
+p.footnotemark,
+a.footnoteref {
+	display: none;
+}
+
+/* ================================
+ * References
+ * ================================
+ */
+
+
+/* u2014: em-dash (—) */
+p[data-type = 'refcaselaw']:before {
+	content: 'Case law reference(s)\2014';
+	font-weight: bold;
+}
+p[data-type = 'refcaselawanno']:before {
+	content: 'Case law annotation(s)\2014';
+	font-weight: bold;
+}
+p[data-type = 'refcharter']:before {
+	content: 'Charter reference(s)\2014';
+	font-weight: bold;
+}
+p[data-type = 'refcross']:before {
+	content: 'Cross reference(s)\2014';
+	font-weight: bold;
+}
+p[data-type = 'refeditor']:before {
+	content: "Editor's note(s)\2014";
+	font-weight: bold;
+}
+p[data-type = 'refgeneric']:before {
+	content: 'Reference(s)\2014';
+	font-weight: bold;
+}
+p[data-type = 'refmanual']:before {
+	content: none;
+}
+p[data-type = 'refnote']:before {
+	content: 'Note(s)\2014';
+	font-weight: bold;
+}
+p[data-type = 'refstateconst']:before {
+	content: 'State constitution reference(s)\2014';
+	font-weight: bold;
+}
+p[data-type = 'refstatelaw']:before {
+	content: 'State law reference(s)\2014';
+	font-weight: bold;
+}
+
+p[data-type = 'refmanual'],
+p[data-type = 'refeditor'],
+p[data-type = 'refcharter'],
+p[data-type = 'refstatelaw'],
+p[data-type = 'refcross'],
+p[data-type = 'refstateconst'],
+p[data-type = 'refcaselaw'],
+p[data-type = 'refcaselawanno'],
+p[data-type = 'refnote'],
+p[data-type = 'refgeneric']
+{
+	margin-top: 0pt; /*  WEK: Was 10pt */
+}
+
+
+/* REFERENCE NOTES INSIDE FOOTNOTES */
+/* <!-- refmanual, refeditor, refcharter, refcross, refstatelaw, refstateconst., 
+refcaselaw, refcaselawanno., refnote, & refgeneric --> */
+
+p[data-type = 'refmanualfn'],
+p[data-type = 'refeditorfn'],
+p[data-type = 'refcharterfn'],
+p[data-type = 'refcrossfn'],
+p[data-type = 'refstatelawfn'],
+p[data-type = 'refstateconstfn'],
+p[data-type = 'refcaselawfn'],
+p[data-type = 'refcaselawannofn'],
+p[data-type = 'refnotefn'],
+p[data-type = 'refgenericfn']
+{
+	margin-top: 0pt /*12pt*/;
+	font-weight: normal;
+}
+
+/* =======================================
+ * Signatures
+ * =======================================
+ */
+
+
+p.siglineleft:before,
+p.siglineright:before
+{
+	content: '/s/';
+	text-align: left;
+}
+
+
+p.sigl,
+p.sigr,
+p.siglineleft,
+p.siglineright
+{
+	break-before: avoid-page;
+}
+
+
+p.sigl,
+p.sigr
+{
+	margin-top: 0pt;
+	width: 13pc;
+	border-top: 0.5pt solid black;
+	text-align: center;
+}
+p.sigl {
+	margin-left: 1pc;
+}
+
+p.siglineleft,
+p.siglineright
+{
+	margin-top: 12pt;
+	margin-bottom: 0pt;
+	border-top: none;
+	text-align: left;
+}
+
+p.siglineleft {
+	margin-left: 0;
+}
+
+/* NOTE: The AHF-specific margin-left properties are in ahf_MunicodeCommon.css */
+p.sigr
+{
+	margin-left: 2in;
+	margin-right: 0;
+}
+
+p.siglineright
+{
+	margin-left: 2in;
+	margin-right: 0;
+}
+
+/* =========================================
+ * 
+ * =========================================
+ */
+
+/* figure.textwrapleft
+{
+  float: left;
+  margin-right: 1pc;
+  margin-bottom: 1pc;
+} 
+
+figure.textwrapright
+{
+  float: right;
+  margin-left: 1pc;
+  margin-bottom: 1pc;
+}  */
+
+figure.floatleft {
+	float: left;
+	margin-left: 0px;
+	margin-right: 20px;
+}
+
+figure.floatright {
+	float: right;
+	margin-left: 20px;
+	margin-right: 0px;
+}
+
+
+/* =======================================
+ * Indexes
+ * 
+ * Indent: 1.5 pica with a 1.5 pica hanging indent 
+ * (e.g, 3pc left margin with 1.5pc text indent).
+ * 
+ * =======================================
+ */
+
+div.index-group {
+	hyphens: auto;
+	margin-left: 0pt;
+}
+
+div.index-group > h2 {
+	display: block;
+	font-weight: bold;
+	margin-top: 12pt;
+	margin-bottom: 12pt;
+	text-align: center;
+	break-after: avoid;
+}
+
+/* See ahf_MunicodeCommon.css for AHF-specific width properties */
+div.index-group ul {
+	display: block;
+	width: 80%;
+	padding: 0pt;
+	margin-left: 1.5pc;
+	margin-right: 0pc;
+}
+
+div.index-group > ul {
+	margin-right: 6pc;
+}
+
+div.index-group li {
+	display: block;
+	text-indent: -1.5pc; /* Hanging indent */
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+}
+
+div.index-group div.term {
+	display: inline;
+}
+
+div.index-group div.ref
+{
+	display: inline-block !important;
+	text-align: right;
+	width: 2pc; /*  This value reflects an AH bug where the inline-block is not properly positioned. Value should be 5pc (6pc - 1pc gap) */
+}
+
+div.index-group > ul > li {
+	margin-top: 12pt;
+}
+
+div.index-group > ul > li > div.term {
+	display: inline;
+	text-transform: uppercase;
+}
+
+div.index-group li > div.term ~ ul {
+	break-before: avoid-page;
+}
+
+div.index-group > ul
+{
+	width: 80%;
+}
+
+div.index-group > ul > li > ul
+{
+	width: 85%;
+}
+
+div.index-group > ul > li > ul > li > ul
+{
+	width: 85%;
+}
+
+div.index-group > ul > li > ul > li > ul > li > ul
+{
+	width: 85%;
+}
+
+div.index-group > ul > li > ul > li > ul > li > ul > li > ul
+{
+	width: 85%;
+}
+
+div.index-group > ul > li > ul > li > ul > li > ul > li > ul > li > ul
+{
+	width: 85%;
+}
+
+div.index-group > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul
+{
+	width: 85%;
+}
+
+div.index-group div.hasref:after {
+	content: leader(dotted);
+}
+
+
+/* ========================================
+	• general styles 
+ ======================================== */
+
+/* font sizes */
+.sz8pt
+{
+	font-size: 80%;
+}
+.sz9pt {
+	font-size: 90%;
+}
+.sz10pt {
+	font-size: 100%;
+}
+.sz7pt {
+	font-size: 70%;
+}
+.sz75 {
+	font-size: 75%;
+}
+.sz100 {
+	font-size: 100%;
+}
+.sz125 {
+	font-size: 125%;
+}
+.sz150 {
+	font-size: 150%;
+}
+.sz200 {
+	font-size: 200%;
+}
+
+/* ========================================
+	• general classes (.clear, .center, .right, .left, etc.)
+ ======================================== */
+.clear {
+	clear: both;
+}
+.floatleft {
+	float: left;
+}
+.floatright {
+	float: right;
+}
+
+.bold {
+	font-weight: bold;
+}
+.italic {
+	font-style: italic;
+}
+.underline {
+	text-decoration: underline;
+}
+.highlight {
+	background: #ffc;
+}
+
+.left
+{
+	text-align: left;
+}
+
+.center {
+	text-align: center;
+}
+
+.right {
+	text-align: right;
+}
+.justify {
+	text-align: justify;
+}
+
+.strike {
+	text-decoration: line-through;
+}
+
+.doubleunderline {
+	border-bottom: 1.5pt double;
+}
+
+.lowercase {
+	text-transform: lowercase;
+}
+.uppercase {
+	text-transform: uppercase;
+}
+.smallcaps {
+	font-variant: small-caps;
+}
+
+.fullwidth {
+	width: 100%;
+}
+
+.width5 {
+	width: 5%;
+}
+.width10 {
+	width: 10%;
+}
+.width15 {
+	width: 15%;
+}
+.width20 {
+	width: 20%;
+}
+.width25 {
+	width: 25%;
+}
+.width30 {
+	width: 30%;
+}
+.width35 {
+	width: 35%;
+}
+.width40 {
+	width: 40%;
+}
+.width45 {
+	width: 45%;
+}
+.width50 {
+	width: 50%;
+}
+.width55 {
+	width: 55%;
+}
+.width60 {
+	width: 60%;
+}
+.width65 {
+	width: 65%;
+}
+.width70 {
+	width: 70%;
+}
+.width75 {
+	width: 75%;
+}
+.width80 {
+	width: 80%;
+}
+.width85 {
+	width: 85%;
+}
+.width90 {
+	width: 90%;
+}
+.width95 {
+	width: 95%;
+}
+.width100 {
+	width: 100%;
+}
+.width110 {
+	width: 110%;
+}
+.width120 {
+	width: 120%;
+}
+.width130 {
+	width: 130%;
+}
+.width140 {
+	width: 140%;
+}
+.width150 {
+	width: 150%;
+}
+.width160 {
+	width: 160%;
+}
+.width170 {
+	width: 170%;
+}
+.width180 {
+	width: 180%;
+}
+.width190 {
+	width: 190%;
+}
+.width200 {
+	width: 200%;
+}
+
+/* ========================================
+	• miscellaneous stuff and template code
+ ======================================== */
+
+.hidden
+{
+	visibility: hidden;
+}
+
+/* general blocks */
+.textbox
+{
+	border-style: solid solid solid solid;
+	border-width: 0.5pt;
+}
+
+img.center,
+figcaption.center
+{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td pre.programlisting,
+td pre.screen,
+td pre.literallayout,
+td code
+{ /* allow code in tables to wrap */
+	white-space: pre-wrap;
+	/*  word-wrap: break-word; */
+}
+
+figure
+{ /* figure containers */
+	display: block;
+	margin-top: 0px;
+	margin-bottom: 8pt;
+	padding: 0;
+	/* border: 1pt solid red; */
+	/* max-width: 100%; */
+}
+
+figcaption
+{
+	font-size: 0.8rem;
+	display: block;
+}
+
+figure figcaption:first-child
+{ /* figure caption above image */
+	/* border-bottom: 8pt solid #d8d8d8; */
+	/* padding-bottom: 12pt; */
+	margin-bottom: 12pt;
+}
+
+figure img + figcaption
+{ /* figure caption below image */
+	/* border-top: 8pt solid #d8d8d8; */
+	padding-top: 12pt;
+	margin-top: 12pt;
+}
+
+blockquote
+{
+	font-family: sans-serif, "Arial Unicode";
+	font-size: 0.8rem;
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+blockquote p
+{
+	text-indent: 0;
+}
+
+col
+{
+	display: table-column;
+}
+
+span.footnotemark
+{
+	font-weight: bold;
+}
+
+.photo2
+{
+	width: 48%;
+	height: 48%;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: top;
+	padding-top: 1rem;
+	display: inline-block;
+}
+
+.photo3
+{
+	width: 32%;
+	height: 32%;
+	font-size: 75%;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: top;
+	padding-top: .75rem;
+	display: inline-block;
+}
+
+.photo4
+{
+	width: 24%;
+	height: 24%;
+	font-size: 50%;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: top;
+	padding-top: .5rem;
+	display: inline-block;
+}
+
+.photo
+{
+	width: 100%;
+	height: 100%;
+}
+
+/* Paragraphs with leader fills are treated like ToC entries
+ * where all but last line have right margin. */
+
+p.lf
+{
+	/* ah-last-line-indent inherits
+   * to any blocks or inline blocks
+   * within the toc entry, so you
+   * need to set it to 0pt on those
+   * elements. */
+	margin-right: 5pc;
+}
+
+/* ========================================
+	BACKGROUND COLORS
+======================================== */
+
+/* Red color names */
+.bgIndianRed {
+	background-color: indianred;
+}
+.bgLightCoral {
+	background-color: lightcoral;
+}
+.bgSalmon {
+	background-color: salmon;
+}
+.bgDarkSalmon {
+	background-color: darksalmon;
+}
+.bgLightSalmon {
+	background-color: lightsalmon;
+}
+.bgCrimson {
+	background-color: crimson;
+}
+.bgRed {
+	background-color: red;
+}
+.bgFireBrick {
+	background-color: fireBrick;
+}
+.bgDarkRed {
+	background-color: darkred;
+}
+
+/* Pink color names */
+.bgPink {
+	background-color: pink;
+}
+.bgLightPink {
+	background-color: lightpink;
+}
+.bgHotPink {
+	background-color: hotpink;
+}
+.bgDeepPink {
+	background-color: deeppink;
+}
+.bgMediumVioletRed {
+	background-color: mediumvioletred;
+}
+.bgPaleVioletRed {
+	background-color: palevioletred;
+}
+
+/* Orange color names */
+.bgLightSalmon {
+	background-color: lightsalmon;
+}
+.bgCoral {
+	background-color: coral;
+}
+.bgTomato {
+	background-color: tomato;
+}
+.bgOrangeRed {
+	background-color: orangered;
+}
+.bgDarkOrange {
+	background-color: darkorange;
+}
+.bgOrange {
+	background-color: orange;
+}
+
+/* Yellow color names */
+.bgGold {
+	background-color: gold;
+}
+.bgYellow {
+	background-color: yellow;
+}
+.bgLightYellow {
+	background-color: lightyellow;
+}
+.bgLemonChiffon {
+	background-color: lemonchiffon;
+}
+.bgLightGoldenRodYellow {
+	background-color: lightgoldenrodyellow;
+}
+.bgPapayaWhip {
+	background-color: papayawhip;
+}
+.bgMoccasin {
+	background-color: moccasin;
+}
+.bgPeachPuff {
+	background-color: peachpuff;
+}
+.bgPaleGoldenRod {
+	background-color: palegoldenrod;
+}
+.bgKhaki {
+	background-color: khaki;
+}
+.bgDarkKhaki {
+	background-color: darkkhaki;
+}
+
+/* Purple color names  */
+.bgLavender {
+	background-color: lavender;
+}
+.bgThistle {
+	background-color: thistle;
+}
+.bgPlum {
+	background-color: plum;
+}
+.bgViolet {
+	background-color: violet;
+}
+.bgOrchid {
+	background-color: orchid;
+}
+.bgFuchsia {
+	background-color: fuchsia;
+}
+.bgMagenta {
+	background-color: Magenta;
+}
+.bgMediumOrchid {
+	background-color: mediumorchid;
+}
+.bgMediumPurple {
+	background-color: mediumpurple;
+}
+/* .bg#9966CC { background-color: #9966CC; } */ /* Amethyst */
+.bgBlueViolet {
+	background-color: blueviolet;
+}
+.bgDarkViolet {
+	background-color: darkviolet;
+}
+.bgDarkOrchid {
+	background-color: darkorchid;
+}
+.bgDarkMagenta {
+	background-color: darkmagenta;
+}
+.bgPurple {
+	background-color: purple;
+}
+.bgIndigo {
+	background-color: indigo;
+}
+.bgSlateBlue {
+	background-color: slateblue;
+}
+.bgDarkSlateBlue {
+	background-color: darkslateblue;
+}
+.bgMediumSlateBlue {
+	background-color: mediumslateblue;
+}
+
+/* Green color names  */
+.bgGreenYellow {
+	background-color: greenyellow;
+}
+.bgChartreuse {
+	background-color: chartreuse;
+}
+.bgLawnGreen {
+	background-color: lawngreen;
+}
+.bgLime {
+	background-color: lime;
+}
+.bgLimeGreen {
+	background-color: limegreen;
+}
+.bgPaleGreen {
+	background-color: palegreen;
+}
+.bgLightGreen {
+	background-color: lightgreen;
+}
+.bgMediumSpringGreen {
+	background-color: mediumspringgreen;
+}
+.bgSpringGreen {
+	background-color: springgreen;
+}
+.bgMediumSeaGreen {
+	background-color: mediumseagreen;
+}
+.bgSeaGreen {
+	background-color: seagreen;
+}
+.bgForestGreen {
+	background-color: forestgreen;
+}
+.bgGreen {
+	background-color: green;
+}
+.bgDarkGreen {
+	background-color: darkgreen;
+}
+.bgYellowGreen {
+	background-color: yellowgreen;
+}
+.bgOliveDrab {
+	background-color: olivedrab;
+}
+.bgOlive {
+	background-color: olive;
+}
+.bgDarkOliveGreen {
+	background-color: darkolivegreen;
+}
+.bgMediumAquaMarine {
+	background-color: mediumaquamarine;
+}
+.bgDarkSeaGreen {
+	background-color: darkseagreen;
+}
+.bgLightSeaGreen {
+	background-color: lightseagreen;
+}
+.bgDarkCyan {
+	background-color: darkcyan;
+}
+.bgTeal {
+	background-color: teal;
+}
+
+/* Blue color names  */
+.bgAqua {
+	background-color: aqua;
+}
+.bgCyan {
+	background-color: cyan;
+}
+.bgLightCyan {
+	background-color: lightcyan;
+}
+.bgPaleTurquoise {
+	background-color: paleturquoise;
+}
+.bgAquamarine {
+	background-color: aquamarine;
+}
+.bgTurquoise {
+	background-color: turquoise;
+}
+.bgMediumTurquoise {
+	background-color: mediumturquoise;
+}
+.bgDarkTurquoise {
+	background-color: darkturquoise;
+}
+.bgCadetBlue {
+	background-color: cadetblue;
+}
+.bgSteelBlue {
+	background-color: steelblue;
+}
+.bgLightSteelBlue {
+	background-color: lightsteelblue;
+}
+.bgPowderBlue {
+	background-color: powderblue;
+}
+.bgLightBlue {
+	background-color: lightblue;
+}
+.bgSkyBlue {
+	background-color: skyblue;
+}
+.bgLightSkyBlue {
+	background-color: lightskyblue;
+}
+.bgDeepSkyBlue {
+	background-color: deepskyblue;
+}
+.bgDodgerBlue {
+	background-color: dodgerblue;
+}
+.bgCornflowerBlue {
+	background-color: cornflowerblue;
+}
+.bgMediumSlateBlue {
+	background-color: mediumslateblue;
+}
+.bgRoyalBlue {
+	background-color: royalblue;
+}
+.bgBlue {
+	background-color: blue;
+}
+.bgMediumBlue {
+	background-color: mediumblue;
+}
+.bgDarkBlue {
+	background-color: darkblue;
+}
+.bgNavy {
+	background-color: navy;
+}
+.bgMidnightBlue {
+	background-color: midnightblue;
+}
+
+/* Brown color names  */
+.bgCornSilk {
+	background-color: cornsilk;
+}
+.bgBlanchedAlmond {
+	background-color: blanchedalmond;
+}
+.bgBisque {
+	background-color: bisque;
+}
+.bgNavajoWhite {
+	background-color: navajowhite;
+}
+.bgWheat {
+	background-color: wheat;
+}
+.bgBurlyWood {
+	background-color: burlywood;
+}
+.bgTan {
+	background-color: tan;
+}
+.bgRosyBrown {
+	background-color: rosybrown;
+}
+.bgSandyBrown {
+	background-color: sandybrown;
+}
+.bgGoldenRod {
+	background-color: goldenrod;
+}
+.bgDarkGoldenRod {
+	background-color: darkgoldenrod;
+}
+.bgPeru {
+	background-color: peru;
+}
+.bgChocolate {
+	background-color: chocolate;
+}
+.bgSaddleBrown {
+	background-color: saddlebrown;
+}
+.bgSienna {
+	background-color: sienna;
+}
+.bgBrown {
+	background-color: brown;
+}
+.bgMaroon {
+	background-color: maroon;
+}
+
+/* White color names  */
+.bgWhite {
+	background-color: white;
+}
+.bgSnow {
+	background-color: snow;
+}
+.bgHoneyDew {
+	background-color: honeydew;
+}
+.bgMintCream {
+	background-color: mintcream;
+}
+.bgAzure {
+	background-color: azure;
+}
+.bgAliceBlue {
+	background-color: aliceblue;
+}
+.bgGhostWhite {
+	background-color: ghostwhite;
+}
+.bgWhiteSmoke {
+	background-color: whitesmoke;
+}
+.bgSeaShell {
+	background-color: seashell;
+}
+.bgBeige {
+	background-color: beige;
+}
+.bgOldLace {
+	background-color: oldlace;
+}
+.bgFloralWhite {
+	background-color: floralwhite;
+}
+.bgIvory {
+	background-color: ivory;
+}
+.bgAntiqueWhite {
+	background-color: antiquewhite;
+}
+.bgLinen {
+	background-color: linen;
+}
+.bgLavenderBlush {
+	background-color: lavenderblush;
+}
+.bgMistyRose {
+	background-color: mistyrose;
+}
+
+/* Grey color names  */
+.bgGainsboro {
+	background-color: gainsboro;
+}
+.bgLightGray {
+	background-color: lightgray;
+}
+.bgSilver {
+	background-color: silver;
+}
+.bgDarkGray {
+	background-color: darkgray;
+}
+.bgGray {
+	background-color: gray;
+}
+.bgDimGray {
+	background-color: dimgray;
+}
+.bgLightSlateGray {
+	background-color: lightslategray;
+}
+.bgSlateGray {
+	background-color: slategray;
+}
+.bgDarkSlateGray {
+	background-color: darkslategray;
+}
+.bgBlack {
+	background-color: black;
+}
+
+/* Gray shades included here: http://www.w3schools.com/colors/colors_x11.asp 
+but we changed order to be light-to-dark; think of as percentage of dark. */
+.bgGray1 {
+	background-color: #fcfcfc;
+}
+.bgGray2 {
+	background-color: #fafafa;
+}
+.bgGray3 {
+	background-color: #f7f7f7;
+}
+.bgGray4 {
+	background-color: #f5f5f5;
+}
+.bgGray5 {
+	background-color: #f2f2f2;
+}
+.bgGray6 {
+	background-color: #f0f0f0;
+}
+.bgGray7 {
+	background-color: #ededed;
+}
+.bgGray8 {
+	background-color: #ebebeb;
+}
+.bgGray9 {
+	background-color: #e8e8e8;
+}
+.bgGray10 {
+	background-color: #e5e5e5;
+}
+.bgGray11 {
+	background-color: #e3e3e3;
+}
+.bgGray12 {
+	background-color: #e0e0e0;
+}
+.bgGray13 {
+	background-color: #dedede;
+}
+.bgGray14 {
+	background-color: #dbdbdb;
+}
+.bgGray15 {
+	background-color: #d9d9d9;
+}
+.bgGray16 {
+	background-color: #d6d6d6;
+}
+.bgGray17 {
+	background-color: #d4d4d4;
+}
+.bgGray18 {
+	background-color: #d1d1d1;
+}
+.bgGray19 {
+	background-color: #cfcfcf;
+}
+.bgGray20 {
+	background-color: #cccccc;
+}
+.bgGray21 {
+	background-color: #c9c9c9;
+}
+.bgGray22 {
+	background-color: #c7c7c7;
+}
+.bgGray23 {
+	background-color: #c4c4c4;
+}
+.bgGray24 {
+	background-color: #c2c2c2;
+}
+.bgGray25 {
+	background-color: #bfbfbf;
+}
+.bgGray26 {
+	background-color: #bdbdbd;
+}
+.bgGray27 {
+	background-color: #bababa;
+}
+.bgGray28 {
+	background-color: #b8b8b8;
+}
+.bgGray29 {
+	background-color: #b5b5b5;
+}
+.bgGray30 {
+	background-color: #b3b3b3;
+}
+.bgGray31 {
+	background-color: #b0b0b0;
+}
+.bgGray32 {
+	background-color: #adadad;
+}
+.bgGray33 {
+	background-color: #ababab;
+}
+.bgGray34 {
+	background-color: #a8a8a8;
+}
+.bgGray35 {
+	background-color: #a6a6a6;
+}
+.bgGray36 {
+	background-color: #a3a3a3;
+}
+.bgGray37 {
+	background-color: #a1a1a1;
+}
+.bgGray38 {
+	background-color: #9e9e9e;
+}
+.bgGray39 {
+	background-color: #9c9c9c;
+}
+.bgGray40 {
+	background-color: #999999;
+}
+.bgGray41 {
+	background-color: #969696;
+}
+.bgGray42 {
+	background-color: #949494;
+}
+.bgGray43 {
+	background-color: #919191;
+}
+.bgGray44 {
+	background-color: #8f8f8f;
+}
+.bgGray45 {
+	background-color: #8c8c8c;
+}
+.bgGray46 {
+	background-color: #8a8a8a;
+}
+.bgGray47 {
+	background-color: #878787;
+}
+.bgGray48 {
+	background-color: #858585;
+}
+.bgGray49 {
+	background-color: #828282;
+}
+.bgGray50 {
+	background-color: #7f7f7f;
+}
+.bgGray51 {
+	background-color: #7d7d7d;
+}
+.bgGray52 {
+	background-color: #7a7a7a;
+}
+.bgGray53 {
+	background-color: #787878;
+}
+.bgGray54 {
+	background-color: #757575;
+}
+.bgGray54 {
+	background-color: #8c8c8c;
+}
+.bgGray55 {
+	background-color: #737373;
+}
+.bgGray56 {
+	background-color: #707070;
+}
+.bgGray57 {
+	background-color: #6e6e6e;
+}
+.bgGray58 {
+	background-color: #6b6b6b;
+}
+.bgGray59 {
+	background-color: #696969;
+}
+.bgGray60 {
+	background-color: #666666;
+}
+.bgGray61 {
+	background-color: #636363;
+}
+.bgGray62 {
+	background-color: #616161;
+}
+.bgGray63 {
+	background-color: #5e5e5e;
+}
+.bgGray64 {
+	background-color: #5c5c5c;
+}
+.bgGray65 {
+	background-color: #595959;
+}
+.bgGray66 {
+	background-color: #575757;
+}
+.bgGray67 {
+	background-color: #545454;
+}
+.bgGray68 {
+	background-color: #525252;
+}
+.bgGray69 {
+	background-color: #4f4f4f;
+}
+.bgGray70 {
+	background-color: #4d4d4d;
+}
+.bgGray71 {
+	background-color: #4a4a4a;
+}
+.bgGray72 {
+	background-color: #474747;
+}
+.bgGray73 {
+	background-color: #454545;
+}
+.bgGray74 {
+	background-color: #424242;
+}
+.bgGray75 {
+	background-color: #404040;
+}
+.bgGray76 {
+	background-color: #3d3d3d;
+}
+.bgGray77 {
+	background-color: #3b3b3b;
+}
+.bgGray78 {
+	background-color: #383838;
+}
+.bgGray79 {
+	background-color: #363636;
+}
+.bgGray80 {
+	background-color: #333333;
+}
+.bgGray81 {
+	background-color: #303030;
+}
+.bgGray82 {
+	background-color: #2e2e2e;
+}
+.bgGray83 {
+	background-color: #2b2b2b;
+}
+.bgGray84 {
+	background-color: #292929;
+}
+.bgGray85 {
+	background-color: #262626;
+}
+.bgGray86 {
+	background-color: #242424;
+}
+.bgGray87 {
+	background-color: #212121;
+}
+.bgGray88 {
+	background-color: #1f1f1f;
+}
+.bgGray89 {
+	background-color: #1c1c1c;
+}
+.bgGray90 {
+	background-color: #1a1a1a;
+}
+.bgGray91 {
+	background-color: #171717;
+}
+.bgGray92 {
+	background-color: #141414;
+}
+.bgGray93 {
+	background-color: #121212;
+}
+.bgGray94 {
+	background-color: #0f0f0f;
+}
+.bgGray95 {
+	background-color: #0d0d0d;
+}
+.bgGray96 {
+	background-color: #0a0a0a;
+}
+.bgGray97 {
+	background-color: #080808;
+}
+.bgGray98 {
+	background-color: #050505;
+}
+.bgGray99 {
+	background-color: #030303;
+}
+/* one ofs... */
+.bg_FAE544 {
+	background-color: #FAE544;
+}
+.bg_FFFF4D {
+	background-color: #FFFF4D;
+}
+
+
+
+/* ========================================
+	FONT COLORS
+======================================== */
+
+/* Red color names */
+.coIndianRed {
+	color: indianred;
+}
+.coLightCoral {
+	color: lightcoral;
+}
+.coSalmon {
+	color: salmon;
+}
+.coDarkSalmon {
+	color: darksalmon;
+}
+.coLightSalmon {
+	color: lightsalmon;
+}
+.coCrimson {
+	color: crimson;
+}
+.coRed {
+	color: red;
+}
+.coFireBrick {
+	color: fireBrick;
+}
+.coDarkRed {
+	color: darkred;
+}
+
+/* Pink color names */
+.coPink {
+	color: pink;
+}
+.coLightPink {
+	color: lightpink;
+}
+.coHotPink {
+	color: hotpink;
+}
+.coDeepPink {
+	color: deeppink;
+}
+.coMediumVioletRed {
+	color: mediumvioletred;
+}
+.coPaleVioletRed {
+	color: palevioletred;
+}
+
+/* Orange color names */
+.coLightSalmon {
+	color: lightsalmon;
+}
+.coCoral {
+	color: coral;
+}
+.coTomato {
+	color: tomato;
+}
+.coOrangeRed {
+	color: orangered;
+}
+.coDarkOrange {
+	color: darkorange;
+}
+.coOrange {
+	color: orange;
+}
+
+/* Yellow color names */
+.coGold {
+	color: gold;
+}
+.coYellow {
+	color: yellow;
+}
+.coLightYellow {
+	color: lightyellow;
+}
+.coLemonChiffon {
+	color: lemonchiffon;
+}
+.coLightGoldenRodYellow {
+	color: lightgoldenrodyellow;
+}
+.coPapayaWhip {
+	color: papayawhip;
+}
+.coMoccasin {
+	color: moccasin;
+}
+.coPeachPuff {
+	color: peachpuff;
+}
+.coPaleGoldenRod {
+	color: palegoldenrod;
+}
+.coKhaki {
+	color: khaki;
+}
+.coDarkKhaki {
+	color: darkkhaki;
+}
+
+/* Purple color names  */
+.coLavender {
+	color: lavender;
+}
+.coThistle {
+	color: thistle;
+}
+.coPlum {
+	color: plum;
+}
+.coViolet {
+	color: violet;
+}
+.coOrchid {
+	color: orchid;
+}
+.coFuchsia {
+	color: fuchsia;
+}
+.coMagenta {
+	color: Magenta;
+}
+.coMediumOrchid {
+	color: mediumorchid;
+}
+.coMediumPurple {
+	color: mediumpurple;
+}
+/* .bg#9966CC { color: #9966CC; } */ /* Amethyst */
+.coBlueViolet {
+	color: blueviolet;
+}
+.coDarkViolet {
+	color: darkviolet;
+}
+.coDarkOrchid {
+	color: darkorchid;
+}
+.coDarkMagenta {
+	color: darkmagenta;
+}
+.coPurple {
+	color: purple;
+}
+.coIndigo {
+	color: indigo;
+}
+.coSlateBlue {
+	color: slateblue;
+}
+.coDarkSlateBlue {
+	color: darkslateblue;
+}
+.coMediumSlateBlue {
+	color: mediumslateblue;
+}
+
+/* Green color names  */
+.coGreenYellow {
+	color: greenyellow;
+}
+.coChartreuse {
+	color: chartreuse;
+}
+.coLawnGreen {
+	color: lawngreen;
+}
+.coLime {
+	color: lime;
+}
+.coLimeGreen {
+	color: limegreen;
+}
+.coPaleGreen {
+	color: palegreen;
+}
+.coLightGreen {
+	color: lightgreen;
+}
+.coMediumSpringGreen {
+	color: mediumspringgreen;
+}
+.coSpringGreen {
+	color: springgreen;
+}
+.coMediumSeaGreen {
+	color: mediumseagreen;
+}
+.coSeaGreen {
+	color: seagreen;
+}
+.coForestGreen {
+	color: forestgreen;
+}
+.coGreen {
+	color: green;
+}
+.coDarkGreen {
+	color: darkgreen;
+}
+.coYellowGreen {
+	color: yellowgreen;
+}
+.coOliveDrab {
+	color: olivedrab;
+}
+.coOlive {
+	color: olive;
+}
+.coDarkOliveGreen {
+	color: darkolivegreen;
+}
+.coMediumAquaMarine {
+	color: mediumaquamarine;
+}
+.coDarkSeaGreen {
+	color: darkseagreen;
+}
+.coLightSeaGreen {
+	color: lightseagreen;
+}
+.coDarkCyan {
+	color: darkcyan;
+}
+.coTeal {
+	color: teal;
+}
+
+/* Blue color names  */
+.coAqua {
+	color: aqua;
+}
+.coCyan {
+	color: cyan;
+}
+.coLightCyan {
+	color: lightcyan;
+}
+.coPaleTurquoise {
+	color: paleturquoise;
+}
+.coAquamarine {
+	color: aquamarine;
+}
+.coTurquoise {
+	color: turquoise;
+}
+.coMediumTurquoise {
+	color: mediumturquoise;
+}
+.coDarkTurquoise {
+	color: darkturquoise;
+}
+.coCadetBlue {
+	color: cadetblue;
+}
+.coSteelBlue {
+	color: steelblue;
+}
+.coLightSteelBlue {
+	color: lightsteelblue;
+}
+.coPowderBlue {
+	color: powderblue;
+}
+.coLightBlue {
+	color: lightblue;
+}
+.coSkyBlue {
+	color: skyblue;
+}
+.coLightSkyBlue {
+	color: lightskyblue;
+}
+.coDeepSkyBlue {
+	color: deepskyblue;
+}
+.coDodgerBlue {
+	color: dodgerblue;
+}
+.coCornflowerBlue {
+	color: cornflowerblue;
+}
+.coMediumSlateBlue {
+	color: mediumslateblue;
+}
+.coRoyalBlue {
+	color: royalblue;
+}
+.coBlue {
+	color: blue;
+}
+.coMediumBlue {
+	color: mediumblue;
+}
+.coDarkBlue {
+	color: darkblue;
+}
+.coNavy {
+	color: navy;
+}
+.coMidnightBlue {
+	color: midnightblue;
+}
+
+/* Brown color names  */
+.coCornSilk {
+	color: cornsilk;
+}
+.coBlanchedAlmond {
+	color: blanchedalmond;
+}
+.coBisque {
+	color: bisque;
+}
+.coNavajoWhite {
+	color: navajowhite;
+}
+.coWheat {
+	color: wheat;
+}
+.coBurlyWood {
+	color: burlywood;
+}
+.coTan {
+	color: tan;
+}
+.coRosyBrown {
+	color: rosybrown;
+}
+.coSandyBrown {
+	color: sandybrown;
+}
+.coGoldenRod {
+	color: goldenrod;
+}
+.coDarkGoldenRod {
+	color: darkgoldenrod;
+}
+.coPeru {
+	color: peru;
+}
+.coChocolate {
+	color: chocolate;
+}
+.coSaddleBrown {
+	color: saddlebrown;
+}
+.coSienna {
+	color: sienna;
+}
+.coBrown {
+	color: brown;
+}
+.coMaroon {
+	color: maroon;
+}
+
+/* White color names  */
+.coWhite {
+	color: white;
+}
+.coSnow {
+	color: snow;
+}
+.coHoneyDew {
+	color: honeydew;
+}
+.coMintCream {
+	color: mintcream;
+}
+.coAzure {
+	color: azure;
+}
+.coAliceBlue {
+	color: aliceblue;
+}
+.coGhostWhite {
+	color: ghostwhite;
+}
+.coWhiteSmoke {
+	color: whitesmoke;
+}
+.coSeaShell {
+	color: seashell;
+}
+.coBeige {
+	color: beige;
+}
+.coOldLace {
+	color: oldlace;
+}
+.coFloralWhite {
+	color: floralwhite;
+}
+.coIvory {
+	color: ivory;
+}
+.coAntiqueWhite {
+	color: antiquewhite;
+}
+.coLinen {
+	color: linen;
+}
+.coLavenderBlush {
+	color: lavenderblush;
+}
+.coMistyRose {
+	color: mistyrose;
+}
+
+/* Grey color names  */
+.coGainsboro {
+	color: gainsboro;
+}
+.coLightGray {
+	color: lightgray;
+}
+.coSilver {
+	color: silver;
+}
+.coDarkGray {
+	color: darkgray;
+}
+.coGray {
+	color: gray;
+}
+.coDimGray {
+	color: dimgray;
+}
+.coLightSlateGray {
+	color: lightslategray;
+}
+.coSlateGray {
+	color: slategray;
+}
+.coDarkSlateGray {
+	color: darkslategray;
+}
+.coBlack {
+	color: black;
+}
+
+/* Gray shades included here: http://www.w3schools.com/colors/colors_x11.asp but we changed order to be light-to-dark; think of as percentage of dark. */
+.coGray01 {
+	color: #fcfcfc;
+}
+.coGray02 {
+	color: #fafafa;
+}
+.coGray03 {
+	color: #f7f7f7;
+}
+.coGray04 {
+	color: #f5f5f5;
+}
+.coGray05 {
+	color: #f2f2f2;
+}
+.coGray06 {
+	color: #f0f0f0;
+}
+.coGray07 {
+	color: #ededed;
+}
+.coGray08 {
+	color: #ebebeb;
+}
+.coGray09 {
+	color: #e8e8e8;
+}
+.coGray10 {
+	color: #e5e5e5;
+}
+.coGray11 {
+	color: #e3e3e3;
+}
+.coGray12 {
+	color: #e0e0e0;
+}
+.coGray13 {
+	color: #dedede;
+}
+.coGray14 {
+	color: #dbdbdb;
+}
+.coGray15 {
+	color: #d9d9d9;
+}
+.coGray16 {
+	color: #d6d6d6;
+}
+.coGray17 {
+	color: #d4d4d4;
+}
+.coGray18 {
+	color: #d1d1d1;
+}
+.coGray19 {
+	color: #cfcfcf;
+}
+.coGray20 {
+	color: #cccccc;
+}
+.coGray21 {
+	color: #c9c9c9;
+}
+.coGray22 {
+	color: #c7c7c7;
+}
+.coGray23 {
+	color: #c4c4c4;
+}
+.coGray24 {
+	color: #c2c2c2;
+}
+.coGray25 {
+	color: #bfbfbf;
+}
+.coGray26 {
+	color: #bdbdbd;
+}
+.coGray27 {
+	color: #bababa;
+}
+.coGray28 {
+	color: #b8b8b8;
+}
+.coGray29 {
+	color: #b5b5b5;
+}
+.coGray30 {
+	color: #b3b3b3;
+}
+.coGray31 {
+	color: #b0b0b0;
+}
+.coGray32 {
+	color: #adadad;
+}
+.coGray33 {
+	color: #ababab;
+}
+.coGray34 {
+	color: #a8a8a8;
+}
+.coGray35 {
+	color: #a6a6a6;
+}
+.coGray36 {
+	color: #a3a3a3;
+}
+.coGray37 {
+	color: #a1a1a1;
+}
+.coGray38 {
+	color: #9e9e9e;
+}
+.coGray39 {
+	color: #9c9c9c;
+}
+.coGray40 {
+	color: #999999;
+}
+.coGray41 {
+	color: #969696;
+}
+.coGray42 {
+	color: #949494;
+}
+.coGray43 {
+	color: #919191;
+}
+.coGray44 {
+	color: #8f8f8f;
+}
+.coGray45 {
+	color: #8c8c8c;
+}
+.coGray46 {
+	color: #8a8a8a;
+}
+.coGray47 {
+	color: #878787;
+}
+.coGray48 {
+	color: #858585;
+}
+.coGray49 {
+	color: #828282;
+}
+.coGray50 {
+	color: #7f7f7f;
+}
+.coGray51 {
+	color: #7d7d7d;
+}
+.coGray52 {
+	color: #7a7a7a;
+}
+.coGray53 {
+	color: #787878;
+}
+.coGray54 {
+	color: #757575;
+}
+.coGray54 {
+	color: #8c8c8c;
+}
+.coGray55 {
+	color: #737373;
+}
+.coGray56 {
+	color: #707070;
+}
+.coGray57 {
+	color: #6e6e6e;
+}
+.coGray58 {
+	color: #6b6b6b;
+}
+.coGray59 {
+	color: #696969;
+}
+.coGray60 {
+	color: #666666;
+}
+.coGray61 {
+	color: #636363;
+}
+.coGray62 {
+	color: #616161;
+}
+.coGray63 {
+	color: #5e5e5e;
+}
+.coGray64 {
+	color: #5c5c5c;
+}
+.coGray65 {
+	color: #595959;
+}
+.coGray66 {
+	color: #575757;
+}
+.coGray67 {
+	color: #545454;
+}
+.coGray68 {
+	color: #525252;
+}
+.coGray69 {
+	color: #4f4f4f;
+}
+.coGray70 {
+	color: #4d4d4d;
+}
+.coGray71 {
+	color: #4a4a4a;
+}
+.coGray72 {
+	color: #474747;
+}
+.coGray73 {
+	color: #454545;
+}
+.coGray74 {
+	color: #424242;
+}
+.coGray75 {
+	color: #404040;
+}
+.coGray76 {
+	color: #3d3d3d;
+}
+.coGray77 {
+	color: #3b3b3b;
+}
+.coGray78 {
+	color: #383838;
+}
+.coGray79 {
+	color: #363636;
+}
+.coGray80 {
+	color: #333333;
+}
+.coGray81 {
+	color: #303030;
+}
+.coGray82 {
+	color: #2e2e2e;
+}
+.coGray83 {
+	color: #2b2b2b;
+}
+.coGray84 {
+	color: #292929;
+}
+.coGray85 {
+	color: #262626;
+}
+.coGray86 {
+	color: #242424;
+}
+.coGray87 {
+	color: #212121;
+}
+.coGray88 {
+	color: #1f1f1f;
+}
+.coGray89 {
+	color: #1c1c1c;
+}
+.coGray90 {
+	color: #1a1a1a;
+}
+.coGray91 {
+	color: #171717;
+}
+.coGray92 {
+	color: #141414;
+}
+.coGray93 {
+	color: #121212;
+}
+.coGray94 {
+	color: #0f0f0f;
+}
+.coGray95 {
+	color: #0d0d0d;
+}
+.coGray96 {
+	color: #0a0a0a;
+}
+.coGray97 {
+	color: #080808;
+}
+.coGray98 {
+	color: #050505;
+}
+.coGray99 {
+	color: #030303;
+}
+/* one-offs...*/
+.co_FAE544 {
+	color: #FAE544;
+}
+.co_FFFF4D {
+	color: #FFFF4D;
+}
+
+
+/* =========================
+ * Leader fills
+ * ========================= */
+
+td.text-align-last-justify
+{
+	/* WEK: This doesn't appear to be necessary to get the leader to push to the right but 
+    *      it shouldn't be wrong either. */
+	text-align-last: justify;
+}
+
+span[data-lf = '.']:before
+{
+	content: leader(dotted);
+}
+
+span[data-lf = '_']:before
+{
+	content: leader(solid);
+}
+
+span[data-lf = '-']:before
+{
+	content: leader('-');
+}
+
+/* em-dash ('—') */
+span[data-lf = '\2014']:before
+{
+	content: leader('\2014');
+}
+
+span[data-lf = ' ']:before
+{
+	content: leader(space);
+}
+
+/* Neither oXygen nor Chrome seems to understand the leader() command above */
+@media screen {
+  section
+  {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+	span[data-lf = '.']:before
+	{
+		content: ". . . . . . . . . . . . . . . . . . . . . . . . ";
+	}
+
+	span[data-lf = '_']:before
+	{
+		content: "__________________________";
+	}
+
+	span[data-lf = '-']:before
+	{
+		content: "------------------------------";
+	}
+
+	/* em-dash ('—') */
+	span[data-lf = '\2014']:before
+	{
+		content: '\2014\2014\2014\2014\2014';
+	}
+
+	span[data-lf = ' ']:before
+	{
+		content: "                               ";
+	}
+}
+
+/* =======================
+ *  End of CSS 
+ * =======================
+ */

@@ -1,0 +1,23 @@
+/** 
+ * AHF-specific rules for ToC rendering
+ */
+
+div.toc-entry > span.page > a.body:before,
+div.minitoc.pg div.minitoc-entry > span.page > a:before
+{
+	content: target-counter(attr(href url), page);
+}
+
+div.toc-entry > span.page > a.frontmatter:before {
+	content: target-counter(attr(href url), page, lower-roman);
+}
+
+div.toc-entry > span.page > a.body:before,
+div.minitoc.pg div.minitoc-entry > span.page > a:before
+{
+	content: target-counter(attr(href url), page);
+}
+
+div.toc-entry > span.page > a.frontmatter:before {
+	content: target-counter(attr(href url), page, lower-roman);
+}

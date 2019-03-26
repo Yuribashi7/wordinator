@@ -1,0 +1,249 @@
+/* =========================
+ * Tables_Legacy.css
+ * ========================= */ 
+
+/* CSS for "Legacy" style tables
+ * using Municode's Munipub XML. */ 
+ 
+/* ========================
+ * Specific to "legacy" style tables
+ * ========================
+  * • table head italic
+  * • col 1 is left-justified
+ */
+
+/* SOME table-level styles which are commonly used to  
+ * override properties set by this CSS  have been copied 
+ * to the end of this CSS.
+ * (This was the only way to make them 
+ * accessible because  Tables_Legacy.css is 
+ * loaded AFTER Tables_Common.css.)
+ * LaRae 02/21/2019 */
+
+/* table head italic */
+table thead tr td {
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* table foot normal */
+table tfoot tr td {
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Column 1 left justified*/
+table thead tr td:nth-child(1),
+table tbody tr td:nth-child(1),
+table tfoot tr td:nth-child(1)
+{
+	text-align: left;
+  -ah-text-align-string: left;
+}
+
+
+/* 
+ * CCT tables
+ */
+
+table.supphistory
+{
+  font-size: 10pt;
+  line-height: 120%;
+  border: none;
+  text-align: center;
+}
+
+
+table.supphistory td {
+  text-align: center;
+  font-style: normal;
+}
+
+table.supphistory thead td {
+  font-weight: bold;
+  background-color: #cccccc; /*  20% grey */
+}
+
+table.supphistory td:first-child,
+table.supphistory th:first-child
+{
+	text-align: center;
+}
+
+table.cct,
+table.slrt
+{
+  font-size: 9pt;
+  border: none;
+  line-height: 120%; /* Make line height consistent with vertical cell separation */
+  margin-top: 0pt;   
+  table-layout: fixed;
+  width: 100%;
+}
+
+section[data-type = 'cct'] div.columns2,
+section[data-type = 'slrt'] div.columns2
+{
+  column-gap: 2pc;
+}
+
+table.cct thead,
+table.slrt thead
+{
+  font-weight: bold;
+  font-style: normal;
+  margin-left: 0pt;
+  margin-right: 0pt;
+  padding-left: 0pt;
+  padding-right: 0pt;
+}
+
+table.cct thead tr td,
+table.slrt thead tr td {
+  font-weight: bold;
+  font-style: normal;
+}
+
+table.cct thead
+{
+  text-align: left;
+}
+
+table.cct > tbody,
+table.cct  tr,
+table.cct  td,
+table.cct  th, 
+table.slrt > tbody,
+table.slrt  tr,
+table.slrt  td,
+table.slrt  th 
+{
+  border: none;
+}
+
+table.cct tbody > tr > td {
+  text-align: left;
+  margin-left: 0pt;
+  padding-left: 0pt;
+} 
+
+table.slrt td
+{
+  text-align: left;
+  margin-left: 2pt;
+  margin-right: 2pt;
+  padding-left: 2pt;
+}
+
+
+table.slrt td:nth-child(1)
+{
+  text-align: left;
+  margin-left: 0pt;
+  margin-right: 2pt;
+  padding-left: 0pt;
+
+}
+
+table.cct  td:nth-child(2),
+table.slrt  td:nth-child(2)
+{
+  text-align: right; /* For two-column tables */
+  margin-right: 2pt;
+  padding-right: 2pt;
+}
+
+/* 
+ * For 3- and 4-column tables, undo the 2nd-column
+ * setting from above.
+ */
+table.cct td:nth-child(2):nth-last-child(-n+2), /* 2nd of 3 */ 
+table.cct td:nth-child(2):nth-last-child(-n+3) /* 2nd of 4 */ 
+{
+  text-align: left;
+  margin-left: 2pt;
+  margin-right: 2pt;
+  padding-left: 2pt;
+  padding-right: 2pt;
+  margin-right: 0pt;
+  padding-right: 0pt;
+}
+
+table.cct  td:nth-child(3),
+table.slrt  td:nth-child(3)
+{
+  margin-left: 2pt;
+  padding-left: 2pt;
+}
+
+table.cct  td:nth-child(3):nth-last-child(-n+1), /* 3rd of 3 */
+table.cct  td:nth-child(3):nth-last-child(-n+2), /* 3rd of 4 */
+table.slrt  td:nth-child(3):nth-last-child(-n+1),/* 3rd of 3 */
+table.slrt  td:nth-child(3):nth-last-child(-n+2) /* 3rd of 4 */
+{
+  margin-right: 2pt;
+  padding-right: 2pt;
+}
+
+table.cct  td:nth-child(4),
+table.slrt  td:nth-child(4)
+{
+  text-align: right; /* For four-column tables */
+  margin-right: 0pt;
+  padding-right: 0pt;
+  margin-left: 0.5pc;
+  padding-left: 0.5pc;
+}
+
+table.cct  td:nth-child(5),
+table.slrt  td:nth-child(5)
+{
+  text-align: left; /* For five-column tables */
+  margin-left: 2pt;
+  padding-left: 2pt;
+}
+
+/* GLOBAL table-level styles from Tables_Common.css */
+table.hleft thead tr td:nth-child(1),
+table.bleft tbody tr td:nth-child(1),
+table.fleft tfoot tr td:nth-child(1),
+table.left thead tr td:nth-child(1),
+table.left tbody tr td:nth-child(1),
+table.left tfoot tr td:nth-child(1)
+{ 
+	text-align: left; 
+	-ah-text-align-string: left;
+}
+
+table.hright thead tr td:nth-child(1),
+table.bright tbody tr td:nth-child(1),
+table.fright tfoot tr td:nth-child(1),
+table.right thead tr td:nth-child(1),
+table.right tbody tr td:nth-child(1),
+table.right tfoot tr td:nth-child(1)
+{ 
+	text-align: right; 
+	-ah-text-align-string: right;
+}
+
+table.hcenter thead tr td:nth-child(1),
+table.bcenter tbody tr td:nth-child(1),
+table.fcenter tfoot tr td:nth-child(1),
+table.center thead tr td:nth-child(1),
+table.center tbody tr td:nth-child(1),
+table.center tfoot tr td:nth-child(1)
+{ 
+	text-align: center;
+	-ah-text-align-string: center;
+}
+
+table.hjustify thead tr td:nth-child(1),
+table.bjustify tbody tr td:nth-child(1),
+table.fjustify tfoot tr td:nth-child(1),
+table.justify thead tr td:nth-child(1),
+table.justify tbody tr td:nth-child(1),
+table.justify tfoot tr td:nth-child(1)
+{ 
+	text-align: justify; 
+}

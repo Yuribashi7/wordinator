@@ -1,0 +1,15 @@
+/* =========================
+ * HistoryNote_Shading.css
+ * ========================= */ 
+
+/* oXygen-specific CSS for entering data for Municode's Munipub XML. */
+ 
+ /* ==================================================
+ * Copyright (c) Municode 2019
+ * ==================================================
+ */
+
+p[data-type="historynote"]
+	{ 
+		background-color: #F4C8DE;
+	}

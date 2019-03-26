@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE catalog PUBLIC "-//OASIS//DTD XML Catalogs V1.1//EN" "http://www.oasis-open.org/committees/entity/release/1.1/catalog.dtd">
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  
+  <!-- Oxygen-specific style sheet that is always used: -->
+  <uri name="http://www.oxygenxml.com/extensions/author/css/userCustom.css"
+    uri="oxygen_author_all.css"
+  />
+  
+  <!-- Redirect AHF-specific CSS modules to the corresponding Oxygen-specific
+       modules.
+       
+       These entries redirect any URL *ending with* the @uriSuffix
+       value to the URL defined by the @uri attribute, which relative to the 
+       location of the catalog file itself.
+    -->  
+  <!-- NOTE: The @uri value is relative to the *catalog*. -->
+	<uriSuffix uriSuffix="ahf_html-default.css" uri="oxy_html-default.css"/>
+	<uriSuffix uriSuffix="ahf_footnotes.css" uri="oxy_footnotes.css"/>
+  <uriSuffix uriSuffix="ahf_frills_future.css" uri="oxy_frills_future.css"/>
+  <uriSuffix uriSuffix="ahf_frills_legacy.css" uri="oxy_frills_legacy.css"/>
+  <uriSuffix uriSuffix="ahf_Indents_Future.css" uri="oxy_Indents_Future.css"/>
+	<uriSuffix uriSuffix="ahf_Indents_Legacy.css" uri="oxy_Indents_Legacy.css"/>
+	<uriSuffix uriSuffix="ahf_MunicodeCommon.css" uri="oxy_MunicodeCommon.css"/>
+  <uriSuffix uriSuffix="ahf_textwrap.css" uri="oxy_textwrap.css"/>
+  <uriSuffix uriSuffix="ahf_toc_future.css" uri="oxy_toc_future.css"/>
+  <uriSuffix uriSuffix="ahf_toc_legacy.css" uri="oxy_toc_legacy.css"/>
+  <uriSuffix uriSuffix="ahf_PageMasters_Future.css" uri="oxy_PageMasters_Future.css"/>
+	<uriSuffix uriSuffix="ahf_PageMasters_Legacy.css" uri="oxy_PageMasters_Legacy.css"/>
+</catalog>

@@ -1,0 +1,92 @@
+/* =========================
+* Basket.css
+* 
+* ========================= */ 
+
+/* oXygen-specific CSS for entering data in Municode basket files. */
+
+/* ==================================================
+* Copyright (c) Municode 2018
+* ==================================================
+*/
+@import url("xhtml.css");
+@import url("MunicodeCommon.css");
+@import url("Indents_Future.css");
+@import url("Tables_Common.css");
+@import url("Tables_Future.css");
+@import url("show_colspec.css");
+
+basketfile > header
+{
+	display: block;
+	border: solid 1pt black;
+	padding: 4pt;
+}
+
+basketfile > header:before 
+{
+  position: absolute;
+  top: 0pt;
+  left: 2em;
+  display: block;
+  content: url('icons/basket.png');
+  text-align: left;
+  width: 50px;
+  margin: 4px;
+  
+}
+basketfile > header > h1
+{
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  color: green;
+}
+
+basketfile > header > p
+{
+  display: block;
+  text-align: left;
+  margin-bottom : 0pt ;
+  margin-left: 2em;
+}
+
+sections > section[data-type="cct"]
+{
+  background-color: #FCF3CF;
+}
+
+sections > section[data-type="supphistory"]
+{
+  background-color: #D4EFDF;
+}
+
+sections > section[data-type="supphistory"] > header > h1,
+sections > section[data-type="cct"] > header > h1
+{
+  font-weight: bold;
+  text-transform: none;
+}
+
+sections section.divider:before,
+sections section[data-type="cct"]:before,
+sections section[data-type="supphistory"]:before
+{ 
+	content: " ";
+	display: block;
+	border-top: 3px solid blue;
+}
+
+br {
+  display: inline;  
+}
+br:after {
+  content: '\0a'
+}
+
+span[data-type = 'ord-no']
+{
+  color: blue;
+}
+
+

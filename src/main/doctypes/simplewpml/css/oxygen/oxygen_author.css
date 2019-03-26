@@ -1,0 +1,103 @@
+/* 
+ * ==========================================
+ * Oxygen-specific rules for use in Oxygen
+ * Author mode editing.
+ * ==========================================
+ */
+
+@import "oxygen_book_metadata.css";
+
+@namespace oxy url('http://www.oxygenxml.com/extensions/author'); 
+
+oxy|document
+{
+}
+
+section {
+/*    white-space: -oxy-trim-when-ws-only; */
+}
+
+
+.debug{
+	background-color: yellow;
+}
+
+a.refcross[href]:empty,
+a.refcharter[href]:empty
+{
+  content: oxy_link-text();
+}
+
+a.refcross[href],
+a.refcharter[href]
+{
+  color: blue;
+  text-decoration: underline;
+  -oxy-link: attr(href);
+  
+}
+
+
+a[href]:before 
+{
+  content: url("./img/link.png") '[' oxy_link-text() ']';
+  color: green;
+  -oxy-link: attr(href);
+}
+
+a[href]:empty:before
+{
+  content: url("./img/link.png");
+}
+
+/* FIXME: Need to create a better footnote look here. */
+aside.footnote:before {
+  content: '';
+  margin-left: 0pt;
+  text-indent: 0pt;
+  display: block;
+  border-top: 1pt blue solid;
+  width: 2in;
+}
+aside.footnote:after {
+  display: block;
+  border-top: 1pt blue solid;
+  width: 2in;
+  content: '';
+  
+}
+
+aside.footnote {
+  display: block;
+  margin-left: 0pt;
+}
+
+aside.footnote > p {
+  text-indent: 0pt;
+}
+
+aside.footnote > p:first-child {
+  display: block;
+}
+
+p[data-type="subtitle"] > a.footnoteref {
+  display: inline;
+}  
+p[data-type="subtitle"] > a.footnoteref:before,
+p.footnotemark > a[href]:before {
+  display: inline;
+  content : none;
+}
+
+p[data-type="subtitle"] > a.footnoteref,
+p.footnotemark a {
+  display: inline;
+  content: content();
+  vertical-align: super;
+  font-size:small;    
+  color : black ;
+  text-decoration-line : none ;
+}  
+
+  
+ 

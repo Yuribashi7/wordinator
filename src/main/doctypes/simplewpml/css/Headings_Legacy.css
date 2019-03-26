@@ -1,0 +1,315 @@
+/* =========================
+ * Headings_Legacy.css
+ * ========================= */ 
+
+/* Antenna House-specific CSS for generating PDF
+ * from Municode's Munipub XML.
+ * This file deals with general appearance 
+ * but not page-breaks or keeps. */
+ 
+ /* Font family,
+  * font size and
+  * line height changes are limited to @media print. */
+
+/* ========================
+ * Specific to "Legacy" style
+ * ========================
+ * Headings are styled based on section
+ * data-type. This is different from
+ * "Future," which is styled based on 
+ * number of steps away from root section. 
+ * 
+ * Specific section data-types headings 
+ * are made uppercase by CSS.
+ * 
+ * Heading use same font as body text.
+ * 
+ * Margins and line-heights use 
+ * qualified (not relative) measurements*/
+
+section > header
+{
+  text-align: center;
+}
+
+section > header > h1
+{
+  -ah-annotation-author: title;
+  text-align: center;
+}
+
+p[data-type="subtitle"]:before {
+  content: none;
+}
+
+/* === Chapter (and charter) === */
+
+html > body > section > header,
+section[data-type = 'chapter'] > header,
+section[data-type = 'charter'] > header
+{
+ 	text-align: center;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+	padding-top: 0pt;
+}
+
+@media print{
+	html > body > section > header,
+	section[data-type = 'chapter'] > header
+	{
+	  line-height: 10pt;   
+	}
+}
+
+html > body > section > header > h1,
+section[data-type = 'chapter'] > header > h1,
+section[data-type = 'charter'] > header > h1
+{
+  display: block;
+  font-weight: normal;
+  margin-top: 0pt;
+  margin-bottom: 12pt;
+  padding-top: 0pt;  
+}
+
+@media print{
+	html > body > section > header > h1,
+	section[data-type = 'chapter'] > header > h1
+	{
+	  line-height: 10pt;   
+	}
+}
+
+/*html > body > section > header > h1
+{
+	font-weight: bold;
+}
+*/
+
+html > body > section > header > p[data-type="subtitle"],
+html > body > section > section > header > p[data-type="subtitle"]
+{
+  display: block;
+  font-weight: bold;
+  margin-bottom: 24pt;
+}
+
+/* Override the bold subtitle for these section types */
+html > body > section[data-type='adoptingord'] > header > p[data-type="subtitle"],
+html > body > section[data-type='preface'] > header > p[data-type="subtitle"],
+html > body > section[data-type='titlepage'] > header > p[data-type="subtitle"]
+{
+  font-weight: normal;
+}
+
+section[data-type = 'charter'] > section[data-type = 'chapter'] > header,
+section[data-type = 'charter'] > header
+{
+    margin-top: 1.5pc;
+}
+
+section[data-type = 'charter'] > section[data-type = 'chapter']:first-of-type > header,
+section[data-type = 'part'] > section[data-type = 'charter']:first-of-type > header
+{
+    margin-top: 0pc;
+}
+
+section[data-type = 'charter'] > section[data-type = 'chapter'] > header > h1,
+section[data-type = 'charter'] > header > h1
+{
+  display: inline;
+}
+
+section[data-type = 'charter'] > section[data-type = 'chapter'] > header > h1,
+section[data-type = 'charter'] > header > h1,
+section[data-type = 'charter'] > header > p[data-type="subtitle"],
+section[data-type = 'chapter'] > header > p[data-type="subtitle"]
+{
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+section[data-type = 'charter'] > section[data-type = 'chapter'] > header > p[data-type="subtitle"]
+{
+  display: inline;
+  text-transform: uppercase;
+}
+
+section[data-type = 'charter'] > section[data-type = 'chapter'] > header > h1:after 
+{
+  content: ".\00a0";
+}
+
+/* === Article === */
+html > body > section > section > header,
+section[data-type = 'article'] > header
+{
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10pt;
+  margin-top: 10pt;
+}
+
+section[data-type = 'charter'] > section[data-type = 'chapter'] > header
+{
+    margin-top: 1.5pc;
+}
+
+section[data-type = 'charter'] > section[data-type = 'chapter']:first-of-type > header
+{
+    margin-top: 0pc;
+}
+
+html > body > section > section > header > h1,
+section[data-type = 'artcle'] > header > h1,
+section[data-type = 'charter'] > section[data-type = 'chapter'] > header > h1
+{
+  display: inline;
+}
+
+section[data-type = 'charter'] > section[data-type = 'chapter'] > header > h1
+{
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+section[data-type = 'article'] > header > p[data-type="subtitle"],
+section[data-type = 'charter'] > section[data-type = 'chapter'] > header > p[data-type="subtitle"]
+{
+  display: inline;
+}
+
+
+/* === Division === */
+
+section[data-type = 'division'] > header
+{
+  font-weight: normal;
+  font-style: normal;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+section[data-type = 'division'] > header > h1
+{
+  font-weight: normal;
+}
+
+section[data-type = 'division'] > header > p[data-type="subtitle"]
+{
+  display: inline;
+}
+
+/* === Subdivision === */
+
+section[data-type = 'subdivision'] > header
+{
+  font-weight: normal;
+  font-style: italic;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+section[data-type = 'subdivision'] > header > h1
+{
+  font-weight: normal;
+}
+
+/* === Section === */
+
+section[data-type $= 'section'] > header,
+section[data-type $= 'section'] > header
+{
+  display: block;
+  text-align: left;  
+  text-indent: -6pc;
+  margin-top: 10pt;
+  margin-bottom: 10pt;
+  margin-left: 6pc;
+  break-after: avoid;
+  font-weight: bold;
+  font-style: normal;
+}
+
+section[data-type $= 'section'] > header > h1
+{
+  display: inline-block;
+  text-indent: 0pt;
+  margin-bottom: 0pt;
+  margin-top: 0pt;
+  margin-right: 2pt;
+  min-width: 6pc;
+  text-align: left;
+}
+
+section[data-type $= 'section'] > header > p[data-type="subtitle"]
+{
+  display: inline;
+}
+
+h1 {
+  display: inline;
+}
+
+
+
+h1.has-subtitle:after, 
+/* In toc and minitoc entries: */
+span.h1.has-subtitle:after 
+{
+  content: ".\00a0";
+}
+
+section[data-type = 'adoptingord'] > header > h1.has-subtitle:after, 
+section[data-type = 'part'] > header > h1.has-subtitle:after, 
+section[data-type = 'chapter'] > header > h1.has-subtitle:after, 
+section[data-type = 'supphistory'] > header > h1.has-subtitle:after, 
+section[data-type = 'titlepage'] > header > h1.has-subtitle:after, 
+section[data-type = 'cct'] > header > h1.has-subtitle:after, 
+section[data-type ^= 'officials'] > header > h1.has-subtitle:after, 
+section[data-type ^= 'appendix'] > header > h1.has-subtitle:after 
+{
+  content: none;
+}
+
+div[data-target-data-type = 'part'] > * > * > span.h1.has-subtitle:after,
+div[data-target-data-type ^= 'officials'] > * > * > span.h1.has-subtitle:after
+{
+  content: none;
+}
+
+/* 
+ * === Uppercasing for section titles and subtitles
+ === */
+section[data-type = 'adoptingord'] > header > h1,
+section[data-type = 'article'] > header > h1,
+section[data-type = 'cct'] > header > h1,
+section[data-type = 'index'] > header > h1,
+section[data-type ^= 'officials'] > header > h1,
+section[data-type = 'ordlist'] > header > h1,
+section[data-type = 'part'] > header > h1,
+section[data-type = 'preface'] > header > h1,
+section[data-type = 'slrt'] > header > h1,
+section[data-type = 'supphistory'] > header > h1,
+section[data-type = 'titlearr'] > header > h1,
+section[data-type = 'titlepage'] > header > h1,
+section[data-type = 'article'] > header > p[data-type = 'subtitle'],
+section[data-type = 'cct'] > header > p[data-type = 'subtitle'],
+section[data-type = 'part'] > header > p[data-type = 'subtitle']
+{ 
+  text-transform: uppercase; 
+}
+
+
+section[data-type = 'appendix'] > header > h1,
+section[data-type = 'cct'] > header > h1,
+section[data-type = 'slrt'] > header > h1,
+section[data-type = 'supphistory'] > header > h1,
+section[data-type = 'titlepage'] > header > h1,
+section[data-type = 'cct'] > header > p[data-type = 'subtitle'],
+section[data-type = 'part'] > header > p[data-type = 'subtitle']
+{
+  font-weight: bold;
+}
+

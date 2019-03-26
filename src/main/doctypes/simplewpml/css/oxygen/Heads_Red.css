@@ -1,0 +1,13 @@
+/* =========================
+ * Heads_Red.css
+ * ========================= */ 
+
+/* oXygen-specific CSS for entering data for Municode's Munipub XML. */
+ 
+ /* ==================================================
+ * Copyright (c) Municode 2017
+ * ==================================================
+ */
+h1 {
+	color: red;
+}

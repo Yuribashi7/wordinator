@@ -1,0 +1,50 @@
+
+/* ===========================
+ * Position frills
+ * ===========================
+ */
+lldiv1 {
+  position: running(lldiv1);
+}
+
+lldiv2 {
+  position: running(lldiv2);
+}
+
+llstyle1 {
+  position: running(llstyle1);
+}
+
+llstyle2 {
+  position: running(llstyle2);
+}
+
+llstyle3 {
+  position: running(llstyle3);
+}
+
+job > label {
+  position: running(updateLabel);
+}
+
+
+verso
+{ 
+  position: running(pubTitle);
+  
+}
+
+blankpagetext
+{ 
+  position: running(blankpagetext);
+  
+}
+
+pdftagline {
+  position: running(pdftagline);
+}
+
+watermark {
+  position: running(watermark);
+}
+

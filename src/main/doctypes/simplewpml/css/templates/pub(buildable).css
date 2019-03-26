@@ -1,0 +1,89 @@
+/* ==================================================
+ * PUB NAME_PUB NUMBER
+ * pub.css
+ * Description: Publication-level CSS 
+ * 
+ * Copyright (c) Municode 2018
+ * 
+ * ==================================================*/
+
+/* ==================================================== 
+  * CSS imports for Municode's Munipub XML data.
+  *  For each module, import common CSS 
+  *  followed by agent-specific CSS where exists
+ * ==================================================== */
+
+/*HTML default*/
+	@import "../../../../../html-default.css";
+	@import "../../../../../ahf/ahf_html-default.css";
+	
+/*Municode common*/
+	@import "../../../../../MunicodeCommon.css";
+    @import "../../../../../ahf/ahf_MunicodeCommon.css";
+   
+/*Font*/
+	@import "../../../../../Font_NCSB.css";
+	
+/*Font size*/
+	@import "../../../../../Font_Size_10.css";
+
+/*Line height*/
+	@import "../../../../../Line_Height_120pct.css";
+	
+/*Tables common*/
+   @import "../../../../../Tables_Common.css";
+
+/*Tables*/
+	/*	Examples:
+	 * 		Tables_Heads_Bold
+	 * 		Tables_Decreased_Font_Size
+	 * 		Tables_Font_Arial-Narrow
+	 * 		Tables_Heads_Shaded
+	 * 		Tables_Alignment_Left  */
+
+/*Page masters*/
+   /*Examples: 
+    * 		Page_Masters_6x9
+    * 		Page_Masters_Booklet 
+    * 		Page_Masters_8.5x11 
+    * 		Page_Masters_Maps */
+   
+/*Headings*/
+	/*	Examples:
+	 * 		Headings_Bold_Centered
+	 * 		Headings_Decreasing_Size
+	 * 		Headings_Font_Arial-Black
+	 * 		Headings_Color_Theme_Aqua
+	 * 		Headings_Page_Bleeds  */
+  
+/*Indents*/
+	/*	Examples:
+	 * 		Indents_Block_Half_Inch
+	 * 		Indents_Block_Quarter_Inch
+	 * 		Indents_Hanging_Third_Inch
+	 * 		Indents_Paragraphs_2_Picas */
+	 
+@import "../../../../../ahf/ahf_Indents_Future.css";
+	 
+/*Text Emphasis*/
+	@import "../../../../../Para_Titles_Bold.css";
+	@import "../../../../../Definitions_Bold.css";
+    
+/*Frills and all remaining style details*/
+
+   @import "../../../../../PDF_Legacy.css"; 
+   
+/*Print-only*/
+
+	@import "../../../../../ahf/ahf_frills_Future.css" print;
+	@import "../../../../../ahf/ahf_toc_Future.css" print;  
+
+/* ========================== 
+ * Local Style Customizations / Exceptions 
+ * ========================== */
+
+/*Publication-level customizations - use only if needed */
+   /*@import "../../../../../custom.css" print;*/
+   
+/*ID-specific customizations (i.e. alternate style chapter) - use only if needed */
+   /*@import "../../../../../selectids.css" print;*/

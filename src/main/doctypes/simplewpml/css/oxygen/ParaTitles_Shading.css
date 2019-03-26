@@ -1,0 +1,15 @@
+/* =========================
+ * ParaTitles_Shading.css
+ * ========================= */ 
+
+/* oXygen-specific CSS for entering data for Municode's Munipub XML. */
+ 
+ /* ==================================================
+ * Copyright (c) Municode 2019
+ * ==================================================
+ */
+
+span.title
+	{ 
+		background-color: #B5B0F5;
+	}

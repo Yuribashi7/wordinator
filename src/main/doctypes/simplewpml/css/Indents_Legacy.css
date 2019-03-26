@@ -1,0 +1,403 @@
+/* =========================
+ * Indents_Legacy.css
+ * includes table indents
+ * ========================= */ 
+
+/* CSS for Municode's Munipub XML. */ 
+ 
+/* CSS rules relating to indents
+ * for "Legacy style" publications , 
+ * common to all agents (oXygen and Antenna House Formatter.)*/
+ 
+div.section-body p:not([class]):not([data-type]),
+p.p1
+{
+  text-indent: 1pc;
+}
+
+/*  All ref paragraphs should be same as p1 */
+p[data-type = 'refmanual'],
+p[data-type = 'refeditor'],
+p[data-type = 'refcharter'],
+p[data-type = 'refstatelaw'],
+p[data-type = 'refcross'],
+p[data-type = 'refstateconst'],
+p[data-type = 'refcaselaw'],
+p[data-type = 'refcaselawanno'],
+p[data-type = 'refnote'],
+p[data-type = 'refgeneric'],
+aside.footnote 
+{
+  text-indent: 1pc;
+}
+
+p.b1,
+p.center
+{
+  text-indent: 0pt !important;
+}
+
+/* Default list item number indent */
+p > span.incr,
+p > span.incrml
+{
+  display: inline-block;
+  min-width: 1.5pc;
+  text-align: left;
+  text-indent: 0pt;
+  margin-right: 0.5pc;
+}
+
+p.ol1 > span.incr,
+p.ml1 > span.incr,
+p.ml1 > span.incrml
+{
+  min-width: 1.0pc;
+}
+
+p.b2,
+p.p2,
+p.hg1 {
+  margin-left: 1pc;
+}
+
+p.b3,
+p.p3,
+p.hg2,
+p.ol2 {
+  margin-left: 3pc;
+}
+
+p.b4,
+p.p4,
+p.hg3,
+p.ol3 {
+  margin-left: 5pc;
+}
+
+p.b5,
+p.p5,
+p.hg4,
+p.ol4 {
+  margin-left: 7pc;
+}
+
+p.b6,
+p.p6,
+p.hg5,
+p.ol5 {
+  margin-left: 9pc;
+}
+
+p.b7,
+p.p7,
+p.hg6,
+p.ol6 {
+  margin-left: 11pc;
+}
+
+p.b8,
+p.p8,
+p.hg7,
+p.ol7 {
+  margin-left: 13pc;
+}
+
+p.b9,
+p.p9,
+p.hg8 ,
+p.ol8 {
+  margin-left: 15pc;
+}
+
+p.hg9,
+p.ol9 {
+  margin-left: 17pc;
+}
+
+p[data-lf = '.'] > span:nth-child(2):before 
+{
+    content: leader(dotted);
+}
+
+
+p:not([data-type = "subtitle"]):not([class]),
+p.p1
+{
+  text-indent: 1pc;
+}
+
+p.p2,
+p.p3,
+p.p4,
+p.p5,
+p.p6,
+p.p7,
+p.p8,
+p.p9
+{
+  text-indent: 2pc;
+}
+
+p.hg1 {
+  text-indent: -1pc;
+}
+
+p.hg2, 
+p.hg3, 
+p.hg4, 
+p.hg5, 
+p.hg6, 
+p.hg7, 
+p.hg8, 
+p.hg9,
+p.ol2, 
+p.ol3, 
+p.ol4, 
+p.ol5, 
+p.ol6, 
+p.ol7, 
+p.ol8, 
+p.ol9
+{
+  text-indent: -2pc;
+}
+
+
+p.ol1 
+{
+  text-indent: 1pc;
+}
+
+/* Multi-lists (2 or more numbers for a list item) */
+p.ml1 {
+  text-indent: -2pc;
+  margin-left: 3pc;
+  
+}
+
+p.ml2, 
+p.ml3, 
+p.ml4, 
+p.ml5, 
+p.ml6, 
+p.ml7, 
+p.ml8, 
+p.ml9
+{
+  text-indent: -4pc;
+}
+
+p.ml2 {
+  margin-left: 5pc;
+}
+p.ml3 {
+  margin-left: 7pc;
+}
+p.ml4 {
+  margin-left: 9pc;
+}
+p.ml5 {
+  margin-left: 11pc;
+}
+p.ml6 {
+  margin-left: 13pc;
+}
+p.ml7 {
+  margin-left: 15pc;
+}
+p.ml8 {
+  margin-left: 17pc;
+}
+p.ml9 {
+  margin-left: 19pc;
+}
+
+/**** Table indents ****/
+table.b1full, 
+figure.b1full
+{
+	margin-left:0;
+	width: 100%; 
+	table-layout: fixed;
+}
+
+section[data-pglayout="rotated"] table.b1, 
+section[data-pglayout="rotated"] table.b1full, 
+section[data-pglayout="rotated"] figure.b1full
+{
+  width: 100%; /* Body width */
+}
+
+
+table.b2,
+table.b2full, 
+figure.b2full
+{
+	margin-left:2pc;
+	width: calc(100% - 2pc); 
+	table-layout: fixed;
+}
+
+table.b3,
+table.b3full, 
+figure.b3full
+{
+  margin-left: 3pc;
+  width: calc(100% - 3pc); 
+	table-layout: fixed;
+}
+
+table.b4,
+table.b4full, 
+figure.b4full
+{
+  margin-left: 5pc;
+	table-layout: fixed;
+  width: calc(100% - 5pc); 
+
+}
+
+table.b5,
+table.b5full, 
+figure.b5full
+{
+  margin-left: 7pc;
+	table-layout: fixed;
+  width: calc(100% - 7pc); 
+
+}
+
+table.b6,
+table.b6full, 
+figure.b6full
+{
+  margin-left: 9pc;
+	table-layout: fixed;
+  width: calc(100% - 9pc); 
+}
+
+
+table.b7,
+table.b7full, 
+figure.b7full
+{
+  margin-left: 11pc;
+	table-layout: fixed;
+  width: calc(100% - 11pc); 
+}
+
+table.b8,
+table.b8full, 
+figure.b8full
+{
+  margin-left: 13pc;
+	table-layout: fixed;
+  width: calc(100% - 23pc); 
+}
+
+table.b9,
+table.b9full, 
+figure.b9full
+{
+  margin-left: 15pc;
+	table-layout: fixed;
+  width: calc(100% - 15pc); 
+}
+
+/*
+* hg#-indent# classes (2018-08-10 Raymond)
+*/
+p.hg1-indent1 {margin: 0.2pc 0pc 0pc 1pc; text-indent: -1pc; }
+p.hg1-indent2 {margin: 0.2pc 0pc 0pc 2pc; text-indent: -2pc; }
+p.hg1-indent3 {margin: 0.2pc 0pc 0pc 3pc; text-indent: -3pc; }
+p.hg1-indent4 {margin: 0.2pc 0pc 0pc 4pc; text-indent: -4pc; }
+p.hg1-indent5 {margin: 0.2pc 0pc 0pc 5pc; text-indent: -5pc; }
+p.hg1-indent6 {margin: 0.2pc 0pc 0pc 6pc; text-indent: -6pc; }
+p.hg1-indent7 {margin: 0.2pc 0pc 0pc 7pc; text-indent: -7pc; }
+p.hg1-indent8 {margin: 0.2pc 0pc 0pc 8pc; text-indent: -8pc; }
+p.hg1-indent9 {margin: 0.2pc 0pc 0pc 9pc; text-indent: -9pc; } 
+p.hg1-indent14 {margin: 0.2pc 0pc 0pc 14pc; text-indent: -14pc; } /* custom */
+
+p.hg2-indent1 {margin: 0.2pc 0pc 0pc 2pc; text-indent: -1pc; }
+p.hg2-indent2 {margin: 0.2pc 0pc 0pc 3pc; text-indent: -2pc; }
+p.hg2-indent3 {margin: 0.2pc 0pc 0pc 4pc; text-indent: -3pc; }
+p.hg2-indent4 {margin: 0.2pc 0pc 0pc 5pc; text-indent: -4pc; }
+p.hg2-indent5 {margin: 0.2pc 0pc 0pc 6pc; text-indent: -5pc; }
+p.hg2-indent6 {margin: 0.2pc 0pc 0pc 7pc; text-indent: -6pc; }
+p.hg2-indent7 {margin: 0.2pc 0pc 0pc 8pc; text-indent: -7pc; }
+p.hg2-indent8 {margin: 0.2pc 0pc 0pc 9pc; text-indent: -8pc; }
+p.hg2-indent9 {margin: 0.2pc 0pc 0pc 10pc; text-indent: -9pc; }
+
+p.hg3-indent1 {margin: 0.2pc 0pc 0pc 4pc; text-indent: -1pc; }
+p.hg3-indent2 {margin: 0.2pc 0pc 0pc 5pc; text-indent: -2pc; }
+p.hg3-indent3 {margin: 0.2pc 0pc 0pc 6pc; text-indent: -3pc; }
+p.hg3-indent4 {margin: 0.2pc 0pc 0pc 7pc; text-indent: -4pc; }
+p.hg3-indent5 {margin: 0.2pc 0pc 0pc 8pc; text-indent: -5pc; }
+p.hg3-indent6 {margin: 0.2pc 0pc 0pc 9pc; text-indent: -6pc; }
+p.hg3-indent7 {margin: 0.2pc 0pc 0pc 10pc; text-indent: -7pc; }
+p.hg3-indent8 {margin: 0.2pc 0pc 0pc 11pc; text-indent: -8pc; }
+p.hg3-indent9 {margin: 0.2pc 0pc 0pc 12pc; text-indent: -9pc; }
+
+p.hg4-indent1 {margin: 0.2pc 0pc 0pc 6pc; text-indent: -1pc; }
+p.hg4-indent2 {margin: 0.2pc 0pc 0pc 5pc; text-indent: -2pc; }
+p.hg4-indent3 {margin: 0.2pc 0pc 0pc 6pc; text-indent: -3pc; }
+p.hg4-indent4 {margin: 0.2pc 0pc 0pc 7pc; text-indent: -4pc; }
+p.hg4-indent5 {margin: 0.2pc 0pc 0pc 8pc; text-indent: -5pc; }
+p.hg4-indent6 {margin: 0.2pc 0pc 0pc 9pc; text-indent: -6pc; }
+p.hg4-indent7 {margin: 0.2pc 0pc 0pc 10pc; text-indent: -7pc; }
+p.hg4-indent8 {margin: 0.2pc 0pc 0pc 11pc; text-indent: -8pc; }
+p.hg4-indent9 {margin: 0.2pc 0pc 0pc 12pc; text-indent: -9pc; }
+
+p.hg5-indent1 {margin: 0.2pc 0pc 0pc 8pc; text-indent: -1pc; }
+p.hg5-indent2 {margin: 0.2pc 0pc 0pc 9pc; text-indent: -2pc; }
+p.hg5-indent3 {margin: 0.2pc 0pc 0pc 10pc; text-indent: -3pc; }
+p.hg5-indent4 {margin: 0.2pc 0pc 0pc 11pc; text-indent: -4pc; }
+p.hg5-indent5 {margin: 0.2pc 0pc 0pc 12pc; text-indent: -5pc; }
+p.hg5-indent6 {margin: 0.2pc 0pc 0pc 13pc; text-indent: -6pc; }
+p.hg5-indent7 {margin: 0.2pc 0pc 0pc 14pc; text-indent: -7pc; }
+p.hg5-indent8 {margin: 0.2pc 0pc 0pc 15pc; text-indent: -8pc; }
+p.hg5-indent9 {margin: 0.2pc 0pc 0pc 16pc; text-indent: -9pc; }
+
+p.hg6-indent1 {margin: 0.2pc 0pc 0pc 10pc; text-indent: -1pc; }
+p.hg6-indent2 {margin: 0.2pc 0pc 0pc 11pc; text-indent: -2pc; }
+p.hg6-indent3 {margin: 0.2pc 0pc 0pc 12pc; text-indent: -3pc; }
+p.hg6-indent4 {margin: 0.2pc 0pc 0pc 13pc; text-indent: -4pc; }
+p.hg6-indent5 {margin: 0.2pc 0pc 0pc 14pc; text-indent: -5pc; }
+p.hg6-indent6 {margin: 0.2pc 0pc 0pc 15pc; text-indent: -6pc; }
+p.hg6-indent7 {margin: 0.2pc 0pc 0pc 16pc; text-indent: -7pc; }
+p.hg6-indent8 {margin: 0.2pc 0pc 0pc 17pc; text-indent: -8pc; }
+p.hg6-indent9 {margin: 0.2pc 0pc 0pc 18pc; text-indent: -9pc; }
+
+p.hg7-indent1 {margin: 0.2pc 0pc 0pc 12pc; text-indent: -1pc; }
+p.hg7-indent2 {margin: 0.2pc 0pc 0pc 13pc; text-indent: -2pc; }
+p.hg7-indent3 {margin: 0.2pc 0pc 0pc 14pc; text-indent: -3pc; }
+p.hg7-indent4 {margin: 0.2pc 0pc 0pc 15pc; text-indent: -4pc; }
+p.hg7-indent5 {margin: 0.2pc 0pc 0pc 16pc; text-indent: -5pc; }
+p.hg7-indent6 {margin: 0.2pc 0pc 0pc 17pc; text-indent: -6pc; }
+p.hg7-indent7 {margin: 0.2pc 0pc 0pc 18pc; text-indent: -7pc; }
+p.hg7-indent8 {margin: 0.2pc 0pc 0pc 19pc; text-indent: -8pc; }
+p.hg7-indent9 {margin: 0.2pc 0pc 0pc 20pc; text-indent: -9pc; }
+
+p.hg8-indent1 {margin: 0.2pc 0pc 0pc 14pc; text-indent: -1pc; }
+p.hg8-indent2 {margin: 0.2pc 0pc 0pc 15pc; text-indent: -2pc; }
+p.hg8-indent3 {margin: 0.2pc 0pc 0pc 16pc; text-indent: -3pc; }
+p.hg8-indent4 {margin: 0.2pc 0pc 0pc 17pc; text-indent: -4pc; }
+p.hg8-indent5 {margin: 0.2pc 0pc 0pc 18pc; text-indent: -5pc; }
+p.hg8-indent6 {margin: 0.2pc 0pc 0pc 19pc; text-indent: -6pc; }
+p.hg8-indent7 {margin: 0.2pc 0pc 0pc 20pc; text-indent: -7pc; }
+p.hg8-indent8 {margin: 0.2pc 0pc 0pc 21pc; text-indent: -8pc; }
+p.hg8-indent9 {margin: 0.2pc 0pc 0pc 22pc; text-indent: -9pc; }
+
+p.hg9-indent1 {margin: 0.2pc 0pc 0pc 16pc; text-indent: -1pc; }
+p.hg9-indent2 {margin: 0.2pc 0pc 0pc 17pc; text-indent: -2pc; }
+p.hg9-indent3 {margin: 0.2pc 0pc 0pc 18pc; text-indent: -3pc; }
+p.hg9-indent4 {margin: 0.2pc 0pc 0pc 19pc; text-indent: -4pc; }
+p.hg9-indent5 {margin: 0.2pc 0pc 0pc 20pc; text-indent: -5pc; }
+p.hg9-indent6 {margin: 0.2pc 0pc 0pc 21pc; text-indent: -6pc; }
+p.hg9-indent7 {margin: 0.2pc 0pc 0pc 22pc; text-indent: -7pc; }
+p.hg9-indent8 {margin: 0.2pc 0pc 0pc 23pc; text-indent: -8pc; }
+p.hg9-indent9 {margin: 0.2pc 0pc 0pc 24pc; text-indent: -9pc; }
+/*
+* END hg#-indent# classes (2018-08-10 Raymond)
+*/

@@ -1,5 +1,5 @@
 /* ==================================================
-  * Legacy.css
+  * Future.css
  * Description: Publication-level CSS 
  * 
  * Copyright (c) Municode 2018
@@ -18,7 +18,7 @@
 /*Font family, size, line-height*/
 @import "./Font_NCSB.css";
 @import "./Font_Size_10.css";
-@import "./Line_Height_140pct.css";
+@import "./Line_Height_120pct.css";
 
 /*Municode common*/
 @import "./MunicodeCommon.css";
@@ -28,32 +28,32 @@
 @import "./Tables_Common.css";
 
 /*Tables*/
-@import "./Tables_Legacy.css";
+@import "./Tables_Future.css";
 
 /*Page masters*/
-@import "./PageMasters_Legacy.css";
+@import "./PageMasters_Future.css";
 
 /*Headings*/
-@import "./Headings_Legacy.css";
+@import "./Headings_Future.css";
 
 /*Indents*/
-@import "./Indents_Legacy.css";
-@import "./ahf/ahf_Indents_Legacy.css";
+@import "./Indents_Future.css";
+@import "./ahf/ahf_Indents_Future.css";
 
 /*Text Emphasis*/
-@import "./Para_Titles_Italic.css";
-@import "./Definitions_Italic.css";
+@import "./Para_Titles_Bold.css";
+@import "./Definitions_Bold.css";
 
 /*Footnotes*/
 @import "ahf/ahf_footnotes.css";
 
 /*Frills and all remaining style details*/
-@import "./PDF_Legacy.css";
+@import "./PDF_Future.css";
 
-@import "./ahf/ahf_frills_Legacy.css" print;
-@import "./ahf/ahf_toc_Legacy.css" print;
-@import "./ahf/ahf_lof_Legacy.css" print;
-@import "./ahf/ahf_lot_Legacy.css" print;
+@import "./ahf/ahf_frills_future.css" print;
+@import "./ahf/ahf_toc_future.css" print;
+@import "./ahf/ahf_lof_future.css" print;
+@import "./ahf/ahf_lot_future.css" print;
 /* ========================== 
  * Local Style Customizations / Exceptions 
  * ========================== */

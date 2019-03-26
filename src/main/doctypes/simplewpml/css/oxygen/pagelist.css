@@ -1,0 +1,231 @@
+/*
+ * pagelist.css
+ *  
+ * CSS for viewing and editing Municode's _PageList.XML file
+ * 
+ * 
+ */
+
+page-listing
+{
+  font-family: Verdana, sans-serif, "Arial Unicode";
+  white-space: normal;
+}
+
+physical-pages
+{
+  display: block;
+}
+
+physical-pages:before
+{
+  content: 'Physical Pages';
+  font-weight: bold;
+  font-size: 14pt;
+  display: block;
+  margin-bottom: 2em;
+  color: blue;
+}
+
+element-entries
+{
+  display: block;
+}
+
+element-entries:before
+{
+  content: 'Element Entries';
+  font-weight: bold;
+  font-size: 14pt;
+  display: block;
+  margin-bottom: 2em;
+  color: blue;
+}
+
+page {
+  display: block;
+  margin-left: 1em;
+}
+
+page:before
+{
+  content: 'Page ' attr(front);
+}
+
+update {
+  display: block;
+  margin-left: 1em;
+}
+
+update:after
+{
+  content: 'Update (' attr(job-id) '): Back=' attr(back) ', First line: ' attr(first-line);
+}
+
+element-entry
+{
+  display: block;
+  margin-left: 1em;
+}
+
+element-entry:before
+{
+  display: block;
+  content: 'Element "' attr(id) '", type=' attr(element);
+  color: blue;
+  font-weight: bold;
+}
+
+title
+{
+  display: block;
+  margin-left: 1em;
+}
+
+title:before
+{
+  content: 'Title: "';
+}
+
+title:after
+{
+  content: '"';
+}
+
+page-history
+{
+  display: block;
+  margin-left: 1em;
+}
+
+page-history:before
+{
+  content: 'Page History:'
+}
+
+page-history-entry
+{
+  display: block;
+  margin-left: 1em;
+  margin-top: 1em;
+}
+
+page-history-entry:before
+{
+  display: block;
+  content: 'Job ' attr(job-id);  
+}
+
+abs-page-number
+{
+  display: block;  
+  margin-left: 1em;
+}
+
+abs-page-number:before
+{
+  content: 'Absolute page number: '; 
+}
+
+display-page-number
+{
+  display: block;
+  margin-left: 1em;
+}
+
+display-page-number:before
+{
+  content: 'Display page number:'
+}
+
+prefolio,
+folio,
+postfolio
+{
+  display: inline;
+}
+
+prefolio:before,
+folio:before,
+postfolio:before
+{
+  content: '';
+}
+
+prefolio:after,
+folio:after,
+postfolio:after
+{
+  content: '';
+}
+
+folio
+{
+  color: green;
+}
+
+
+@media oxygen{
+
+physical-pages,
+element-entries,
+element-entry,
+page-history,
+page-history-entry
+{
+  -oxy-foldable: true;
+}
+
+physical-pages,
+element-entries
+{
+    -oxy-folded: true;
+
+}
+
+folio
+{
+  
+}
+
+prefolio,
+postfolio
+{
+  -oxy-placeholder-content: '';
+  -oxy-editable: false;
+}
+
+abs-page-number
+{
+  content:
+  oxy_textfield(
+          edit, '#text',
+          columns, 6,
+          tooltip, 'Absolute page number)',
+          color, 'green'
+          );
+  visibility: -oxy-collapse-text;
+}
+
+folio
+{
+  content:
+  oxy_textfield(
+          edit, '#text',
+          columns, 6,
+          tooltip, 'Folio value (page number)',
+          color, 'green'
+          );
+  visibility: -oxy-collapse-text;
+}
+
+}
+
+update
+{
+    display:block;
+    content:oxy_label(text, "Current attribute value: ", width, 150px, text-align, left) attr(back-first-line);
+    margin:0.5em;
+    padding:1em;
+    background-color:#fdf3eb;
+}

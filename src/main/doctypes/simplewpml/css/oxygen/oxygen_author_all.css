@@ -1,0 +1,8 @@
+/* 
+ * Import the general oxygen-specific module
+ * 
+ * This CSS module is used to make it possible to redirect 
+ * the CSS location to the development location
+ * using a global developer-specific catalog.
+ */
+@import "oxygen_author.css" oxygen;

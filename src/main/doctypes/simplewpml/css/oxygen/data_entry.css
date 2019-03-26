@@ -1,0 +1,37 @@
+/* data_entry.css */
+
+/*HTML default*/
+	@import "../html-default.css";
+	@import "./oxy_html-default.css";
+
+/* Font family, size & line height (interline leading) */
+	@import "../Font_Verdana.css";
+	@import "../Font_Size_11.css";
+	@import "../Line_Height_100pct.css";
+   
+/*Municode common*/
+   @import "../MunicodeCommon.css";
+   @import "./oxy_MunicodeCommon.css";
+   
+/*Tables common*/
+   @import "../Tables_Common.css";
+
+/*Tables*/
+   @import "../Tables_Future.css";
+   
+/*Headings*/
+   @import "../Headings_Future.css";
+
+/*Indents*/
+   @import "../Indents_Future.css";
+   
+/*Text Emphasis*/
+   @import "../Para_Titles_Bold.css";
+   @import "../Definitions_Bold.css";
+   
+/*Footnotes*/
+	@import "./oxy_footnotes.css";
+
+/*Frills and all remaining style details*/
+   @import "../PDF_Future.css"; 
+

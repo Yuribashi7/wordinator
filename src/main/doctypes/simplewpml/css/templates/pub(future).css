@@ -1,0 +1,26 @@
+/* ==================================================
+ * PUB NAME_PUB NUMBER
+ * pub.css
+ * Description: Publication-level CSS 
+ * 
+ * Copyright (c) Municode 2018
+ * 
+ * ==================================================
+ */
+
+/* ==================================================== 
+  * CSS for Print AND Screen (data entry) 
+ * ==================================================== */
+
+   @import "../../../../../municode/css/Future.css";
+
+
+/* ========================== 
+ * Local Style Customizations / Exceptions 
+ * ========================== */
+
+/*Publication-level customizations - use only if needed */
+   /*@import "./custom.css" print;*/
+   
+/*ID-specific customizations (i.e. alternate style chapter) - use only if needed */
+   /*@import "./selectids.css" print;*/

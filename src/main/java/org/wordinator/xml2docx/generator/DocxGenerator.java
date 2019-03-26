@@ -23,6 +23,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
+import org.apache.poi.util.SystemOutLogger;
 import org.apache.poi.util.Units;
 import org.apache.poi.wp.usermodel.HeaderFooterType;
 import org.apache.poi.xwpf.usermodel.BreakType;
@@ -74,9 +75,7 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTabJc;
  */
 @SuppressWarnings("unused")
 public class DocxGenerator {
-	
 	public static final Logger log = LogManager.getLogger();
-
 
 	private File outFile;
 	private int dotsPerInch = 72; /* DPI */
@@ -323,8 +322,7 @@ public class DocxGenerator {
 	 * @param cursor Cursor pointing at the <p> element the paragraph will reflect.
 	 * @return Paragraph (should be same object as passed in).
 	 */
-	private XWPFParagraph makeParagraph(XWPFParagraph para, XmlCursor cursor, String parent) throws DocxGenerationException {
-		
+	private XWPFParagraph makeParagraph(XWPFParagraph para, XmlCursor cursor, String parent) throws DocxGenerationException {		
 		cursor.push();
 		String styleName = cursor.getAttributeText(DocxConstants.QNAME_STYLE_ATT);
 		String styleId = cursor.getAttributeText(DocxConstants.QNAME_STYLEID_ATT);
@@ -353,6 +351,7 @@ public class DocxGenerator {
 			do {
 				String tagName = cursor.getName().getLocalPart();
 				String namespace = cursor.getName().getNamespaceURI();
+				
 				if ("run".equals(tagName)) {					
 					makeRun(para, cursor.getObject());
 				} else if ("bookmarkStart".equals(tagName)) {
@@ -368,7 +367,9 @@ public class DocxGenerator {
 				} else if ("object".equals(tagName)) {
 					makeObject(para, cursor);
 				} else if ("page-number-ref".equals(tagName)) {
-					makePageNumberRef(para, cursor);					
+					makePageNumberRef(para, cursor);
+				} else if ("rule".equals(tagName)) {
+					makeRule(para, cursor);									
 				} else if ("minitoc".equals(tagName)) {					
 					if(inFile.getName().toString().startsWith("^")) {
 						buildMiniToc(para, cursor);	
@@ -388,6 +389,71 @@ public class DocxGenerator {
 		XWPFRun run=para.createRun();		
 		run.addCarriageReturn();
 	}
+	
+	
+	private void makeRule(XWPFParagraph para, XmlCursor cursor) {	
+		org.wordinator.xml2docx.generator.Measurement Measurement = new org.wordinator.xml2docx.generator.Measurement();
+		XWPFRun run=para.createRun();		
+		
+		System.out.println("...doRule");
+		// ruleWeight...
+		cursor.push();
+		String ruleWeight = cursor.getAttributeText(DocxConstants.QNAME_RULEWEIGHT_ATT);	
+		if (null == ruleWeight) {
+			log.error("- [ERROR] No @weight attribute for rule.");
+			return;
+		}
+		cursor.pop();
+		
+		// ruleWeightUnits...
+		cursor.push();
+		String ruleWeightUnits = cursor.getAttributeText(DocxConstants.QNAME_RULEWEIGHTUNITS_ATT);
+		
+		if (null == ruleWeightUnits) {
+			log.error("- [ERROR] No @weight_units attribute for rule.");
+			return;
+		}
+		cursor.pop();
+		
+		// ruleWidth...
+		cursor.push();
+		String ruleWidth = cursor.getAttributeText(DocxConstants.QNAME_RULEWIDTH_ATT);
+		
+		if (null == ruleWidth) {
+			log.error("- [ERROR] No @width attribute for rule.");
+			return;
+		}
+		cursor.pop();
+		
+		// ruleWidthUnits...
+		cursor.push();
+		String ruleWidthUnits = cursor.getAttributeText(DocxConstants.QNAME_RULEWIDTHUNITS_ATT);
+		
+		if (null == ruleWidthUnits) {
+			log.error("- [ERROR] No @width_units attribute for rule.");
+			return;
+		}
+		cursor.pop();
+		
+//		log.info("makeRule:       @weight: [" + ruleWeight + "]");
+//		log.info("makeRule: @weight_units: [" + ruleWeightUnits + "]");
+//		log.info("makeRule:        @width: [" + ruleWidth + "]");
+//		log.info("makeRule:  @width_units: [" + ruleWidthUnits + "]");
+		
+		Integer dotsPerInch = getDotsPerInch();
+		
+		try {
+			@SuppressWarnings("static-access")
+			double Weight = Measurement.toInches(ruleWeight, dotsPerInch);
+			System.out.println("[toInches] Weight: " + Weight);
+		} catch (MeasurementException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 	
 	private void buildDateTimeStuff(XWPFParagraph para, XmlCursor cursor) {
 		XWPFRun run=para.createRun();
@@ -442,12 +508,12 @@ public class DocxGenerator {
 	 */
 	private void makeRun(XWPFParagraph para, XmlObject xml) throws DocxGenerationException {
 		XmlCursor cursor = xml.newCursor();
-		
 		String tagname = cursor.getName().getLocalPart(); // For debugging
+		System.out.println("[makeRun]:tagname:" + tagname);
 		
 		XWPFRun run = para.createRun();
 		String styleName = cursor.getAttributeText(DocxConstants.QNAME_STYLE_ATT);
-		String styleId = cursor.getAttributeText(DocxConstants.QNAME_STYLEID_ATT);
+		String styleId = cursor.getAttributeText(DocxConstants.QNAME_STYLEID_ATT);	
 		
 		if (null != styleName && null == styleId) {
 			// Look up the style by name:
@@ -455,7 +521,7 @@ public class DocxGenerator {
 			if (null != style) {
 				styleId = style.getStyleId();
 			}
-		}
+		}	
 		
 		if (null != styleId) {
 			run.setStyle(styleId);
@@ -464,12 +530,17 @@ public class DocxGenerator {
 		handleFormattingAttributes(run, xml);
 		
 		cursor.toLastAttribute();
-		cursor.toNextToken(); // Should be first text or subelement.		
+		cursor.toNextToken(); // Should be first text or subelement.
+		
 		// In this loop, each different token handler is responsible for positioning
 		// the cursor past the thing that was handled such that the only END token
 		// is the end for the run element being processed.
 		while (TokenType.END != cursor.currentTokenType()) {
-			// TokenType tokenType = cursor.currentTokenType(); // For debugging
+			
+			TokenType tokenType = cursor.currentTokenType(); // For debugging
+			System.out.println("...tokenType: " + tokenType);			
+			System.out.println("...cursor:" + cursor.getTextValue());
+			
 			if (cursor.isText()) {
 				run.setText(cursor.getTextValue());
 				cursor.toNextToken();
@@ -478,7 +549,7 @@ public class DocxGenerator {
 			} else if (cursor.isStart()) {
 				// Handle element within run
 				String name = cursor.getName().getLocalPart();
-				String namespace = cursor.getName().getNamespaceURI();
+				String namespace = cursor.getName().getNamespaceURI();								
 				if ("break".equals(name)) {
 					makeBreak(run, cursor);
 					
@@ -493,8 +564,10 @@ public class DocxGenerator {
 					
 				} else if ("symbol".equals(name)) {
 					makeSymbol(run, cursor);
+					
 				} else if ("tab".equals(name)) {
 					makeTab(run, cursor);
+					
 				} else {
 					log.error("makeRun(); Unexpected element {" + namespace + "}:" + name + ". Skipping.");
 					cursor.toEndToken(); // Skip this element.
@@ -524,10 +597,7 @@ public class DocxGenerator {
 			do {
 				  String attName = cursor.getName().getLocalPart();
 				  String attValue = cursor.getTextValue();
-				  
-				  if("rule".equals(attName)) {
-					  System.out.println(attName + ":" + attValue);
-				  }
+				  System.out.println("......" + attName  + ":" + attValue);
 				  
 				  if ("bold".equals(attName)) {
 				      boolean value = Boolean.parseBoolean(attValue);
@@ -605,7 +675,6 @@ public class DocxGenerator {
 	 * @param cursor
 	 */
 	private void makeTab(XWPFRun run, XmlCursor cursor) {
-		
 		run.addTab();		
 	}
 
@@ -616,7 +685,6 @@ public class DocxGenerator {
 	 */
 	private void makeSymbol(XWPFRun run, XmlCursor cursor) {
 		throw new NotImplementedException("symbol within run not implemented");
-		
 	}
 
 	/**

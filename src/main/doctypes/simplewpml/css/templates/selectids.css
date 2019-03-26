@@ -1,0 +1,21 @@
+/* ==================================================
+ * #####
+ * selectids.css
+ * Description: Style for select IDs in publication 
+ * 
+ * Copyright (c) Municode 2018
+ * 
+ * ==================================================
+ */
+
+/***************************************************
+* Import into publication's main stylesheet.
+****************************************************/
+
+/* example - selectors are filtered by id */
+/*section[id = "CO_CH6AN"] * dfn
+{
+	font-style:italic;
+	background-color: yellow;
+}
+*/

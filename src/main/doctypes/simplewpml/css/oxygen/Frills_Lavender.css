@@ -1,0 +1,29 @@
+/* =========================
+ * Frills_Lavender.css
+ * ========================= */ 
+
+/* oXygen-specific CSS for entering data for Municode's Munipub XML. */
+ 
+ /* ==================================================
+ * Copyright (c) Municode 2017
+ * ==================================================
+ */
+
+	p[data-type="abbrev"],
+	p[data-type="postfolio"],
+	p[data-type="prefolio"],
+	p[data-type="startpage"],
+	p[data-type="alt-folio"],
+	p[data-type="alt-lldiv1"],
+	p[data-type="alt-lldiv2"],
+	p[data-type="alt-llstyle1"],
+	p[data-type="alt-llstyle2"],
+	p[data-type="alt-subtitle"],
+	p[data-type="alt-title"]	
+	{ 
+		display: block;
+		background-color: Lavender !important;
+		margin: 0 0 0 0;
+		padding: 0.25rem 0 0.25rem 0;
+		text-align: left;
+	}
