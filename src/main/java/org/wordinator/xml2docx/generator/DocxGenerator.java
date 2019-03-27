@@ -26,7 +26,11 @@ import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.util.SystemOutLogger;
 import org.apache.poi.util.Units;
 import org.apache.poi.wp.usermodel.HeaderFooterType;
+import org.apache.poi.xwpf.usermodel.Borders;
 import org.apache.poi.xwpf.usermodel.BreakType;
+import org.apache.poi.common.usermodel.fonts.FontFamily;
+import org.apache.poi.sl.draw.DrawShape;
+import org.apache.poi.sl.draw.DrawSimpleShape;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.UnderlinePatterns;
 import org.apache.poi.xwpf.usermodel.XWPFAbstractFootnoteEndnote;
@@ -59,6 +63,9 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSimpleField;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTStyle;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTcPr;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTVMerge;
+
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTDrawing;
+
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STMerge;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STOnOff;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STStyleType;
@@ -351,7 +358,7 @@ public class DocxGenerator {
 			do {
 				String tagName = cursor.getName().getLocalPart();
 				String namespace = cursor.getName().getNamespaceURI();
-				
+System.out.println("...tagName: " + tagName.toString());				
 				if ("run".equals(tagName)) {					
 					makeRun(para, cursor.getObject());
 				} else if ("bookmarkStart".equals(tagName)) {
@@ -387,71 +394,115 @@ public class DocxGenerator {
 
 	private void doCR(XWPFParagraph para, XmlCursor cursor) {
 		XWPFRun run=para.createRun();		
-		run.addCarriageReturn();
+		//run.addCarriageReturn();
 	}
 	
 	
+	/*
+	 * NOTICE: The following is kind-of-a hack. Knowing that the number of '_' set to 14 per inch is arbitrary.
+	 * It's based on the 'normal' font and size allowing for 14 underscore characters per inch.
+	 */
 	private void makeRule(XWPFParagraph para, XmlCursor cursor) {	
+
+		System.out.println("BEGINNING: makeRule");
+		
 		org.wordinator.xml2docx.generator.Measurement Measurement = new org.wordinator.xml2docx.generator.Measurement();
 		XWPFRun run=para.createRun();		
-		
-		System.out.println("...doRule");
-		// ruleWeight...
+				
+		// ruleWeightRaw...
 		cursor.push();
-		String ruleWeight = cursor.getAttributeText(DocxConstants.QNAME_RULEWEIGHT_ATT);	
-		if (null == ruleWeight) {
+		String ruleWeightRaw = cursor.getAttributeText(DocxConstants.QNAME_RULEWEIGHT_ATT);	
+		if (null == ruleWeightRaw) {
 			log.error("- [ERROR] No @weight attribute for rule.");
 			return;
 		}
 		cursor.pop();
 		
-		// ruleWeightUnits...
+		// ruleWeightUnitsRaw...
 		cursor.push();
-		String ruleWeightUnits = cursor.getAttributeText(DocxConstants.QNAME_RULEWEIGHTUNITS_ATT);
+		String ruleWeightUnitsRaw = cursor.getAttributeText(DocxConstants.QNAME_RULEWEIGHTUNITS_ATT);
+		// xpp_measure_units: 
+		// centimeters, points, picas, ciceros, didots, inches, millimeters, kyus, microns, units
+
+		switch (ruleWeightUnitsRaw) {
+        	case "inches":	ruleWeightUnitsRaw = "in";
+                 break;
+        	case "points":	ruleWeightUnitsRaw = "pt";
+            	break;
+        	case "picas":	ruleWeightUnitsRaw = "pc";
+        		break;
+        	default:		ruleWeightUnitsRaw = "pt";
+		}
 		
-		if (null == ruleWeightUnits) {
+		if (null == ruleWeightUnitsRaw) {
 			log.error("- [ERROR] No @weight_units attribute for rule.");
 			return;
 		}
 		cursor.pop();
 		
-		// ruleWidth...
+		// ruleWidthRaw...
 		cursor.push();
-		String ruleWidth = cursor.getAttributeText(DocxConstants.QNAME_RULEWIDTH_ATT);
+		String ruleWidthRaw = cursor.getAttributeText(DocxConstants.QNAME_RULEWIDTH_ATT);
 		
-		if (null == ruleWidth) {
+		if (null == ruleWidthRaw) {
 			log.error("- [ERROR] No @width attribute for rule.");
 			return;
 		}
 		cursor.pop();
 		
-		// ruleWidthUnits...
+		// ruleWidthUnitsRaw...
 		cursor.push();
-		String ruleWidthUnits = cursor.getAttributeText(DocxConstants.QNAME_RULEWIDTHUNITS_ATT);
+		String ruleWidthUnitsRaw = cursor.getAttributeText(DocxConstants.QNAME_RULEWIDTHUNITS_ATT);
 		
-		if (null == ruleWidthUnits) {
+		switch (ruleWidthUnitsRaw) {
+	    	case "inches":	ruleWidthUnitsRaw = "in";
+	             break;
+	    	case "points":	ruleWidthUnitsRaw = "pt";
+	        	break;
+	    	case "picas":	ruleWidthUnitsRaw = "pc";
+	    		break;
+	    	default:		ruleWidthUnitsRaw = "pt";
+		}
+		if (null == ruleWidthUnitsRaw) {
 			log.error("- [ERROR] No @width_units attribute for rule.");
 			return;
 		}
 		cursor.pop();
 		
-//		log.info("makeRule:       @weight: [" + ruleWeight + "]");
-//		log.info("makeRule: @weight_units: [" + ruleWeightUnits + "]");
-//		log.info("makeRule:        @width: [" + ruleWidth + "]");
-//		log.info("makeRule:  @width_units: [" + ruleWidthUnits + "]");
-		
-		Integer dotsPerInch = getDotsPerInch();
+//		log.info("makeRule:       @weight: [" + ruleWeightRaw + "]");
+//		log.info("makeRule: @weight_units: [" + ruleWeightUnitsRaw + "]");
+//		log.info("makeRule:        @width: [" + ruleWidthRaw + "]");
+//		log.info("makeRule:  @width_units: [" + ruleWidthUnitsRaw + "]");
 		
 		try {
 			@SuppressWarnings("static-access")
-			double Weight = Measurement.toInches(ruleWeight, dotsPerInch);
-			System.out.println("[toInches] Weight: " + Weight);
+			double ruleWeight = Measurement.toPoints(ruleWeightRaw + ruleWeightUnitsRaw, getDotsPerInch());
+//			System.out.println("[toPoints] ruleWeight: " + ruleWeight + " [from: " + ruleWeightRaw + " dpi:" + dotsPerInch + "]");
 		} catch (MeasurementException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		
+		try {
+			@SuppressWarnings("static-access")
+			double ruleWidth = Measurement.toInches(ruleWidthRaw + ruleWidthUnitsRaw, getDotsPerInch());
+			System.out.println("[toInches] ruleWidth: " + ruleWidth + " [from: " + ruleWidthRaw + " dpi:" + dotsPerInch + "]");
+			
+			run.setFontFamily("Swiss");
+			int repeats = (int) (ruleWidth * 14);	// about 14 per inch
+			
+			String str1 = "_";	// emspace
+			StringBuffer buffer = new StringBuffer(str1);
+			for (int i = 0; i < repeats; i++) {
+			    buffer.append(str1);
+			}	
+			
+			run.setText(buffer.toString());
+			
+		} catch (MeasurementException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -508,8 +559,8 @@ public class DocxGenerator {
 	 */
 	private void makeRun(XWPFParagraph para, XmlObject xml) throws DocxGenerationException {
 		XmlCursor cursor = xml.newCursor();
-		String tagname = cursor.getName().getLocalPart(); // For debugging
-		System.out.println("[makeRun]:tagname:" + tagname);
+//		String tagname = cursor.getName().getLocalPart(); // For debugging
+//		System.out.println("[makeRun]:tagname:" + tagname);
 		
 		XWPFRun run = para.createRun();
 		String styleName = cursor.getAttributeText(DocxConstants.QNAME_STYLE_ATT);
@@ -537,9 +588,9 @@ public class DocxGenerator {
 		// is the end for the run element being processed.
 		while (TokenType.END != cursor.currentTokenType()) {
 			
-			TokenType tokenType = cursor.currentTokenType(); // For debugging
-			System.out.println("...tokenType: " + tokenType);			
-			System.out.println("...cursor:" + cursor.getTextValue());
+//			TokenType tokenType = cursor.currentTokenType(); // For debugging
+//			System.out.println("...tokenType: " + tokenType);			
+//			System.out.println("...cursor:" + cursor.getTextValue());
 			
 			if (cursor.isText()) {
 				run.setText(cursor.getTextValue());
@@ -549,7 +600,8 @@ public class DocxGenerator {
 			} else if (cursor.isStart()) {
 				// Handle element within run
 				String name = cursor.getName().getLocalPart();
-				String namespace = cursor.getName().getNamespaceURI();								
+				String namespace = cursor.getName().getNamespaceURI();	
+				
 				if ("break".equals(name)) {
 					makeBreak(run, cursor);
 					
@@ -597,7 +649,7 @@ public class DocxGenerator {
 			do {
 				  String attName = cursor.getName().getLocalPart();
 				  String attValue = cursor.getTextValue();
-				  System.out.println("......" + attName  + ":" + attValue);
+//				  System.out.println("......" + attName  + ":" + attValue);
 				  
 				  if ("bold".equals(attName)) {
 				      boolean value = Boolean.parseBoolean(attValue);
