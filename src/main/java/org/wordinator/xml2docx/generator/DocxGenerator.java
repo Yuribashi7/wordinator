@@ -358,7 +358,7 @@ public class DocxGenerator {
 			do {
 				String tagName = cursor.getName().getLocalPart();
 				String namespace = cursor.getName().getNamespaceURI();
-System.out.println("...tagName: " + tagName.toString());				
+
 				if ("run".equals(tagName)) {					
 					makeRun(para, cursor.getObject());
 				} else if ("bookmarkStart".equals(tagName)) {
@@ -559,8 +559,8 @@ System.out.println("...tagName: " + tagName.toString());
 	 */
 	private void makeRun(XWPFParagraph para, XmlObject xml) throws DocxGenerationException {
 		XmlCursor cursor = xml.newCursor();
-//		String tagname = cursor.getName().getLocalPart(); // For debugging
-//		System.out.println("[makeRun]:tagname:" + tagname);
+		String tagname = cursor.getName().getLocalPart(); // For debugging
+		System.out.println("[makeRun]:tagname:" + tagname);
 		
 		XWPFRun run = para.createRun();
 		String styleName = cursor.getAttributeText(DocxConstants.QNAME_STYLE_ATT);

@@ -40,10 +40,9 @@
 		<p style="Heading1">
 			<run style="Strong">Heading 1 Text</run>
 		</p>
-		<p style="Block Center" styleId="BlockCenter" tagName="para">
+	<p style="Block Center" styleId="BlockCenter" tagName="para">
 			<rule style="Rule" styleId="rule" tagName="rule" weight=".5" weight_units="points" width="2" width_units="inches" />
 		</p>
-
 		<p style="Block Center" styleId="BlockCenter" tagName="para">
 			<rule style="Rule" styleId="rule" tagName="rule" weight=".25" weight_units="inches" width="2" width_units="inches" />
 		</p>
@@ -53,11 +52,10 @@
 		<p style="Block Center" styleId="BlockCenter" tagName="para">
 			<rule style="Rule" styleId="rule" tagName="rule" weight="1.5" weight_units="picas" width="12" width_units="picas" />
 		</p>
-		
 		<p style="Block Center" styleId="BlockCenter" tagName="para">
 			<run style="Block Center">This is the para with style 'Block Center' and a rule: </run>
 			<rule style="Rule" styleId="rule" tagName="rule" weight=".5" weight_units="points" width="1" width_units="inches" />
-			<run style="Block Center">(Some text </run>
+			<run style="Block Center"> (Some text </run>
 			<run bold="true">bold</run>
 			<run style="Block Center"> after the run.)</run>
 		</p>
