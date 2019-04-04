@@ -13,6 +13,11 @@ import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.DateTimeException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -404,7 +409,7 @@ public class DocxGenerator {
 	 */
 	private void makeRule(XWPFParagraph para, XmlCursor cursor) {	
 
-		System.out.println("BEGINNING: makeRule");
+//		System.out.println("BEGINNING: makeRule and have fun!");
 		
 		org.wordinator.xml2docx.generator.Measurement Measurement = new org.wordinator.xml2docx.generator.Measurement();
 		XWPFRun run=para.createRun();		
@@ -486,7 +491,7 @@ public class DocxGenerator {
 		try {
 			@SuppressWarnings("static-access")
 			double ruleWidth = Measurement.toInches(ruleWidthRaw + ruleWidthUnitsRaw, getDotsPerInch());
-			System.out.println("[toInches] ruleWidth: " + ruleWidth + " [from: " + ruleWidthRaw + " dpi:" + dotsPerInch + "]");
+//			System.out.println("[toInches] ruleWidth: " + ruleWidth + " [from: " + ruleWidthRaw + " dpi:" + dotsPerInch + "]");
 			
 			run.setFontFamily("Swiss");
 			int repeats = (int) (ruleWidth * 14);	// about 14 per inch
@@ -508,26 +513,12 @@ public class DocxGenerator {
 	
 	private void buildDateTimeStuff(XWPFParagraph para, XmlCursor cursor) {
 		XWPFRun run=para.createRun();
-		
-		// Date...
-		para.getCTP().addNewFldSimple().setInstr("DATE \\@ \"MM-DD-YYYY\" \\* MERGEFORMAT \\!");
-		
-		// TIME...
-		run = para.createRun();
-		run.setText(" (");
-		
-		run = para.createRun();
-		para.getCTP().addNewFldSimple().setInstr("TIME \\@ \"HH:mm:ss\" \\!");
-		
-		run = para.createRun();
-		run.setText(")");
+
+		ZoneId zoneId = ZoneId.of("America/New_York");
+		LocalDateTime now = LocalDateTime.now();
+		LocalDateTime nowZone = LocalDateTime.now(zoneId);
+		run.setText(nowZone);
 	}
-	
-	/*
-	 * private void doImageInline(XWPFParagraph para, XmlCursor cursor) {
-	 * 
-	 * }
-	 */
 	
 	
 	private void makePageNumberRef(XWPFParagraph para, XmlCursor cursor) {
@@ -560,7 +551,7 @@ public class DocxGenerator {
 	private void makeRun(XWPFParagraph para, XmlObject xml) throws DocxGenerationException {
 		XmlCursor cursor = xml.newCursor();
 		String tagname = cursor.getName().getLocalPart(); // For debugging
-		System.out.println("[makeRun]:tagname:" + tagname);
+//		System.out.println("[makeRun]:tagname:" + tagname);
 		
 		XWPFRun run = para.createRun();
 		String styleName = cursor.getAttributeText(DocxConstants.QNAME_STYLE_ATT);

@@ -27,11 +27,13 @@
 					<run>Odd Footer: </run>
 					<page-number-ref format="numberInDash"/>
 					<run> After page-number-ref</run>
+					<run><dateTimeStuff /></run>
 				</p>
 			</footer>
 			<footer type="even">
 				<p>
 					<run>Even Footer</run>
+					<run><dateTimeStuff /></run>
 				</p>
 			</footer>
 		</headers-and-footers>
