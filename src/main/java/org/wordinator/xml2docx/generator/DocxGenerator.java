@@ -517,7 +517,9 @@ public class DocxGenerator {
 		ZoneId zoneId = ZoneId.of("America/New_York");
 		LocalDateTime now = LocalDateTime.now();
 		LocalDateTime nowZone = LocalDateTime.now(zoneId);
-		run.setText(nowZone);
+		run.setText("   (Created: " + nowZone.toString() + "[" + zoneId.toString() + "])");
+		run.setFontFamily("Consolas");
+		run.setFontSize(6);
 	}
 	
 	
@@ -534,6 +536,7 @@ public class DocxGenerator {
 		run.setText(" of ");
 		para.getCTP().addNewFldSimple().setInstr("NUMPAGES \\* MERGEFORMAT");		
 	}	
+	
 	
 	private void buildMiniToc(XWPFParagraph para, XmlCursor cursor) {
 		CTP ctP = para.getCTP();
