@@ -22,6 +22,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.util.SystemOutLogger;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.xmlbeans.XmlObject;
 import org.wordinator.xml2docx.generator.DocxGeneratingOutputUriResolver;
@@ -50,16 +51,13 @@ import net.sf.saxon.s9api.XsltExecutable;
 public class MakeDocx 
 {
 	
-	public static final Logger log = LogManager.getLogger(MakeDocx.class.getSimpleName());
-			
+	public static final Logger log = LogManager.getLogger(MakeDocx.class.getSimpleName());			
 	public static final String XSLT_PARAM_CHUNKLEVEL = "chunklevel";
 
 	public static void main( String[] args ) throws ParseException
     {
     	Options options = buildOptions();
-    	
-    	handleCommandLine(options, args, log); 	
-    	
+     	handleCommandLine(options, args, log); 	  	
     }
 
 	/**
@@ -100,6 +98,8 @@ public class MakeDocx
     	if (!inFile.exists()) {
     		log.error("Input file '" + inFile.getAbsolutePath() + "' not found. Cannot continue."); 
     		System.exit(1);
+    	} else {
+    		log.info("FOUND inFile: " + inFile.getName());
     	}
     	File templateFile = new File(templatePath);
     	if (!templateFile.exists()) {
@@ -227,7 +227,7 @@ System.out.println("\n...transformXml...\n");
 		
 		Source docSource = new StreamSource(docFile);
 		log.info("Applying transform to source document " + docFile.getAbsolutePath() + "...");
-	
+		
 		@SuppressWarnings("unused")
 		XdmValue result = transformer.applyTemplates(docSource);
 		log.info("Transform applied.");

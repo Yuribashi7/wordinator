@@ -105,7 +105,8 @@ public class DocxGenerator {
 	 * @throws Exception Exception from loading the template document
 	 * @throws FileNotFoundException If the template document is not found
 	 */
-	public DocxGenerator(File inFile, File outFile, XWPFDocument templateDoc) throws FileNotFoundException, Exception {
+	public DocxGenerator(File inFile, File outFile, XWPFDocument templateDoc) 
+			throws FileNotFoundException, Exception {
 		this.inFile = inFile;
 		this.outFile = outFile;		
 		this.templateDoc = templateDoc;
