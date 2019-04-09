@@ -2,7 +2,6 @@ package org.wordinator.xml2docx;
 
 import java.io.File;
 import java.io.FileInputStream;
-//import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +21,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.poi.util.SystemOutLogger;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.xmlbeans.XmlObject;
 import org.wordinator.xml2docx.generator.DocxGeneratingOutputUriResolver;
@@ -49,8 +47,7 @@ import net.sf.saxon.s9api.XsltExecutable;
  *
  */
 public class MakeDocx 
-{
-	
+{	
 	public static final Logger log = LogManager.getLogger(MakeDocx.class.getSimpleName());			
 	public static final String XSLT_PARAM_CHUNKLEVEL = "chunklevel";
 
@@ -95,12 +92,14 @@ public class MakeDocx
     	// For now, always overwriting the DOCX file without confirmation.
     	
     	File inFile = new File(inDocPath);
+    	
     	if (!inFile.exists()) {
     		log.error("Input file '" + inFile.getAbsolutePath() + "' not found. Cannot continue."); 
     		System.exit(1);
     	} else {
     		log.info("FOUND inFile: " + inFile.getName());
     	}
+    	
     	File templateFile = new File(templatePath);
     	if (!templateFile.exists()) {
     		log.error("Template file '" + templateFile.getAbsolutePath() + "' not found. Cannot continue."); 
