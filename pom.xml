@@ -2,10 +2,12 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  
   <groupId>org.wordinator</groupId>
   <artifactId>wordinator</artifactId>
   <packaging>jar</packaging>
   <version>0.9.1</version>
+  
   <organization>
     <name>wordinator.org</name>
     <url>http://wordinator.org</url>
@@ -58,7 +60,7 @@ arbitrary XML, JSON, etc.</description>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>2.11.1</version>
+      <version>2.11.2</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -69,17 +71,17 @@ arbitrary XML, JSON, etc.</description>
     <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi</artifactId>
-      <version>4.0.0</version>
+      <version>4.1.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml</artifactId>
-      <version>4.0.0</version>
+      <version>4.1.0</version>
     </dependency>    
     <dependency>
       <groupId>org.apache.xmlbeans</groupId>
       <artifactId>xmlbeans</artifactId>
-      <version>3.0.1</version>
+      <version>3.1.0</version>
     </dependency>
     <dependency>
       <groupId>commons-cli</groupId>
@@ -94,7 +96,8 @@ arbitrary XML, JSON, etc.</description>
     <dependency>
       <groupId>net.sf.saxon</groupId>
       <artifactId>Saxon-HE</artifactId>
-      <version>9.8.0-14</version>
+<!--        <version>9.8.0-14</version> -->
+      <version>9.9.1-2</version>
     </dependency>
   </dependencies>
   <distributionManagement>
