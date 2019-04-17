@@ -43,7 +43,7 @@
 			<run style="Strong">Heading 1 Text</run>
 		</p>
 				<p style="Image Center" styleId="ImageCenter">
-			<image height="141.75" src="file:/P:/rlillibridge/muniXML/FL/Marathon/13811/images/Municode_Title_Page_Logo.png" width="432" />
+			<image height="141.75" src="./images/Municode_Title_Page_Logo.png" width="432" />
 		</p>
 		
 		<p>
@@ -51,7 +51,7 @@
 		</p>
 
 		<p style="Image Center" styleId="ImageCenter">
-			<image height="98.25" src="file:/P:/rlillibridge/muniXML/FL/Marathon/13811/images/Municode_Title_Page_Logo.png" width="300" />
+			<image height="98.25" src="./images/Municode_Title_Page_Logo.png" width="300" />
 		</p>
 		
 	<p style="Block Center" styleId="BlockCenter" tagName="para">
