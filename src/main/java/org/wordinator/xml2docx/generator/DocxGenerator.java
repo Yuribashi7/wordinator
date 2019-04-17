@@ -995,19 +995,35 @@ public class DocxGenerator {
 		BufferedImage img = null;
 		int intrinsicWidth = Integer.valueOf(imgMetaMap.get("ImageWidth"));
 		int intrinsicHeight = Integer.valueOf(imgMetaMap.get("ImageHeight"));
-		int intrinsicPixelsPerUnitX = Integer.valueOf(imgMetaMap.get("PixelsPerUnitX"));
-		int intrinsicPixelsPerUnitY = Integer.valueOf(imgMetaMap.get("PixelsPerUnitY"));
+		int intrinsicPxPUX = Integer.valueOf(imgMetaMap.get("PixelsPerUnitX"));
+		int intrinsicPxPUY = Integer.valueOf(imgMetaMap.get("PixelsPerUnitY"));
 		String intrinsicUnitSpecifier = imgMetaMap.get("UnitSpecifier");
-		int intrinsicDPI = 
-			CalcIntrinsicDPI(intrinsicPixelsPerUnitX, intrinsicPixelsPerUnitY, intrinsicUnitSpecifier);
-		int heightCalc = 0;
+		
+		if(intrinsicUnitSpecifier.equals("Metres")) {
+			double dWidth = (double) intrinsicWidth;
+			double dPxPUX = (double) intrinsicPxPUX;
+			double dHeight = (double) intrinsicHeight;
+			double dPxPUY = (double) intrinsicPxPUY;
+			
+			// calculate intrinsicWidthInches...
+			double intrinsicWidthInches = (double) ((dWidth / (dPxPUX / 100.0000)) / 2.54);
+			System.out.printf("\n[debug intrinsicWidthInches: %7.5f inches\n", intrinsicWidthInches);
+			
+			// calculate intrinsicHeightInches...
+			double intrinsicHeightInches = (double) ((dHeight / (dPxPUY / 100.0000)) / 2.54);
+			System.out.printf("[debug intrinsicHeightInches: %7.5f inches\n\n", intrinsicHeightInches);
+			
+		} else {
+			log.info("makeImage:intrinsicUnitspecifier not managed: " + intrinsicUnitSpecifier);
+			cursor.pop();
+			return;
+		}
 		
 //		try {		
 //			// FIXME: Need to limit this to the formats Java2D can read.
 //		    img = ImageIO.read(imgFile);
 //		    intrinsicWidth = img.getWidth();
 //		    intrinsicHeight = img.getHeight();
-//		    //intrinsicDPI = img.get
 //
 //		    System.out.println("[debug Image:intrinsicWidth:" + intrinsicWidth);
 //		    System.out.println("[debug Image:intrinsicHeight:" + intrinsicHeight);
@@ -1016,7 +1032,8 @@ public class DocxGenerator {
 //			log.warn("" + e.getClass().getSimpleName() + " exception loading image file '" + imgFile +"': " +
 //                     e.getMessage());
 //		}		
-		 
+		
+		// NOTE: XHTML @width is an integer; at this stage it is 72/inch
 		String widthVal = cursor.getAttributeText(DocxConstants.QNAME_WIDTH_ATT);
 		if (widthVal != null) {
 			try {
@@ -1030,20 +1047,20 @@ public class DocxGenerator {
 			width = intrinsicWidth > 0 ? intrinsicWidth : width;			
 		}	
 		
-		String heightVal = cursor.getAttributeText(DocxConstants.QNAME_HEIGHT_ATT);
-		if (heightVal != null) {
-			try {
-				height = (int) Measurement.toPixels(heightVal, getDotsPerInch());
-			} catch (MeasurementException e) {
-				log.error(e.getClass().getSimpleName() + ": " + e.getMessage());
-				log.error("Using default height value " + height);
-				height = intrinsicHeight > 0 ? intrinsicHeight : height;
-			}
-		} else {
-			height = intrinsicHeight > 0 ? intrinsicHeight : height;
-		}
+//		String heightVal = cursor.getAttributeText(DocxConstants.QNAME_HEIGHT_ATT);
+//		if (heightVal != null) {
+//			try {
+//				height = (int) Measurement.toPixels(heightVal, getDotsPerInch());
+//			} catch (MeasurementException e) {
+//				log.error(e.getClass().getSimpleName() + ": " + e.getMessage());
+//				log.error("Using default height value " + height);
+//				height = intrinsicHeight > 0 ? intrinsicHeight : height;
+//			}
+//		} else {
+//			height = intrinsicHeight > 0 ? intrinsicHeight : height;
+//		}
 		
-		heightCalc = (intrinsicHeight * width) / intrinsicWidth;    // get proportional height
+		int heightCalc = (intrinsicHeight * width) / intrinsicWidth;    // get proportional height
 	    
 		// At this point, the measurement is pixels. If the original specification
 		// was also pixels, we need to convert to inches and then back to pixels
@@ -1078,16 +1095,6 @@ public class DocxGenerator {
 		cursor.pop();
 	}
 	
-	
-	/**
-	 * Calculate the intrinsic DIP from the image metadata
-	 * @return image intrinsic Dots per inch
-	 */
-	private int CalcIntrinsicDPI(int PxX, int PxY, String Units) {
-		
-
-		return 0;
-	}
 
 	/**
 	 * Get the current dots-per-inch setting
