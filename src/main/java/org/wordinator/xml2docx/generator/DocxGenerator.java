@@ -904,12 +904,9 @@ public class DocxGenerator {
 	 * @param doc
 	 * @param cursor
 	 */
-	/*
-	 * NOTE: http://commons.apache.org/proper/commons-imaging/index.html
-	 * It may be required to check out the images dpi to handle proper conversion.
-	 * 
-	 * NOTE: data has image width & height in points (double) (thus 72 ppi)
-	 * width & height may be used to calculate scale width as a percentage of actual image width. 
+	/* 
+	 * NOTE: input data (SWPX) has image width & height in points (double) (thus 72 ppi)
+	 * width & height may be used to calculate scale width as a percentage of actual image width or height. 
 	 */
 	private void makeImage(XWPFParagraph para, XmlCursor cursor) throws DocxGenerationException {
 		cursor.push();
@@ -938,8 +935,6 @@ public class DocxGenerator {
 			// Should never get here.
 		}
 		
-		
-		// BEGIN Raymond's Testing on how to get intrinsic DPI of image.
 		Map<String, String> imgMetaMap = new HashMap<String, String>();
 		
 		try {
@@ -958,13 +953,13 @@ public class DocxGenerator {
 			    }
 			}
 			
-			// iterate over imgMetaMap entries...
-			System.out.println("\nimgMetaMapSorted...\n\t" + imgFile.toString());
-			
-			Map<String, String> imgMetaMapSorted = new TreeMap<String, String>(imgMetaMap);
-			for (Map.Entry<String, String> entry : imgMetaMapSorted.entrySet()) {
-			    System.out.println("\tKey:" + entry.getKey() + " Value:" + entry.getValue());
-			}
+//			// DEBUGGING (KEEP): iterate over imgMetaMap entries...
+//			System.out.println("\nimgMetaMapSorted...\n\t" + imgFile.toString());
+//			
+//			Map<String, String> imgMetaMapSorted = new TreeMap<String, String>(imgMetaMap);
+//			for (Map.Entry<String, String> entry : imgMetaMapSorted.entrySet()) {
+//			    System.out.println("\tKey:" + entry.getKey() + " Value:" + entry.getValue());
+//			}
 			
 		} catch (ImageProcessingException e1) {
 			// TODO Auto-generated catch block
@@ -973,14 +968,15 @@ public class DocxGenerator {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}		
-		// END Raymond's Testing
 		
 		String imgFilename = imgFile.getName();
 		String imgExtension = FilenameUtils.getExtension(imgFilename).toLowerCase();
 		
-		// NOTE: These (width) is used ONLY for proportion calculation
-		int width = 72;		// Default width  in pixels (data, at this point, has 72px/in)
-		int height = 72;	// Default height in pixels (data, at this point, has 72px/in)
+		// NOTE: These (width) are used ONLY for proportion calculation
+		// Actual XHTML (munipub.xml) data has these at 96 pixels/inch
+		// The XSLT to build the input data (SWPX) temp files converts these to points, 72pt/in
+		int width = 72;		// Default width  in points (data, at this point, has 72pt/in)
+		int height = 72;	// Default height in points (data, at this point, has 72pt/in)
 		
 		int format = getImageFormat(imgExtension);
 		
@@ -999,41 +995,29 @@ public class DocxGenerator {
 		int intrinsicPxPUY = Integer.valueOf(imgMetaMap.get("PixelsPerUnitY"));
 		String intrinsicUnitSpecifier = imgMetaMap.get("UnitSpecifier");
 		
-		if(intrinsicUnitSpecifier.equals("Metres")) {
-			double dWidth = (double) intrinsicWidth;
-			double dPxPUX = (double) intrinsicPxPUX;
-			double dHeight = (double) intrinsicHeight;
-			double dPxPUY = (double) intrinsicPxPUY;
-			
-			// calculate intrinsicWidthInches...
-			double intrinsicWidthInches = (double) ((dWidth / (dPxPUX / 100.0000)) / 2.54);
-			System.out.printf("\n[debug intrinsicWidthInches: %7.5f inches\n", intrinsicWidthInches);
-			
-			// calculate intrinsicHeightInches...
-			double intrinsicHeightInches = (double) ((dHeight / (dPxPUY / 100.0000)) / 2.54);
-			System.out.printf("[debug intrinsicHeightInches: %7.5f inches\n\n", intrinsicHeightInches);
-			
-		} else {
-			log.info("makeImage:intrinsicUnitspecifier not managed: " + intrinsicUnitSpecifier);
-			cursor.pop();
-			return;
-		}
+//		// NOTE: As we go along, more UnitSpecifiers may need to be managed.
+//		// PLEASE KEEP for maybe future stuff...		
+//		if(intrinsicUnitSpecifier.equals("Metres")) {
+//			double dWidth = (double) intrinsicWidth;
+//			double dPxPUX = (double) intrinsicPxPUX;
+//			double dHeight = (double) intrinsicHeight;
+//			double dPxPUY = (double) intrinsicPxPUY;
+//			
+//			// calculate intrinsicWidthInches...
+//			double intrinsicWidthInches = (double) ((dWidth / (dPxPUX / 100.0000)) / 2.54);
+//			System.out.printf("\n[debug intrinsicWidthInches: %7.5f inches\n", intrinsicWidthInches);
+//			
+//			// calculate intrinsicHeightInches...
+//			double intrinsicHeightInches = (double) ((dHeight / (dPxPUY / 100.0000)) / 2.54);
+//			System.out.printf("[debug intrinsicHeightInches: %7.5f inches\n\n", intrinsicHeightInches);
+//			
+//		} else {
+//			log.info("makeImage:intrinsicUnitspecifier not managed: " + intrinsicUnitSpecifier);
+//			cursor.pop();
+//			return;
+//		}	
 		
-//		try {		
-//			// FIXME: Need to limit this to the formats Java2D can read.
-//		    img = ImageIO.read(imgFile);
-//		    intrinsicWidth = img.getWidth();
-//		    intrinsicHeight = img.getHeight();
-//
-//		    System.out.println("[debug Image:intrinsicWidth:" + intrinsicWidth);
-//		    System.out.println("[debug Image:intrinsicHeight:" + intrinsicHeight);
-//		    
-//		} catch (IOException e) {
-//			log.warn("" + e.getClass().getSimpleName() + " exception loading image file '" + imgFile +"': " +
-//                     e.getMessage());
-//		}		
-		
-		// NOTE: XHTML @width is an integer; at this stage it is 72/inch
+		// NOTE: SWPX @width is an integer at this stage (72pt/inch)
 		String widthVal = cursor.getAttributeText(DocxConstants.QNAME_WIDTH_ATT);
 		if (widthVal != null) {
 			try {
@@ -1045,40 +1029,10 @@ public class DocxGenerator {
 			}
 		} else {
 			width = intrinsicWidth > 0 ? intrinsicWidth : width;			
-		}	
+		}
 		
-//		String heightVal = cursor.getAttributeText(DocxConstants.QNAME_HEIGHT_ATT);
-//		if (heightVal != null) {
-//			try {
-//				height = (int) Measurement.toPixels(heightVal, getDotsPerInch());
-//			} catch (MeasurementException e) {
-//				log.error(e.getClass().getSimpleName() + ": " + e.getMessage());
-//				log.error("Using default height value " + height);
-//				height = intrinsicHeight > 0 ? intrinsicHeight : height;
-//			}
-//		} else {
-//			height = intrinsicHeight > 0 ? intrinsicHeight : height;
-//		}
-		
-		int heightCalc = (intrinsicHeight * width) / intrinsicWidth;    // get proportional height
-	    
-		// At this point, the measurement is pixels. If the original specification
-		// was also pixels, we need to convert to inches and then back to pixels
-		// in order to apply the dots-per-inch value.
-		
-		// Word uses a DPI of 72, so if the current dotsPerInch is not 72, we need to
-		// adjust the width and height by the difference.
-		
-	    // NOTE: XHTML (munipub XML) assumes pixels and that there will not be a suffix 'px'
-//		if (getDotsPerInch() != 72) {
-//			double factor = 72.0 / getDotsPerInch();
-//			if (widthVal != null && widthVal.matches("[0-9]+(px)?")) {
-//				width =  (int)Math.round(width * factor);
-//			}
-//			if (heightVal != null && heightVal.matches("[0-9]+(px)?")) {
-//				height = (int)Math.round(height * factor);
-//			}
-//		}				
+		// calculate proportional height...
+		int heightCalc = (intrinsicHeight * width) / intrinsicWidth;				
 		
 		XWPFRun run = para.createRun();			
 
@@ -1087,7 +1041,7 @@ public class DocxGenerator {
 					       format, 
 					       imgFilename, 
 					       Units.toEMU(width), 
-					       Units.toEMU(heightCalc));	// calc based on image proportional dimensions
+					       Units.toEMU(heightCalc));	// heightCalc - based on image proportional dimensions
 		} catch (Exception e) {
 			log.warn("" + e.getClass().getSimpleName() + " exception adding picture for reference '" + imgFile +"': " +
  		                       e.getMessage());
