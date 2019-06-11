@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+//import java.util.regex.Matcher;
+//import java.util.regex.Pattern;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
@@ -113,7 +115,7 @@ public class MakeDocx
 			log.error(e.getClass().getSimpleName() +  " loading template DOCX file \"" + templateFile.getAbsolutePath() + "\"");
 			System.exit(1);
 		}
-    	
+        
     	File outFile = new File(docxPath);
     	
     	File outDir = outFile; // Normal case: specify output directory

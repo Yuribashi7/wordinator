@@ -3,6 +3,8 @@ package org.wordinator.xml2docx.generator;
 import java.io.File;
 import java.net.URL;
 import java.net.URLDecoder;
+//import java.util.regex.Matcher;
+//import java.util.regex.Pattern;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.TransformerException;
@@ -68,6 +70,43 @@ public class DocxGeneratingOutputUriResolver implements OutputURIResolver {
 			XmlObject xml = saxHandler.getObject();
 			String outFilepath = URLDecoder.decode(result.getSystemId(), "UTF-8");
 			String filename = FilenameUtils.getBaseName(outFilepath) + ".docx";
+			
+//			/*
+//			 * If file pattern is for a 'section' then output to ~\DOCX\SECCHUNK\...
+//			 */
+//			String patternString = "\\d{5}_\\d{1,5}.docx";
+//			Pattern pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
+//			Matcher matcher = pattern.matcher(filename);
+//			boolean isMatched = matcher.matches();
+//			
+//			if(isMatched) {
+//			    String origPath = outDir.getCanonicalPath();
+//			    String destPath = origPath.replace(outDir.getName(),"");
+//System.out.println("\n+[debug destPath]: " + destPath);  
+//			    String destFile = outDir.getName().toString() + "\\SECCHUNK";
+//System.out.println("\n+[debug destFile]: " + destFile);  
+//			    
+//			    File newOutDir = new File(destPath + destFile);
+//			    
+//System.out.println("\n+[debug newoutDir: ] " + newOutDir.toString() + "\n");
+			    
+//			    File outFile = new File(newOutDir, filename);
+//				File inFile = new File(new URL(result.getSystemId()).toURI());
+//				log.info("Generating DOCX file \"" + outFile.getAbsolutePath() + "\"");
+//				DocxGenerator generator = new DocxGenerator(inFile, outFile, templateDoc);
+//				generator.setDotsPerInch(dotsPerInch);
+//				generator.generate(xml);
+//				
+//			} else {
+//			
+//				File outFile = new File(outDir, filename);
+//				File inFile = new File(new URL(result.getSystemId()).toURI());
+//				log.info("Generating DOCX file \"" + outFile.getAbsolutePath() + "\"");
+//				DocxGenerator generator = new DocxGenerator(inFile, outFile, templateDoc);
+//				generator.setDotsPerInch(dotsPerInch);
+//				generator.generate(xml);
+//			}
+
 			File outFile = new File(outDir, filename);
 			File inFile = new File(new URL(result.getSystemId()).toURI());
 			log.info("Generating DOCX file \"" + outFile.getAbsolutePath() + "\"");
@@ -85,3 +124,18 @@ public class DocxGeneratingOutputUriResolver implements OutputURIResolver {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

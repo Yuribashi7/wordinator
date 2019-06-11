@@ -16,6 +16,8 @@ import java.net.URL;
 import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -90,7 +92,6 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTabStop;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTabJc;
 
 
-
 /**
  * Generates DOCX files from Simple Word Processing Markup Language XML.
  */
@@ -120,7 +121,7 @@ public class DocxGenerator {
 		this.outFile = outFile;		
 		this.templateDoc = templateDoc;
 	}
-
+	
 	/*
 	 * Generate the DOCX file from the input Simple WP ML document. 
 	 * @param xml The XmlObject that holds the Simple WP XML content
@@ -522,12 +523,15 @@ public class DocxGenerator {
 	
 	
 	private void buildDateTimeStuff(XWPFParagraph para, XmlCursor cursor) {
+		final String DATE_FORMATTER= "yyyy-MM-dd HH:mm:ss";
 		XWPFRun run=para.createRun();
 
 		ZoneId zoneId = ZoneId.of("America/New_York");
 		LocalDateTime now = LocalDateTime.now();
 		LocalDateTime nowZone = LocalDateTime.now(zoneId);
-		run.setText("   (Created: " + nowZone.toString() + "[" + zoneId.toString() + "])");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
+        String formatDateTime = nowZone.format(formatter);		
+		run.setText("   (Created: " + formatDateTime + " [" + zoneId.toString() + "])");	
 		run.setFontFamily("Consolas");
 		run.setFontSize(6);
 	}
@@ -932,7 +936,8 @@ public class DocxGenerator {
 		try {
 			imgFile = new File(url.toURI());
 		} catch (URISyntaxException e) {
-			// Should never get here.
+			log.error("- [ERROR] " + e.getClass().getSimpleName() + " on img/@src value: " + e.getMessage());
+			return;
 		}
 		
 		Map<String, String> imgMetaMap = new HashMap<String, String>();
