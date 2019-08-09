@@ -76,6 +76,7 @@ public class MakeDocx
     	CommandLine cmd = parser.parse( options, args);
     	
     	Map<String, String> xsltParameters = new HashMap<String, String>();
+    	String myCatalogs = cmd.getOptionValue("k");
 		String inDocPath = cmd.getOptionValue("i");
     	String docxPath = cmd.getOptionValue("o");
     	String templatePath = cmd.getOptionValue("t");
@@ -84,6 +85,7 @@ public class MakeDocx
     	
     	chunkLevel = chunkLevel == null ? "root" : chunkLevel;
     	
+    	log.info("myCatalogs                 ='" + myCatalogs + "'");
     	log.info("Input document or directory='" + inDocPath + "'");
     	log.info("Output directory           ='" + docxPath + "'");
     	log.info("DOTX template              ='" + templatePath + "'");
@@ -199,7 +201,7 @@ System.out.println("\n...transformXml...\n");
 		net.sf.saxon.lib.Logger saxonLogger = new Log4jSaxonLogger(log);
 		errorListener.setLogger(saxonLogger);		
 		
-		Processor processor = new Processor(false);
+		Processor processor = new Processor(true);
 		DocxGeneratingOutputUriResolver outputResolver = new DocxGeneratingOutputUriResolver(outDir, templateDoc, log);
 		processor.setConfigurationProperty(FeatureKeys.OUTPUT_URI_RESOLVER, outputResolver);
 		
