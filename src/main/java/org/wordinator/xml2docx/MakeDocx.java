@@ -184,6 +184,24 @@ System.out.println("\n...transformXml...\n");
 	 * @param log Log to write messages to.
 	 * @throws Exception Any kind of error
 	 */
+	
+	/*
+	 * SAXON NOTES (Michael Kay):
+	 * First the stack trace shows that you are invoking the processor with net.sf.saxon.query.StaticQueryContext.compileQuery 
+	 * which is a pretty low-level entry point, and there are many ways of getting things wrong at this level. 
+	 * I would recommend you use the s9api interface (XQueryCompiler.compile()).
+	 * 
+	 * One of the things you can easily get wrong is to run without Saxon-PE/EE enabled. Calls to reflexive 
+	 * extension functions require at least Saxon-PE, which also needs a license file to be present. 
+	 * Check that the Saxon Configuration is a ProfessionalConfiguration or an EnterpriseConfiguration.
+	 * 
+	 * Using the -TJ option on the command line, or the equivalent configuration property in the 
+	 * API (FeatureKeys.TRACE_EXTERNAL_FUNCTIONS) will give you better diagnostics as to why it is failing to find the function.
+	 * 
+	 * Finally, note that using -jar on the Java command line means that the class path is ignored: everything 
+	 * has to be loaded from the JAR file itself. This makes it quite difficult to pick up the license file and 
+	 * any external library classes, so it is best avoided.
+	 */
 	public static void transformXml(
 			File docFile, 
 			File outDir, 
@@ -200,13 +218,35 @@ System.out.println("\n...transformXml...\n");
 		StandardErrorListener errorListener = new StandardErrorListener();
 		net.sf.saxon.lib.Logger saxonLogger = new Log4jSaxonLogger(log);
 		errorListener.setLogger(saxonLogger);		
+
+		// Example: (https://www.saxonica.com/documentation/#!using-xsl/embedding/s9api-transformation)
+/*
+	   Processor processor = new Processor(false);
+	   XsltCompiler compiler = processor.newXsltCompiler();
+	   XsltExecutable stylesheet = compiler.compile(new StreamSource(new File("styles/books.xsl")));
+	   Serializer out = processor.newSerializer(new File("books.html"));
+	   out.setOutputProperty(Serializer.Property.METHOD, "html");
+	   out.setOutputProperty(Serializer.Property.INDENT, "yes");
+	   Xslt30Transformer transformer = stylesheet.load30();
+	   transformer.transform(new StreamSource(new File("data/books.xml")), out);
+*/			
 		
 		Processor processor = new Processor(true);
+		System.out.println("\n...SaxonEdition: " + processor.getSaxonEdition() + "\n");
+		processor.setConfigurationProperty(FeatureKeys.LICENSE_FILE_LOCATION, "C:\\SaxonPE9-9-1-4J\\saxon-license.lic");
+		
+		processor.setConfigurationProperty(FeatureKeys.TRACE_EXTERNAL_FUNCTIONS, true);
+		
 		DocxGeneratingOutputUriResolver outputResolver = new DocxGeneratingOutputUriResolver(outDir, templateDoc, log);
+		System.out.println("...outputResolver: " + outputResolver.toString() + "\n");
+		
+		
 		processor.setConfigurationProperty(FeatureKeys.OUTPUT_URI_RESOLVER, outputResolver);
+
 		
 		// FIXME: Set up proper logger. See 
 		// https://www.saxonica.com/html/documentation/using-xsl/embedding/s9api-transformation.html
+		// https://www.saxonica.com/documentation/#!using-xsl/embedding/s9api-transformation
 		XsltCompiler compiler = processor.newXsltCompiler();
 		
 		InputStream inStream = new FileInputStream(transformFile);
