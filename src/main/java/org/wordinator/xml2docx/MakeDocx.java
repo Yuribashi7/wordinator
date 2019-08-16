@@ -76,7 +76,6 @@ public class MakeDocx
     	CommandLine cmd = parser.parse( options, args);
     	
     	Map<String, String> xsltParameters = new HashMap<String, String>();
-    	String myCatalogs = cmd.getOptionValue("k");
 		String inDocPath = cmd.getOptionValue("i");
     	String docxPath = cmd.getOptionValue("o");
     	String templatePath = cmd.getOptionValue("t");
@@ -84,8 +83,7 @@ public class MakeDocx
     	String chunkLevel = cmd.getOptionValue("c");
     	
     	chunkLevel = chunkLevel == null ? "root" : chunkLevel;
-    	
-    	log.info("myCatalogs                 ='" + myCatalogs + "'");
+
     	log.info("Input document or directory='" + inDocPath + "'");
     	log.info("Output directory           ='" + docxPath + "'");
     	log.info("DOTX template              ='" + templatePath + "'");
@@ -232,14 +230,13 @@ System.out.println("\n...transformXml...\n");
 */			
 		
 		Processor processor = new Processor(true);
-		System.out.println("\n...SaxonEdition: " + processor.getSaxonEdition() + "\n");
+		System.out.println("...SaxonEdition: " + processor.getSaxonEdition() + "\n");
 		processor.setConfigurationProperty(FeatureKeys.LICENSE_FILE_LOCATION, "C:\\SaxonPE9-9-1-4J\\saxon-license.lic");
 		
-		processor.setConfigurationProperty(FeatureKeys.TRACE_EXTERNAL_FUNCTIONS, true);
+		//processor.setConfigurationProperty(FeatureKeys.TRACE_EXTERNAL_FUNCTIONS, true);
 		
 		DocxGeneratingOutputUriResolver outputResolver = new DocxGeneratingOutputUriResolver(outDir, templateDoc, log);
 		System.out.println("...outputResolver: " + outputResolver.toString() + "\n");
-		
 		
 		processor.setConfigurationProperty(FeatureKeys.OUTPUT_URI_RESOLVER, outputResolver);
 

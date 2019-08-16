@@ -195,7 +195,7 @@ public class DocxGenerator {
 	 * @param doc Document we're adding to
 	 * @param xml &lt;section&gt; element
 	 */
-	@SuppressWarnings("unused")
+//	@SuppressWarnings("unused")
 	private void handleSection(XWPFDocument doc, XmlObject xml) throws DocxGenerationException {
 		XmlCursor cursor = xml.newCursor();
 		
@@ -790,7 +790,7 @@ public class DocxGenerator {
 	 * Gets the current ID (i.e., the last one generated).
 	 * @return Current value of ID counter as a BigInteger.
 	 */
-	@SuppressWarnings("unused")
+//	@SuppressWarnings("unused")
 	private BigInteger currentId() {
 		return new BigInteger(Integer.toString(idCtr));
 	}
@@ -1308,7 +1308,7 @@ public class DocxGenerator {
 	 * Set up any custom styles.
 	 * @param doc Word doc to set up styles for
 	 */
-	@SuppressWarnings("unused")
+//	@SuppressWarnings("unused")
 	private void setupFootnoteStyles(XWPFDocument doc) throws DocxGenerationException {
 		
 		// Styles for footnotes:

@@ -64,6 +64,22 @@ arbitrary XML, JSON, etc.</description>
       <artifactId>log4j-core</artifactId>
       <version>2.11.2</version>
     </dependency>
+    
+	<!-- https://mvnrepository.com/artifact/xml-resolver/xml-resolver -->
+	<!-- home page:http://xml.apache.org/commons/components/resolver/ -->
+<!-- 	<dependency>
+	    <groupId>xml-resolver</groupId>
+	    <artifactId>xml-resolver</artifactId>
+	    <version>1.2</version>
+	</dependency> -->
+	
+	<!-- mvn install:install-file -Dfile=resolver.jar -DgroupId=org.apache.xml -DartifactId=Resolver -Dversion=1.2 -Dpackaging=jar -->
+	<dependency>
+	    <groupId>org.apache.xml.resolver</groupId>
+	    <artifactId>Resolver</artifactId>
+	    <version>1.2</version>
+	</dependency>
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -108,19 +124,11 @@ arbitrary XML, JSON, etc.</description>
       <version>9.8.0-14</version>
     </dependency>
  --> 
- <!--
-    <dependency>
-    	<groupId>net.sf.saxon</groupId>
-    	<artifactId>Saxon9PE</artifactId>
-    	<version>9.9.1.4J</version>
-    	<scope>system</scope>
-    	<systemPath>
-    		C:/SaxonPE9-9-1-4J/saxon9pe.jar
-    	</systemPath>
-    </dependency>
     
-    -->
-    
+    <!-- FIRST DO THE FOLLOWING... then the dependency should work properly
+    From the jar's location (in a CMD window)...
+	mvn install:install-file -Dfile=saxon9pe.jar -DgroupId=net.sf.saxon -DartifactId=Saxon9PE -Dversion=9.9.1.4J -Dpackaging=jar
+     -->
     <dependency>
     	<groupId>net.sf.saxon</groupId>
     	<artifactId>Saxon9PE</artifactId>

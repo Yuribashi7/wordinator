@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
  * Constants for names and namespaces and such.
  *
  */
-@SuppressWarnings("unused")
+//@SuppressWarnings("unused")
 public final class DocxConstants {
 	
 	public static final String OO_WPML_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main";
