@@ -73,7 +73,9 @@ arbitrary XML, JSON, etc.</description>
 	    <version>1.2</version>
 	</dependency> -->
 	
-	<!-- mvn install:install-file -Dfile=resolver.jar -DgroupId=org.apache.xml -DartifactId=Resolver -Dversion=1.2 -Dpackaging=jar -->
+	<!--FIRST DO THE FOLLOWING... then the dependency should work properly
+    From the jar's location (in a CMD window)...
+    mvn install:install-file -Dfile=resolver.jar -DgroupId=org.apache.xml -DartifactId=Resolver -Dversion=1.2 -Dpackaging=jar -->
 	<dependency>
 	    <groupId>org.apache.xml.resolver</groupId>
 	    <artifactId>Resolver</artifactId>
