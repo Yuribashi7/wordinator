@@ -81,6 +81,7 @@ public class MakeDocx
     	String templatePath = cmd.getOptionValue("t");
     	String transformPath = cmd.getOptionValue("x");
     	String chunkLevel = cmd.getOptionValue("c");
+    	String catalog = cmd.getOptionValue("k");
     	
     	chunkLevel = chunkLevel == null ? "root" : chunkLevel;
 
@@ -89,6 +90,8 @@ public class MakeDocx
     	log.info("DOTX template              ='" + templatePath + "'");
     	log.info("XSLT template              =" + (transformPath == null ? "Not specified" : "'" + transformPath + "'"));
     	log.info("Chunk level                ='" + chunkLevel + "'");
+    	log.info("catalog                    ='" + catalog + "'");
+    	
     	
     	// Check that the input file exists.
     	// For now, always overwriting the DOCX file without confirmation.
